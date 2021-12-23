@@ -1,15 +1,20 @@
+import Inicio from "./pages/Inicio"
 import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
 import Footer from "./components/Footer";
-import Home from "./components/Home";
+import Registrarse from "./pages/Registrarse.js"
+import {BrowserRouter, Routes, Route } from "react-router-dom" 
+
 function App() {
   return (
-    <div>
+    <BrowserRouter>
       <Navbar className="fixed"/>
-      <Hero />
-      <Home />
+      <Routes>
+        <Route path= "/" element= {<Inicio/>} />
+        <Route path= "/registrarse" element= {<Registrarse/>} />
+        <Route path= "/" element= {<Inicio/>} />
+      </Routes>
       <Footer />
-    </div>
+    </BrowserRouter>
   );
 }
 

@@ -3,7 +3,7 @@ import { FaTwitter, FaFacebookF, FaInstagram} from "react-icons/fa";
 const Footer = () => {
   return (
     <footer class="bg-zinc-900">
-      <div class="container flex flex-wrap items-center justify-center px-4 py-8 mx-auto  lg:justify-between">
+      <div class="container flex flex-wrap items-center justify-center px-4 py-8 md:flex-col lg:flex-row mx-auto  lg:justify-between">
         <div class="flex flex-wrap justify-center">
           <ul class="flex items-center space-x-4">
             <li className="text-white cursor-pointer hover:text-purple-600">Inicio</li>
