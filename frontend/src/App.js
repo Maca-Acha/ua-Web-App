@@ -1,7 +1,14 @@
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import Footer from "./components/Footer";
+import Home from "./components/Home";
 function App() {
   return (
     <div>
-      <h1 className="text-3xl font-bold bg-red-500 text-white underline">Hello world!</h1>
+      <Navbar className="fixed"/>
+      <Hero />
+      <Home />
+      <Footer />
     </div>
   );
 }
