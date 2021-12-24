@@ -22,7 +22,6 @@ const CardHome = () => {
             {true ? <FaHeart /> : <FaRegHeart />}
             <span>556</span>
           </button>
-         
           <button className="ml-auto flex items-center gap-1 sm:text-lg text-purple-600 px-3 py-1 rounded-full hover:bg-gray-50 transition-colors focus:bg-gray-100 focus:outline-none focus-visible:border-gray-500">
             <span><FaPlay /></span>
           </button>
