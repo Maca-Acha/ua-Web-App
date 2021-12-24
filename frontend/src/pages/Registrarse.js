@@ -47,7 +47,7 @@ const Registrarse = () => {
                             type="text"
                             name=""
                             id=""
-                            placeholder="Full name"
+                            placeholder="Name"
                         />
                     </div>
                     <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
@@ -70,7 +70,7 @@ const Registrarse = () => {
                             type="text"
                             name=""
                             id=""
-                            placeholder="Username"
+                            placeholder="Last Name"
                         />
                     </div>
                     <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
