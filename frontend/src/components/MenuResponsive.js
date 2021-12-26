@@ -28,7 +28,7 @@ function MenuResponsive() {
               <Menu.Item>
                 {({ active }) => (
                   <Link
-                  to="/registrarse"
+                    to="/registrarse"
                     className={`${
                       active ? "bg-violet-500 text-white" : "text-white"
                     } group flex rounded-md items-center w-full px-2 py-2 text-sm rubik fw-bold`}
