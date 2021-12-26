@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const Categoria = () => {
-  const cursos = [
+const Categorias = () => {
+  const categoriasArray = [
     {
       nombre: "Nombre",
       foto: "./assets/iconos-01.png",
@@ -48,7 +48,7 @@ const Categoria = () => {
     <>
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {cursos.map((curso, index) => {
+          {categoriasArray.map((curso, index) => {
             return (
               <>
                 <div>
@@ -76,4 +76,4 @@ const Categoria = () => {
   );
 };
 
-export default Categoria;
+export default Categorias;

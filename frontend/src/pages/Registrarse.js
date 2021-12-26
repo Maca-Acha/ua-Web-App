@@ -8,7 +8,6 @@ import * as THREE from "three";
 import { Link } from "react-router-dom";
 
 const Registrarse = ({ submit, responseGoogle }) => {
-  const [countries, setCountries] = useState(["Choose your country"]);
   const [showPassword, setShowPassword] = useState(false);
   const [vantaEffect, setVantaEffect] = useState(0);
   const vantaRef = useRef(null);
@@ -43,12 +42,6 @@ const Registrarse = ({ submit, responseGoogle }) => {
       }
     };
   }, [vantaEffect]);
-
-  useEffect(() => {
-    axios
-      .get("https://restcountries.com/v2/all?fields=name")
-      .then((res) => setCountries(res.data));
-  }, []);
 
   const SignUpSchema = yup.object().shape({
     firstName: yup
@@ -494,41 +487,7 @@ const Registrarse = ({ submit, responseGoogle }) => {
                       </div>
                     </div>
 
-                    <div className="flex">
-                      <span className="bg-white w-9 flex justify-center items-center h-10 rounded-l-md">
-                        <svg
-                          className="w-6 h-6 ml-2"
-                          fill="none"
-                          stroke="#7c3aed"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
-                        </svg>
-                      </span>
-                      <select
-                        className="w-full mb-3 text-violet-600  h-10  px-3 outline-none scrollbarcomments rounded-r-md select"
-                        onChange={handleChange("country")}
-                        placeholder="Choose your country"
-                        name="country"
-                        value={values.country}
-                      >
-                        <option defaultValue="Choose your country">
-                          Choose your country
-                        </option>
-
-                        {countries.map((country, index) => (
-                          <option key={index} value={country.name}>
-                            {country.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                    
 
                     <div className="flex justify-center items-baseline lg:items-center">
                       <div className="w-full md:w-6/12 flex justify-center items-center flex-col">

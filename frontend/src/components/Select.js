@@ -15,7 +15,7 @@ export default function Select() {
   const [selected, setSelected] = useState(people[0])
 
   return (
-    <div className="w-72 fixed top-16">
+    <div className="w-72 mt-3.5 ml-5 top-16">
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative mt-1">
           <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
@@ -34,6 +34,15 @@ export default function Select() {
             leaveTo="opacity-0"
           >
             <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              
+              <Listbox.Option
+              className={({ active }) =>
+              `${active ? 'text-amber-900 bg-amber-100' : 'text-gray-900'}
+                    cursor-default select-none relative py-2 pl-10 pr-4`
+            }>
+              Todas las categorias
+              </Listbox.Option>
+
               {people.map((person, personIdx) => (
                 <Listbox.Option
                   key={personIdx}

@@ -1,4 +1,4 @@
-import CourseCard from "./CourseCard";
+import CourseCard from "./CursoTarjeta";
 import Flyer from "./Flyer";
 
 const Main = () => {

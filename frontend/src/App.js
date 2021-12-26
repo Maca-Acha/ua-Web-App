@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import Registrarse from "./pages/Registrarse";
 import IniciarSesion from "./pages/IniciarSesion";
 import Cursos from "./pages/Cursos";
+import Curso from "./pages/Curso";
 
 import "./index.css";
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/registrarse" element={<Registrarse />} />
           <Route path="/iniciarsesion" element={<IniciarSesion />} />
           <Route path="/cursos" element={<Cursos />} />
+          <Route path="/curso" element={<Curso />} />
         </Routes>
 
         <Footer className="fixed top-0 z-50" />

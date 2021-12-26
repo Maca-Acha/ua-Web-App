@@ -1,4 +1,4 @@
-const CourseCard = () => {
+const CursoTarjeta = () => {
   return (
     <>
       <div className="max-w-sm rounded overflow-hidden shadow-lg bg-violet-600">
@@ -34,4 +34,4 @@ const CourseCard = () => {
   );
 };
 
-export default CourseCard;
+export default CursoTarjeta;
