@@ -14,7 +14,7 @@ const {
   favorito,
 } = require("../controllers/cursosController");
 
-const { crearOpinion } = require("../controllers/opinionesController");
+const { crearOpinion, editarOpinion, borrarOpinion } = require("../controllers/opinionesController");
 
 const validator = require("../config/validator");
 
@@ -32,6 +32,9 @@ Router.route("/favoritos").put(favorito);
 
 // Opiniones
 
-Router.route("/opiniones").post(crearOpinion);
+Router.route("/opiniones")
+.post(crearOpinion)
+.delete(borrarOpinion)
+.put(editarOpinion);
 
 module.exports = Router;
