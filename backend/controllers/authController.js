@@ -26,7 +26,7 @@ const authControllers = {
             res.json({response})
         })
     },
-    iniciarSecion:async(req,res) => {
+    iniciarSesion:async(req,res) => {
         const {contraseña, email} = req.body
         try{
             const emailExiste = await Usuario.findOne({email})
