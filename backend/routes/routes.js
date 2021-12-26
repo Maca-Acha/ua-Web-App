@@ -1,24 +1,37 @@
-const Router = require ('express').Router()
-const {nuevoUsuario, usuariosRegistrados, inicioSesion} = require('../controllers/usuarioController')
-const {crearCurso, traerCursos, modificarCurso, borrarCurso, favorito} = require('../controllers/cursosController')
-const validator = require('../config/validator')
+const Router = require("express").Router();
 
-Router.route('/registrarse')
-.post(validator, nuevoUsuario)
-.get(usuariosRegistrados)
+const {
+  nuevoUsuario,
+  usuariosRegistrados,
+  inicioSesion,
+} = require("../controllers/usuarioController");
 
-Router.route('/inicioSesion')
-.post(inicioSesion)
+const {
+  crearCurso,
+  traerCursos,
+  modificarCurso,
+  borrarCurso,
+  favorito,
+} = require("../controllers/cursosController");
 
-Router.route('/cursos')
-.post(crearCurso)
-.get(traerCursos)
+const { crearOpinion } = require("../controllers/opinionesController");
 
-Router.route('/curso/:id')
-.put(modificarCurso)
-.delete(borrarCurso)
+const validator = require("../config/validator");
 
-Router.route('/favoritos')
-.put(favorito)
+Router.route("/registrarse")
+  .post(validator, nuevoUsuario)
+  .get(usuariosRegistrados);
 
-module.exports = Router
+Router.route("/inicioSesion").post(inicioSesion);
+
+Router.route("/cursos").post(crearCurso).get(traerCursos);
+
+Router.route("/curso/:id").put(modificarCurso).delete(borrarCurso);
+
+Router.route("/favoritos").put(favorito);
+
+// Opiniones
+
+Router.route("/opiniones").post(crearOpinion);
+
+module.exports = Router;
