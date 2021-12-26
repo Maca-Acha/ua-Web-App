@@ -1,10 +1,10 @@
 const Router = require ('express').Router()
 const {nuevoUsuario, usuariosRegistrados, inicioSesion} = require('../controllers/usuarioController')
 const {crearCurso, traerCursos, modificarCurso, borrarCurso, favorito} = require('../controllers/cursosController')
-
+const validator = require('../config/validator')
 
 Router.route('/registrarse')
-.post(nuevoUsuario)
+.post(validator, nuevoUsuario)
 .get(usuariosRegistrados)
 
 Router.route('/inicioSesion')

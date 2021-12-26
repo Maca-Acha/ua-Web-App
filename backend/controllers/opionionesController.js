@@ -14,7 +14,9 @@ const opinionesController = {
                 {new:true}
                 )
             res.json({success:true, response:nuevaOpinion})
+        }catch(e){
+            console.log()
         }
-    }
+        }
 }
 module.exports = opinionesController;
