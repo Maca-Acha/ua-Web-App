@@ -9,6 +9,6 @@ const usuarioSchema = new mongoose.Schema({
     google: {type: Boolean, default: false}
 })
 
-const Usuario = mongoose.model("usuario", usuarioSchema )
+const Usuario = mongoose.model("usuario", usuarioSchema)
 
 module.exports = Usuario;
