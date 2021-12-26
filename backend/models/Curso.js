@@ -1,11 +1,20 @@
 const mongoose = require('mongoose');
 
-const cusoSchema = new mongoose.Schema({
-    nombre:{type:String, required: true},
-    tutor:{type: mongoose.Types.ObjectId, ref:'tutor'},
-    discripcion:{type:String, requiered: true},
+const cursoSchema = new mongoose.Schema({
+    titulo:{type:String, required: true},
+    foto:{type: String, required: true},
+    tutor:{type: mongoose.Types.ObjectId, ref:'usuario'},
+    descripcion:{type:String, requiered: true},
+    hashtag:{type:Array},
+    favoritos:[{type:mongoose.Types.ObjectId, ref:'usuario'}],
+    opiniones: [
+        {
+          usuarioId: { type: mongoose.Types.ObjectId, ref: "usuario"},
+          opinion: { type: String},
+        },
+      ]
 })
 
-const Cuso = mongoose.model("cuso", cusoSchema )
+const Curso = mongoose.model("curso", cursoSchema )
 
-module.exports = Cuso;
+module.exports = Curso;
