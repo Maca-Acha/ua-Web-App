@@ -6,8 +6,10 @@ const usuarioControlador = {
     nuevoUsuario: async(req,res) => {
         const {nombre, apellido, email, contraseña, foto, google} = req.body
         try{
-            const usuarioExiste = Usuario.findOne({email})
+            const usuarioExiste = await Usuario.findOne({email})
+            // console.log(usuarioExiste)
             if(usuarioExiste){
+                console.log(email)
                 res.json({success: false, error:"El email ya esta en uso", response:null})
             }else{
                 const contraseñaHasheada = bcryptjs.hashSync(contraseña, 10)
@@ -16,7 +18,7 @@ const usuarioControlador = {
                 })
                 const token = jwt.sign({...nuevoUsuario}, process.env.SECRET_KEY)
                 await nuevoUsuario.save()
-                res.json({success:true, response:{token, ...nuevoUsuario}, error:null})
+                res.json({success:true, response:{ token, ...nuevoUsuario._doc }, error:null})
             }
         }catch(e){
             res.json({success:false, response:null})

@@ -1,8 +1,8 @@
 const Router = require ('express').Router()
-const authController = require('../controllers/authController')
+const usuarioControlador = require('../controllers/usuarioControlador')
 
 Router.route('/registrarse')
-.post(authController.nuevoUsuario)
+.post(usuarioControlador.nuevoUsuario)
 
 
 
