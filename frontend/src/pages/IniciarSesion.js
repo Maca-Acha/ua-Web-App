@@ -88,7 +88,7 @@ const IniciarSesion = (props) => {
                           <svg
                             className="w-5 h-5"
                             fill="none"
-                            stroke="#9333ea"
+                            stroke="#000000"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
                           >
@@ -117,7 +117,7 @@ const IniciarSesion = (props) => {
                           <svg
                             className="w-5 h-5"
                             fill="none"
-                            stroke="#9333ea"
+                            stroke="#000000"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
                           >
@@ -131,7 +131,7 @@ const IniciarSesion = (props) => {
                         </span>
                       </div>
                       <input
-                        type={showPassword ? "text" : "contraseña"}
+                        type={showPassword ? "text" : "password"}
                         className="flex-shrink flex-grow text-violet-600 rubik leading-normal w-px  border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative  font-roboto text-base outline-none"
                         name="contraseña"
                         onChange={handleChange("contraseña")}
@@ -144,7 +144,7 @@ const IniciarSesion = (props) => {
                             <svg
                               className="w-5 h-5"
                               fill="none"
-                              stroke="#9333ea"
+                              stroke="#000000"
                               viewBox="0 0 24 24"
                               xmlns="http://www.w3.org/2000/svg"
                               onClick={() => handlePassword()}
@@ -162,7 +162,7 @@ const IniciarSesion = (props) => {
                               className="h-5 w-5"
                               fill="none"
                               viewBox="0 0 24 24"
-                              stroke="#9333ea"
+                              stroke="#000000"
                               onClick={() => handlePassword()}
                             >
                               <path

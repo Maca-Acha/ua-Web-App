@@ -15,24 +15,23 @@ const Registrarse = ({ submit, responseGoogle }) => {
     setShowPassword(!showPassword);
   };
 
-
   useEffect(() => {
     if (!vantaEffect) {
       setVantaEffect(
         DOTS({
           el: vantaRef.current,
-        //   THREE,
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: true,
-        minHeight: 200.00,
-        minWidth: 200.00,
-        scale: 1.00,
-        color: 0x7c3aed,
-        scaleMobile: 1.00,
-        showLines: false,
-        spacing: 50.00,
-        backgroundColor: 0x18181b,
+          //   THREE,
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: true,
+          minHeight: 200.0,
+          minWidth: 200.0,
+          scale: 1.0,
+          color: 0x7c3aed,
+          scaleMobile: 1.0,
+          showLines: false,
+          spacing: 50.0,
+          backgroundColor: 0x18181b,
         })
       );
     }
@@ -44,30 +43,30 @@ const Registrarse = ({ submit, responseGoogle }) => {
   }, [vantaEffect]);
 
   const SignUpSchema = yup.object().shape({
-    firstName: yup
+    nombre: yup
       .string()
-      .required("First Name is required")
-      .matches(/^[a-zA-Z]+$/, "This field is must be alphabetic")
-      .min(3, "Too short, minimum 3 characters"),
-    lastName: yup
+      .required("Campo requerido")
+      .matches(/^[a-zA-Z]+$/, "Este cambo solo acepta letras")
+      .min(3, "Minimo 3 caracteres"),
+    apellido: yup
       .string()
-      .required("Last Name is required")
-      .matches(/^[a-zA-Z]+$/, "This field is must be alphabetic")
-      .min(3, "The Last Name is short"),
+      .required("Campo requerido")
+      .matches(/^[a-zA-Z]+$/, "Este cambo solo acepta letras")
+      .min(3, "Minimo 3 caracteres"),
     email: yup
       .string()
-      .email("Invalid email")
-      .matches(/(\W|^)[\w.-]/, "Incorrect email")
-      .required("The email is required"),
-    password: yup
+      .email("Email invalido")
+      .matches(/(\W|^)[\w.-]/, "Email invalido")
+      .required("Campo requerido"),
+    contraseña: yup
       .string()
 
-      .min(8, "Too short, minimum 8 characters")
-      .required("The Password is required"),
-    photoURL: yup
+      .min(8, "Minimo 8 caracteres")
+      .required("Campo requerido"),
+    foto: yup
       .string()
-      .url("Invalid URL")
-      .required("The profile picture is required"),
+      .url("URL invalida")
+      .required("Campo requerido (foto de perfil)"),
   });
 
   return (
@@ -84,12 +83,11 @@ const Registrarse = ({ submit, responseGoogle }) => {
             </h1>
             <Formik
               initialValues={{
-                firstName: "",
-                lastName: "",
+                nombre: "",
+                apellido: "",
                 email: "",
-                password: "",
-                photoURL: "",
-                country: "",
+                contraseña: "",
+                foto: "",
               }}
               validationSchema={SignUpSchema}
               onSubmit={(values, { resetForm }) => {
@@ -100,7 +98,7 @@ const Registrarse = ({ submit, responseGoogle }) => {
               {({ handleSubmit, handleChange, values, errors, touched }) => (
                 <>
                   <form
-                    className="mt-2 flex flex-col w-full"
+                    className="mt-2 flex flex-col w-full px-5 md:p0"
                     onSubmit={handleSubmit}
                   >
                     <div className="flex flex-col md:flex-row">
@@ -112,7 +110,7 @@ const Registrarse = ({ submit, responseGoogle }) => {
                               <svg
                                 className="w-6 h-6"
                                 fill="none"
-                                stroke="#7c3aed"
+                                stroke="#000000"
                                 viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg"
                               >
@@ -128,18 +126,18 @@ const Registrarse = ({ submit, responseGoogle }) => {
                           <Field
                             type="text"
                             className="flex-shrink flex-grow text-violet-600  leading-normal w-px  border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative  font-roboto text-base outline-none"
-                            placeholder="First Name"
-                            name="firstName"
-                            value={values.firstName}
-                            onChange={handleChange("firstName")}
+                            placeholder="Nombre"
+                            name="nombre"
+                            value={values.nombre}
+                            onChange={handleChange("nombre")}
                           />
                           <div className="flex -mr-px">
                             <span className="flex items-center leading-normal bg-white rounded rounded-l-none border-0 px-3 whitespace-no-wrap text-gray-600">
-                              {errors.firstName && touched.firstName ? (
+                              {errors.nombre && touched.nombre ? (
                                 <svg
                                   className="w-6 h-6"
                                   fill="none"
-                                  stroke="#7c3aed"
+                                  stroke="#000000"
                                   viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
                                 >
@@ -150,11 +148,11 @@ const Registrarse = ({ submit, responseGoogle }) => {
                                     d="M6 18L18 6M6 6l12 12"
                                   ></path>
                                 </svg>
-                              ) : touched.firstName ? (
+                              ) : touched.nombre ? (
                                 <svg
                                   className="w-6 h-6"
                                   fill="none"
-                                  stroke="#7c3aed"
+                                  stroke="#000000"
                                   viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
                                 >
@@ -170,8 +168,8 @@ const Registrarse = ({ submit, responseGoogle }) => {
                           </div>
                         </div>
                         <div className="text-white  text-sm w-11/12 pt-1 mb-3">
-                          {errors.firstName && touched.firstName ? (
-                            <p>{errors.firstName}</p>
+                          {errors.nombre && touched.nombre ? (
+                            <p>{errors.nombre}</p>
                           ) : (
                             <p className="invisible">solo aprovecho el bug</p>
                           )}
@@ -186,7 +184,7 @@ const Registrarse = ({ submit, responseGoogle }) => {
                               <svg
                                 className="w-6 h-6"
                                 fill="none"
-                                stroke="#7c3aed"
+                                stroke="#000000"
                                 viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg"
                               >
@@ -202,18 +200,18 @@ const Registrarse = ({ submit, responseGoogle }) => {
                           <Field
                             type="text"
                             className="flex-shrink flex-grow text-violet-600  leading-normal w-px  border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative  font-roboto text-base outline-none"
-                            placeholder="Last Name"
-                            name="lastName"
-                            value={values.lastName}
-                            onChange={handleChange("lastName")}
+                            placeholder="Apellido"
+                            name="apellido"
+                            value={values.apellido}
+                            onChange={handleChange("apellido")}
                           />
                           <div className="flex -mr-px">
                             <span className="flex items-center leading-normal bg-white rounded rounded-l-none border-0 px-3 whitespace-no-wrap text-gray-600">
-                              {errors.lastName && touched.lastName ? (
+                              {errors.apellido && touched.apellido ? (
                                 <svg
                                   className="w-6 h-6"
                                   fill="none"
-                                  stroke="#7c3aed"
+                                  stroke="#000000"
                                   viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
                                 >
@@ -224,11 +222,11 @@ const Registrarse = ({ submit, responseGoogle }) => {
                                     d="M6 18L18 6M6 6l12 12"
                                   ></path>
                                 </svg>
-                              ) : touched.lastName ? (
+                              ) : touched.apellido ? (
                                 <svg
                                   className="w-6 h-6"
                                   fill="none"
-                                  stroke="#7c3aed"
+                                  stroke="#000000"
                                   viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
                                 >
@@ -244,8 +242,8 @@ const Registrarse = ({ submit, responseGoogle }) => {
                           </div>
                         </div>
                         <div className="text-white  text-sm w-11/12 pt-1 mb-3">
-                          {errors.lastName && touched.lastName ? (
-                            <p className="ml-0 md:ml-5">{errors.lastName}</p>
+                          {errors.apellido && touched.apellido ? (
+                            <p className="ml-0 md:ml-5">{errors.apellido}</p>
                           ) : (
                             <p className="invisible">solo aprovecho el bug</p>
                           )}
@@ -262,7 +260,7 @@ const Registrarse = ({ submit, responseGoogle }) => {
                               <svg
                                 className="w-6 h-6"
                                 fill="none"
-                                stroke="#7c3aed"
+                                stroke="#000000"
                                 viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg"
                               >
@@ -289,7 +287,7 @@ const Registrarse = ({ submit, responseGoogle }) => {
                                 <svg
                                   className="w-6 h-6"
                                   fill="none"
-                                  stroke="#7c3aed"
+                                  stroke="#000000"
                                   viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
                                 >
@@ -304,7 +302,7 @@ const Registrarse = ({ submit, responseGoogle }) => {
                                 <svg
                                   className="w-6 h-6"
                                   fill="none"
-                                  stroke="#7c3aed"
+                                  stroke="#000000"
                                   viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
                                 >
@@ -328,7 +326,7 @@ const Registrarse = ({ submit, responseGoogle }) => {
                         </div>
                       </div>
 
-                      {/* password */}
+                      {/* contraseña */}
                       <div className="flex flex-col md:w-6/12">
                         <div className="flex flex-wrap items-stretch w-full relative h-15 bg-white rounded">
                           <div className="flex -mr-px justify-center w-15 p-2">
@@ -336,7 +334,7 @@ const Registrarse = ({ submit, responseGoogle }) => {
                               <svg
                                 className="w-5 h-5"
                                 fill="none"
-                                stroke="#7c3aed"
+                                stroke="#000000"
                                 viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg"
                               >
@@ -352,10 +350,10 @@ const Registrarse = ({ submit, responseGoogle }) => {
                           <Field
                             className="flex-shrink flex-grow text-violet-600  leading-normal w-px  border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative  font-roboto text-base outline-none"
                             type={showPassword ? "text" : "password"}
-                            name="password"
-                            onChange={handleChange("password")}
-                            value={values.password}
-                            placeholder="Password"
+                            name="contraseña"
+                            onChange={handleChange("contraseña")}
+                            value={values.contraseña}
+                            placeholder="Contraseña"
                           />
                           <div className="flex -mr-px">
                             <span className="flex items-center leading-normal bg-white rounded rounded-l-none border-0 px-3 whitespace-no-wrap text-gray-600">
@@ -363,7 +361,7 @@ const Registrarse = ({ submit, responseGoogle }) => {
                                 <svg
                                   className="w-5 h-5"
                                   fill="none"
-                                  stroke="#7c3aed"
+                                  stroke="#000000"
                                   viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
                                   onClick={() => handlePassword()}
@@ -381,7 +379,7 @@ const Registrarse = ({ submit, responseGoogle }) => {
                                   className="h-5 w-5"
                                   fill="none"
                                   viewBox="0 0 24 24"
-                                  stroke="#7c3aed"
+                                  stroke="#000000"
                                   onClick={() => handlePassword()}
                                 >
                                   <path
@@ -402,8 +400,8 @@ const Registrarse = ({ submit, responseGoogle }) => {
                           </div>
                         </div>
                         <div className="text-white  text-sm w-11/12 pt-1 mb-3">
-                          {errors.password && touched.password ? (
-                            <p className="ml-0 md:ml-5">{errors.password}</p>
+                          {errors.contraseña && touched.contraseña ? (
+                            <p className="ml-0 md:ml-5">{errors.contraseña}</p>
                           ) : (
                             <p className="invisible">solo aprovecho el bug</p>
                           )}
@@ -412,7 +410,7 @@ const Registrarse = ({ submit, responseGoogle }) => {
                     </div>
 
                     <div className="flex flex-col md:flex-row">
-                      {/* photoURL */}
+                      {/* foto */}
                       <div className="flex flex-col w-full ">
                         <div className="flex flex-wrap items-stretch  relative h-15 bg-white rounded">
                           <div className="flex -mr-px justify-center md:w-15 p-2">
@@ -420,7 +418,7 @@ const Registrarse = ({ submit, responseGoogle }) => {
                               <svg
                                 className="w-6 h-6"
                                 fill="none"
-                                stroke="#7c3aed"
+                                stroke="#000000"
                                 viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg"
                               >
@@ -435,19 +433,19 @@ const Registrarse = ({ submit, responseGoogle }) => {
                           </div>
                           <Field
                             type="url"
-                            className="flex-shrink flex-grow ml-5 text-violet-600  leading-normal border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative text-base outline-none"
-                            name="photoURL"
-                            placeholder="Photo URL"
-                            value={values.photoURL}
-                            onChange={handleChange("photoURL")}
+                            className="flex-shrink flex-grow text-violet-600  leading-normal border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative text-base outline-none"
+                            name="foto"
+                            placeholder="Foto de perfil (URL)"
+                            value={values.foto}
+                            onChange={handleChange("foto")}
                           />
                           <div className="flex -mr-px">
                             <span className="flex items-center leading-normal bg-white rounded rounded-l-none border-0 px-3 whitespace-no-wrap text-gray-600">
-                              {errors.photoURL && touched.photoURL ? (
+                              {errors.foto && touched.foto ? (
                                 <svg
                                   className="w-6 h-6"
                                   fill="none"
-                                  stroke="#7c3aed"
+                                  stroke="#000000"
                                   viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
                                 >
@@ -458,11 +456,11 @@ const Registrarse = ({ submit, responseGoogle }) => {
                                     d="M6 18L18 6M6 6l12 12"
                                   ></path>
                                 </svg>
-                              ) : touched.photoURL ? (
+                              ) : touched.foto ? (
                                 <svg
                                   className="w-6 h-6"
                                   fill="none"
-                                  stroke="#7c3aed"
+                                  stroke="#000000"
                                   viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
                                 >
@@ -478,16 +476,14 @@ const Registrarse = ({ submit, responseGoogle }) => {
                           </div>
                         </div>
                         <div className="text-white  text-sm w-11/12 pt-1 mb-3">
-                          {errors.photoURL && touched.photoURL ? (
-                            <p>{errors.photoURL}</p>
+                          {errors.foto && touched.foto ? (
+                            <p>{errors.foto}</p>
                           ) : (
                             <p className="invisible">solo aprovecho el bug</p>
                           )}
                         </div>
                       </div>
                     </div>
-
-                    
 
                     <div className="flex justify-center items-baseline lg:items-center">
                       <div className="w-full md:w-6/12 flex justify-center items-center flex-col">
@@ -506,7 +502,7 @@ const Registrarse = ({ submit, responseGoogle }) => {
                               disabled={renderProps.disabled}
                               className="w-full px-4 py-2 font-bold transition text-violet-800 bg-violet-300 rounded-full hover:bg-violet-800  hover:text-white focus:outline-none focus:shadow-outline mt-2 mb-5"
                             >
-                             Registrarse con Google
+                              Registrarse con Google
                             </button>
                           )}
                           onSuccess={responseGoogle}

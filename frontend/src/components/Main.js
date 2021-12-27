@@ -3,10 +3,6 @@ import Flyer from "./Flyer";
 import usuarioAction from "../redux/actions/usuarioAction";
 import {connect} from "react-redux";
 
-
-
-
-
 const Main = (props) => {
   props.obtenerRoles()
   return (
@@ -97,14 +93,7 @@ const Main = (props) => {
 };
 
 const mapDispatchToProps = {
-
   obtenerRoles: usuarioAction.obtenerRoles
-
 }
-
-
-
-
-
 
 export default connect(null, mapDispatchToProps) (Main)
