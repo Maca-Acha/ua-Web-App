@@ -4,10 +4,12 @@ import DOTS from "vanta/dist/vanta.dots.min";
 import * as THREE from "three";
 import { Formik } from "formik";
 import * as yup from "yup";
+import usuarioAction from "../redux/actions/usuarioAction";
+import {connect} from "react-redux";
 
 import GoogleLogin from "react-google-login";
 
-const IniciarSesion = () => {
+const IniciarSesion = (props) => {
   const [showPassword, setShowPassword] = useState(false);
   const [vantaEffect, setVantaEffect] = useState(0);
   const vantaRef = useRef(null);
@@ -48,6 +50,10 @@ const IniciarSesion = () => {
     };
   }, [vantaEffect]);
 
+  const handleSubmit = async (values) => {
+    props.IniciarSesion(values)
+  }
+
   return (
     <>
       <div
@@ -67,7 +73,7 @@ const IniciarSesion = () => {
               }}
               validationSchema={SignInSchema}
               onSubmit={(values, { resetForm }) => {
-                // props.accessAccount(values);
+                props.inicioSesion(values);
                 resetForm({ values: "" });
               }}
             >
@@ -214,4 +220,11 @@ const IniciarSesion = () => {
   );
 };
 
-export default IniciarSesion;
+const mapDispatchToProps = {
+
+  inicioSesion: usuarioAction.inicioSesion
+
+}
+
+export default connect(null, mapDispatchToProps) (IniciarSesion)
+

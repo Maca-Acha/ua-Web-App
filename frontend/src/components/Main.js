@@ -1,7 +1,14 @@
 import CourseCard from "./CursoTarjeta";
 import Flyer from "./Flyer";
+import usuarioAction from "../redux/actions/usuarioAction";
+import {connect} from "react-redux";
 
-const Main = () => {
+
+
+
+
+const Main = (props) => {
+  props.obtenerRoles()
   return (
     <div className="mt-32 ">
       <div className="mt-10 mx-auto px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28 flex justify-center items-center">
@@ -89,4 +96,15 @@ const Main = () => {
   );
 };
 
-export default Main;
+const mapDispatchToProps = {
+
+  obtenerRoles: usuarioAction.obtenerRoles
+
+}
+
+
+
+
+
+
+export default connect(null, mapDispatchToProps) (Main)
