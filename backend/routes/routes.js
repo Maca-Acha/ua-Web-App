@@ -4,7 +4,7 @@ const {nuevoUsuario, usuariosRegistrados, inicioSesion, obtenerRoles} = require(
 const {crearCurso, traerCursos, modificarCurso, borrarCurso, favorito} = require('../controllers/cursosController')
 // const validator = require('../config/validator')
 const {crearOpinion,borrarOpinion,editarOpinion} = require('../controllers/opinionesController')
-
+const roles = require ("../config/roles")
 
 Router.route("/registrarse")
 .post(nuevoUsuario)
@@ -12,6 +12,7 @@ Router.route("/registrarse")
 
 Router.route("/roles")
   .post(passport.authenticate("jwt",{session:false}), obtenerRoles);
+
 
 
 Router.route("/inicioSesion").post(inicioSesion);
