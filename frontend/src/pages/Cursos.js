@@ -35,12 +35,12 @@ const Cursos = () => {
               className="mb-3 text-purple-600 h-10 text-center px-16 outline-none scrollbarcomments rounded-lg select w-full"
               placeholder="Selecciona una categoría"
             >
-              <option value="">Todos</option>
-              <option value="">Musica</option>
-              <option value="">Arte Digital</option>
-              <option value="">Programacion</option>
-              <option value="">Moda</option>
-              <option value="">Belleza</option>
+              <option className="text-center px-16" value="">Todos</option>
+              <option className="text-center px-16" value="">Musica</option>
+              <option className="text-center px-16" value="">Arte Digital</option>
+              <option className="text-center px-16" value="">Programacion</option>
+              <option className="text-center px-16" value="">Moda</option>
+              <option className="text-center px-16" value="">Belleza</option>
             </select>
           </div>
         </div>

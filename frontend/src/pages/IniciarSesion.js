@@ -12,7 +12,7 @@ import GoogleLogin from "react-google-login";
 const IniciarSesion = (props) => {
   let navigate = useNavigate()
   localStorage.getItem("token") && props.token === "" && props.obtenerRoles()
-  props.token !== "" && navigate("/", {replace: true})
+  props.usuario.nombre && navigate("/", {replace: true})
 
   const [showPassword, setShowPassword] = useState(false);
   const [vantaEffect, setVantaEffect] = useState(0);
@@ -229,7 +229,6 @@ const mapDispatchToProps = {
   obtenerRoles: usuarioAction.obtenerRoles,
 };
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     usuario: state.reducer.usuario,
     token: state.reducer.token,
