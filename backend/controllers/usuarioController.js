@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 
 const usuarioControlador = {
     nuevoUsuario: async(req,res) => {
-        const {nombre, apellido, email, contraseña, foto, google} = req.body
+        const {nombre, apellido, email, contraseña, foto, google, tutor, admin, role} = req.body
         try{
             const usuarioExiste = await Usuario.findOne({email})
             if(usuarioExiste){
@@ -12,7 +12,7 @@ const usuarioControlador = {
             }else{
                 const contraseñaHasheada = bcryptjs.hashSync(contraseña, 10)
                 const nuevoUsuario = new Usuario({
-                    nombre, apellido, email, contraseña: contraseñaHasheada, foto, google
+                    nombre, apellido, email, contraseña: contraseñaHasheada, foto, google, tutor, admin, role
                 })
                 const token = jwt.sign({...nuevoUsuario}, process.env.SECRET_KEY)
                 await nuevoUsuario.save()
@@ -49,6 +49,17 @@ const usuarioControlador = {
     chekearToken: (req, res) => {
         res.json(req.usuario)
     },
+    obtenerRoles: async (req, res) => {
+        
+        try{
+            if(req,usuario){
+                res.json({success: true, response:res.usuario, error:null})
+            }
+
+        }catch(error){
+            res.json({success:false, response:null, error:error})
+        }
+    }
    
 }
 

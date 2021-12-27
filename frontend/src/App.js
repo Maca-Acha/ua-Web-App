@@ -4,6 +4,8 @@ import Footer from "./components/Footer";
 import Registrarse from "./pages/Registrarse.js"
 import {BrowserRouter, Routes, Route } from "react-router-dom" 
 
+
+
 function App() {
   return (
     <BrowserRouter>

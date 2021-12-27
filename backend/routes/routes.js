@@ -1,32 +1,18 @@
 const Router = require("express").Router();
+const {nuevoUsuario, usuariosRegistrados, inicioSesion, obtenerRoles} = require('../controllers/usuarioController')
+const {crearCurso, traerCursos, modificarCurso, borrarCurso, favorito} = require('../controllers/cursosController')
+// const validator = require('../config/validator')
+const {crearOpinion,borrarOpinion,editarOpinion} = require('../controllers/opinionesController')
 
-const {
-  nuevoUsuario,
-  usuariosRegistrados,
-  inicioSesion,
-} = require("../controllers/usuarioController");
-
-const {
-  crearCurso,
-  traerCursos,
-  modificarCurso,
-  borrarCurso,
-  favorito,
-} = require("../controllers/cursosController");
-
-const {
-  crearOpinion,
-  editarOpinion,
-  borrarOpinion,
-} = require("../controllers/opinionesController");
-
-const validator = require("../config/validator");
 
 Router.route("/registrarse")
-  .post(validator, nuevoUsuario)
-  .get(usuariosRegistrados);
+  .post(nuevoUsuario)
+  .get(usuariosRegistrados)
+  .post(obtenerRoles);
 
 Router.route("/inicioSesion").post(inicioSesion);
+
+
 
 Router.route("/cursos").post(crearCurso).get(traerCursos);
 
