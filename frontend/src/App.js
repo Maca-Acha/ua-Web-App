@@ -10,11 +10,8 @@ import Curso from "./pages/Curso";
 import "./index.css";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-<<<<<<< HEAD
-=======
 
 
->>>>>>> 3d4d1f0dc935e9d7d72621d8ba9eff64300eb71b
 
 function App() {
   return (
