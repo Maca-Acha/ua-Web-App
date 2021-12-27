@@ -4,10 +4,12 @@ import DOTS from "vanta/dist/vanta.dots.min";
 import * as THREE from "three";
 import { Formik } from "formik";
 import * as yup from "yup";
+import usuarioAction from "../redux/actions/usuarioAction";
+import { connect } from "react-redux";
 
 import GoogleLogin from "react-google-login";
 
-const IniciarSesion = () => {
+const IniciarSesion = (props) => {
   const [showPassword, setShowPassword] = useState(false);
   const [vantaEffect, setVantaEffect] = useState(0);
   const vantaRef = useRef(null);
@@ -17,27 +19,26 @@ const IniciarSesion = () => {
 
   const SignInSchema = yup.object().shape({
     email: yup.string().email().required("this field is required"),
-    password: yup.string().required("this field is required"),
+    contraseña: yup.string().required("this field is required"),
   });
-
 
   useEffect(() => {
     if (!vantaEffect) {
       setVantaEffect(
         DOTS({
           el: vantaRef.current,
-        //   THREE,
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: true,
-        minHeight: 200.00,
-        minWidth: 200.00,
-        scale: 1.00,
-        color: 0x7c3aed,
-        scaleMobile: 1.00,
-        showLines: false,
-        spacing: 50.00,
-        backgroundColor: 0x18181b,
+          //   THREE,
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: true,
+          minHeight: 200.0,
+          minWidth: 200.0,
+          scale: 1.0,
+          color: 0x7c3aed,
+          scaleMobile: 1.0,
+          showLines: false,
+          spacing: 50.0,
+          backgroundColor: 0x18181b,
         })
       );
     }
@@ -47,6 +48,13 @@ const IniciarSesion = () => {
       }
     };
   }, [vantaEffect]);
+
+
+  const enviar = async (values) => {
+    await props.inicioSesion(values);
+          props.obtenerRoles()
+  };
+
 
   return (
     <>
@@ -63,11 +71,11 @@ const IniciarSesion = () => {
             <Formik
               initialValues={{
                 email: "",
-                password: "",
+                contraseña: "",
               }}
               validationSchema={SignInSchema}
               onSubmit={(values, { resetForm }) => {
-                // props.accessAccount(values);
+                enviar(values);
                 resetForm({ values: "" });
               }}
             >
@@ -102,7 +110,7 @@ const IniciarSesion = () => {
                         value={values.email}
                       />
                     </div>
-                    
+
                     <div className="flex flex-wrap items-stretch w-full relative h-15 bg-white  rounded mb-4">
                       <div className="flex -mr-px justify-center w-15 p-2">
                         <span className="flex items-center leading-normal bg-white rounded rounded-r-none text-xl whitespace-no-wrap text-gray-600">
@@ -123,12 +131,12 @@ const IniciarSesion = () => {
                         </span>
                       </div>
                       <input
-                        type={showPassword ? "text" : "password"}
+                        type={showPassword ? "text" : "contraseña"}
                         className="flex-shrink flex-grow text-violet-600 rubik leading-normal w-px  border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative  font-roboto text-base outline-none"
-                        name="password"
-                        onChange={handleChange("password")}
+                        name="contraseña"
+                        onChange={handleChange("contraseña")}
                         placeholder="********"
-                        value={values.password}
+                        value={values.contraseña}
                       />
                       <div className="flex -mr-px">
                         <span className="flex items-center leading-normal bg-white rounded rounded-l-none border-0 px-3 whitespace-no-wrap text-gray-600">
@@ -182,7 +190,6 @@ const IniciarSesion = () => {
                       Iniciar sesion
                     </button>
                     <GoogleLogin
-                      
                       clientId="36260654393-jruugt14707a8pcdlf33skgor98eth8c.apps.googleusercontent.com"
                       render={(renderProps) => (
                         <button
@@ -193,8 +200,8 @@ const IniciarSesion = () => {
                           Iniciar sesion con Google
                         </button>
                       )}
-                    //   onSuccess={props.responseGoogle}
-                    //   onFailure={props.responseGoogle}
+                      //   onSuccess={props.responseGoogle}
+                      //   onFailure={props.responseGoogle}
                       cookiePolicy={"single_host_origin"}
                     />
                     <Link
@@ -214,4 +221,9 @@ const IniciarSesion = () => {
   );
 };
 
-export default IniciarSesion;
+const mapDispatchToProps = {
+  inicioSesion: usuarioAction.inicioSesion,
+  obtenerRoles: usuarioAction.obtenerRoles,
+};
+
+export default connect(null, mapDispatchToProps)(IniciarSesion);

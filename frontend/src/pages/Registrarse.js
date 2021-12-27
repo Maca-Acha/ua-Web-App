@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
-// import axios from "axios";
+import axios from "axios";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
 import GoogleLogin from "react-google-login";
 import DOTS from "vanta/dist/vanta.dots.min";
-// import * as THREE from "three";
+import * as THREE from "three";
 import { Link } from "react-router-dom";
 
 const Registrarse = ({ submit, responseGoogle }) => {

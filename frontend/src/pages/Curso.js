@@ -8,8 +8,6 @@ const Curso = () => {
       <div className="w-full mt-20 vh-70 flex flex-col md:flex-row items-center">
         <iframe
           className="h-full w-full md:w-9/12"
-          // width="560"
-          // height="315"
           src="https://www.youtube.com/embed/ng-afKOz2eM"
           title="Clase"
           frameborder="0"
@@ -56,9 +54,7 @@ const Curso = () => {
           </div>
         </div>
       </div>
-      <div>
-        
-      </div>
+      <div></div>
     </>
   );
 };
