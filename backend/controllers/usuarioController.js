@@ -58,17 +58,13 @@ const usuarioControlador = {
 
     try {
       const emailExiste = await Usuario.findOne({ email });
-      console.log(emailExiste);
-
       if (emailExiste) {
         let contraseñaCorrecta = bcryptjs.compareSync(
           contraseña,
           emailExiste.contraseña
         );
-        console.log(contraseñaCorrecta);
         if (contraseñaCorrecta) {
           const token = jwt.sign({ ...emailExiste }, process.env.SECRET_KEY);
-          console.log(token);
           res.json({
             success: true,
             response: { token, ...emailExiste._doc },
@@ -82,7 +78,6 @@ const usuarioControlador = {
           });
         }
       } else {
-        console.log(emailExiste);
         res.json({
           success: false,
           error: "El email es incorrecto",
@@ -97,11 +92,10 @@ const usuarioControlador = {
     res.json(req.usuario);
   },
   obtenerRoles: async (req, res) => {
+    console.log(req)
     try {
-      // console.log("en el controller")
-      // console.log(req.usuario);
-      if ((req.usuario)) {
-        res.json({ success: true, response: res.usuario, error: null });
+      if (req.user) {
+        res.json({ success: true, response: res.user, error: null });
       }
     } catch (error) {
       res.json({ success: false, response: null, error: error });

@@ -1,11 +1,13 @@
 import axios from "axios";
 
 const usuarioAction = {
-  obtenerRoles: (token) => {
+  obtenerRoles: () => {
     return async (dispatch, getState) => {
+      const token = localStorage.getItem('token')
+      console.log(token)
       try {
         const respuesta = await axios.post(
-          "http://localhost:4000/api/registrarse",
+          "http://localhost:4000/api/roles",
           {},
           {
             headers: {
@@ -28,7 +30,6 @@ const usuarioAction = {
           "http://localhost:4000/api/inicioSesion",
           { ...values }
         );
-        console.log(usuario);
         if (usuario.data.success && !usuario.data.error) {
           localStorage.setItem("token", usuario.data.response.token);
           dispatch({ type: "INICIO_SESION", payload: usuario.data });
