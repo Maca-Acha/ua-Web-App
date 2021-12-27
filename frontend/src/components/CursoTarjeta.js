@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const CursoTarjeta = () => {
   return (
     <>
@@ -19,16 +21,19 @@ const CursoTarjeta = () => {
           </span>
         </div>
         <div className="px-6 py-4">
-          <div className="font-bold text-xl mb-2 text-white">The Coldest Sunset</div>
-          <p className="text-base  text-white">
+          <div className="font-bold text-xl mb-2 text-white">
+            The Coldest Sunset
+          </div>
+          <p className="text-base  text-white mb-3">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit
           </p>
-        <button className="mt-3 w-full bg-gray-200 rounded-full px-3 py-1 text-md font-semibold text-violet-600 hover:bg-gray-500 hover:text-white">
-
-          Ver más
-        </button>
+          <Link
+            to="/curso"
+            className=" w-full bg-gray-200 rounded-full px-3 py-1 text-md font-semibold text-violet-600 hover:bg-gray-500 hover:text-white"
+          >
+            Ver más
+          </Link>
         </div>
-        
       </div>
     </>
   );

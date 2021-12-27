@@ -17,9 +17,9 @@ const Cursos = () => {
         </div>
       </div>
       <section>
-        <h1 className="font-bold mt-16 text-center text-3xl md:text-4xl lg:text-5xl font-heading text-white">
+        <h2 className="font-bold mt-16 text-center text-3xl md:text-4xl lg:text-5xl font-heading text-white">
           Todos los cursos
-        </h1>
+        </h2>
 
         <div className="flex justify-center items-center md:items-baseline flex-col md:flex-row mt-10">
           <div className="mr-0 md:mr-32 mb-5 md:mb-0">
