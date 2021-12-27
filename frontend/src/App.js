@@ -14,7 +14,7 @@ import usuarioAction from "./redux/actions/usuarioAction";
 
 
 function App({roles,obtenerRoles}) {
-  console.log(roles)
+  // console.log(roles)
 
 
 

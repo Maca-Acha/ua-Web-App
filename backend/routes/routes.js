@@ -1,13 +1,14 @@
 const Router = require("express").Router();
+const roles = require ("../config/roles")
 const passport = require('../config/passport')
 const {nuevoUsuario, usuariosRegistrados, inicioSesion, obtenerRoles} = require('../controllers/usuarioController')
 const {crearCurso, traerCursos, modificarCurso, borrarCurso, favorito} = require('../controllers/cursosController')
 // const validator = require('../config/validator')
 const {crearOpinion,borrarOpinion,editarOpinion} = require('../controllers/opinionesController')
-const roles = require ("../config/roles")
 
 Router.route("/registrarse")
-.post(nuevoUsuario)
+.post(passport.authenticate("jwt",{session: false}), roles.checkRoles(["alumno"], {session: false}),nuevoUsuario)
+
 .get(usuariosRegistrados)
 
 Router.route("/roles")
