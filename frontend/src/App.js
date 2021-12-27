@@ -5,6 +5,9 @@ import Registrarse from "./pages/Registrarse.js"
 import {BrowserRouter, Routes, Route } from "react-router-dom" 
 
 function App() {
+
+
+  
   return (
     <BrowserRouter>
       <Navbar className="fixed"/>
