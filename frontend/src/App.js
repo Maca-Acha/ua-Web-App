@@ -30,10 +30,10 @@ function App({roles,obtenerRoles}) {
     <>
       <BrowserRouter>
         <Navbar className="fixed top-0 z-50" />
-
+                   
         <Routes>
-    
-            
+
+                     {/* rutas protegidas probando los roles de alumno y tutor */}    
             { roles.rol === "alumno" && <Route path="/" element={<Inicio />} />}
             {roles.rol === "admin" ? < Route path="/registrarse" element={<Registrarse />} />: null}
             <Route path="/iniciarsesion" element={<IniciarSesion />} />
