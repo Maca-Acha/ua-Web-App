@@ -13,7 +13,10 @@ const validator = (req, res, next) => {
             'string.min' : "Este campo debe tener al menos 8 caracteres"
         }),
         foto: joi.string(),
-        google: joi.boolean()
+        google: joi.boolean(),
+        tutor: joi.boolean(),
+        admin: joi.boolean(),
+        role: joi.string(),
     })
     const validation = schema.validate(req.body, {abortEarly:false})
     if(validation.error) {
