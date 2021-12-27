@@ -89,10 +89,9 @@ const usuarioControlador = {
     }
   },
   chekearToken: (req, res) => {
-    res.json(req.usuario);
+    res.json(req.user);
   },
   obtenerRoles: async (req, res) => {
-    console.log(req.user)
     try {
       if (req.user) {
         res.json({ success: true, response: req.user, error: null });

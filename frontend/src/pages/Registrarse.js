@@ -5,14 +5,16 @@ import * as yup from "yup";
 import GoogleLogin from "react-google-login";
 import DOTS from "vanta/dist/vanta.dots.min";
 import * as THREE from "three";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import usuarioAction from "../redux/actions/usuarioAction";
 import {connect} from "react-redux"
 
 
-const Registrarse = ({ nuevoUsuario, responseGoogle, roles, obtenerRoles }) => {
-  localStorage.getItem("token") && !roles && obtenerRoles()
-  console.log(roles)
+const Registrarse = ({ nuevoUsuario, responseGoogle, token, obtenerRoles }) => {
+  let navigate = useNavigate()
+  localStorage.getItem("token") && token === "" && obtenerRoles()
+  token !== "" && navigate("/", {replace: true})
+
   const [showPassword, setShowPassword] = useState(false);
   const [vantaEffect, setVantaEffect] = useState(0);
   const vantaRef = useRef(null);
@@ -541,7 +543,7 @@ const mapStateToProps = (state) => {
   console.log(state)
   return {
     usuario: state.reducer.usuario,
-    roles: state.reducer.roles
+    token: state.reducer.token,
   }
 }
 

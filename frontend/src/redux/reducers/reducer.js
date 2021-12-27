@@ -2,6 +2,7 @@ const initialState = {
   state: [],
   usuario: {},
   roles: {},
+  token: ""
 };
 
 const reducer = (state = initialState, action) => {
@@ -15,7 +16,9 @@ const reducer = (state = initialState, action) => {
     case "ROLES":
       return {
         ...state,
-        roles: action.payload,
+        roles: action.payload.rol,
+        token: action.payload.token,
+        usuario: action.payload.usuario
       };
 
     default:
