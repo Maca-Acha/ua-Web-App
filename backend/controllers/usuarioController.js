@@ -92,10 +92,10 @@ const usuarioControlador = {
     res.json(req.usuario);
   },
   obtenerRoles: async (req, res) => {
-    console.log(req)
+    console.log(req.user)
     try {
       if (req.user) {
-        res.json({ success: true, response: res.user, error: null });
+        res.json({ success: true, response: req.user, error: null });
       }
     } catch (error) {
       res.json({ success: false, response: null, error: error });
