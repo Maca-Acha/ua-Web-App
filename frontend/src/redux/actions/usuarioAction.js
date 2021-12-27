@@ -4,6 +4,7 @@ const usuarioAction = {
   obtenerRoles: () => {
     return async (dispatch, getState) => {
       const token = localStorage.getItem('token')
+      // console.log(token)
       try {
         const respuesta = await axios.post(
           "http://localhost:4000/api/roles",
@@ -14,8 +15,9 @@ const usuarioAction = {
             },
           }
         );
-        console.log(respuesta)
-        dispatch({ type: "ROLES", payload: { rol: respuesta.data.rol } });
+        // console.log(respuesta.data.response.role)
+
+        dispatch({ type: "ROLES", payload: { rol: respuesta.data.response.role} });
       } catch (e) {
         console.log(e.message);
       }
