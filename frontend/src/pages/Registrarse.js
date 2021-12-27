@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
 import GoogleLogin from "react-google-login";
 import DOTS from "vanta/dist/vanta.dots.min";
-import * as THREE from "three";
+// import * as THREE from "three";
 import { Link } from "react-router-dom";
 
 const Registrarse = ({ submit, responseGoogle }) => {
@@ -44,12 +44,12 @@ const Registrarse = ({ submit, responseGoogle }) => {
   }, [vantaEffect]);
 
   const SignUpSchema = yup.object().shape({
-    firstName: yup
+    nombre: yup
       .string()
       .required("First Name is required")
       .matches(/^[a-zA-Z]+$/, "This field is must be alphabetic")
       .min(3, "Too short, minimum 3 characters"),
-    lastName: yup
+    apellido: yup
       .string()
       .required("Last Name is required")
       .matches(/^[a-zA-Z]+$/, "This field is must be alphabetic")
@@ -59,12 +59,12 @@ const Registrarse = ({ submit, responseGoogle }) => {
       .email("Invalid email")
       .matches(/(\W|^)[\w.-]/, "Incorrect email")
       .required("The email is required"),
-    password: yup
+    contraseña: yup
       .string()
 
       .min(8, "Too short, minimum 8 characters")
       .required("The Password is required"),
-    photoURL: yup
+    foto: yup
       .string()
       .url("Invalid URL")
       .required("The profile picture is required"),
@@ -84,12 +84,11 @@ const Registrarse = ({ submit, responseGoogle }) => {
             </h1>
             <Formik
               initialValues={{
-                firstName: "",
-                lastName: "",
+                nombre: "",
+                apellido: "",
                 email: "",
-                password: "",
-                photoURL: "",
-                country: "",
+                contraseña: "",
+                foto: "",
               }}
               validationSchema={SignUpSchema}
               onSubmit={(values, { resetForm }) => {
@@ -129,13 +128,13 @@ const Registrarse = ({ submit, responseGoogle }) => {
                             type="text"
                             className="flex-shrink flex-grow text-violet-600  leading-normal w-px  border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative  font-roboto text-base outline-none"
                             placeholder="First Name"
-                            name="firstName"
-                            value={values.firstName}
-                            onChange={handleChange("firstName")}
+                            name="nombre"
+                            value={values.nombre}
+                            onChange={handleChange("nombre")}
                           />
                           <div className="flex -mr-px">
                             <span className="flex items-center leading-normal bg-white rounded rounded-l-none border-0 px-3 whitespace-no-wrap text-gray-600">
-                              {errors.firstName && touched.firstName ? (
+                              {errors.nombre && touched.nombre ? (
                                 <svg
                                   className="w-6 h-6"
                                   fill="none"
@@ -150,7 +149,7 @@ const Registrarse = ({ submit, responseGoogle }) => {
                                     d="M6 18L18 6M6 6l12 12"
                                   ></path>
                                 </svg>
-                              ) : touched.firstName ? (
+                              ) : touched.nombre ? (
                                 <svg
                                   className="w-6 h-6"
                                   fill="none"
@@ -170,8 +169,8 @@ const Registrarse = ({ submit, responseGoogle }) => {
                           </div>
                         </div>
                         <div className="text-white  text-sm w-11/12 pt-1 mb-3">
-                          {errors.firstName && touched.firstName ? (
-                            <p>{errors.firstName}</p>
+                          {errors.nombre && touched.nombre ? (
+                            <p>{errors.nombre}</p>
                           ) : (
                             <p className="invisible">solo aprovecho el bug</p>
                           )}
@@ -203,13 +202,13 @@ const Registrarse = ({ submit, responseGoogle }) => {
                             type="text"
                             className="flex-shrink flex-grow text-violet-600  leading-normal w-px  border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative  font-roboto text-base outline-none"
                             placeholder="Last Name"
-                            name="lastName"
-                            value={values.lastName}
-                            onChange={handleChange("lastName")}
+                            name="apellido"
+                            value={values.apellido}
+                            onChange={handleChange("apellido")}
                           />
                           <div className="flex -mr-px">
                             <span className="flex items-center leading-normal bg-white rounded rounded-l-none border-0 px-3 whitespace-no-wrap text-gray-600">
-                              {errors.lastName && touched.lastName ? (
+                              {errors.apellido && touched.apellido ? (
                                 <svg
                                   className="w-6 h-6"
                                   fill="none"
@@ -224,7 +223,7 @@ const Registrarse = ({ submit, responseGoogle }) => {
                                     d="M6 18L18 6M6 6l12 12"
                                   ></path>
                                 </svg>
-                              ) : touched.lastName ? (
+                              ) : touched.apellido ? (
                                 <svg
                                   className="w-6 h-6"
                                   fill="none"
@@ -244,8 +243,8 @@ const Registrarse = ({ submit, responseGoogle }) => {
                           </div>
                         </div>
                         <div className="text-white  text-sm w-11/12 pt-1 mb-3">
-                          {errors.lastName && touched.lastName ? (
-                            <p className="ml-0 md:ml-5">{errors.lastName}</p>
+                          {errors.apellido && touched.apellido ? (
+                            <p className="ml-0 md:ml-5">{errors.apellido}</p>
                           ) : (
                             <p className="invisible">solo aprovecho el bug</p>
                           )}
@@ -328,7 +327,7 @@ const Registrarse = ({ submit, responseGoogle }) => {
                         </div>
                       </div>
 
-                      {/* password */}
+                      {/* contraseña */}
                       <div className="flex flex-col md:w-6/12">
                         <div className="flex flex-wrap items-stretch w-full relative h-15 bg-white rounded">
                           <div className="flex -mr-px justify-center w-15 p-2">
@@ -351,10 +350,10 @@ const Registrarse = ({ submit, responseGoogle }) => {
                           </div>
                           <Field
                             className="flex-shrink flex-grow text-violet-600  leading-normal w-px  border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative  font-roboto text-base outline-none"
-                            type={showPassword ? "text" : "password"}
-                            name="password"
-                            onChange={handleChange("password")}
-                            value={values.password}
+                            type={showPassword ? "text" : "contraseña"}
+                            name="contraseña"
+                            onChange={handleChange("contraseña")}
+                            value={values.contraseña}
                             placeholder="Password"
                           />
                           <div className="flex -mr-px">
@@ -402,8 +401,8 @@ const Registrarse = ({ submit, responseGoogle }) => {
                           </div>
                         </div>
                         <div className="text-white  text-sm w-11/12 pt-1 mb-3">
-                          {errors.password && touched.password ? (
-                            <p className="ml-0 md:ml-5">{errors.password}</p>
+                          {errors.contraseña && touched.contraseña ? (
+                            <p className="ml-0 md:ml-5">{errors.contraseña}</p>
                           ) : (
                             <p className="invisible">solo aprovecho el bug</p>
                           )}
@@ -412,7 +411,7 @@ const Registrarse = ({ submit, responseGoogle }) => {
                     </div>
 
                     <div className="flex flex-col md:flex-row">
-                      {/* photoURL */}
+                      {/* foto */}
                       <div className="flex flex-col w-full ">
                         <div className="flex flex-wrap items-stretch  relative h-15 bg-white rounded">
                           <div className="flex -mr-px justify-center md:w-15 p-2">
@@ -436,14 +435,14 @@ const Registrarse = ({ submit, responseGoogle }) => {
                           <Field
                             type="url"
                             className="flex-shrink flex-grow ml-5 text-violet-600  leading-normal border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative text-base outline-none"
-                            name="photoURL"
+                            name="foto"
                             placeholder="Photo URL"
-                            value={values.photoURL}
-                            onChange={handleChange("photoURL")}
+                            value={values.foto}
+                            onChange={handleChange("foto")}
                           />
                           <div className="flex -mr-px">
                             <span className="flex items-center leading-normal bg-white rounded rounded-l-none border-0 px-3 whitespace-no-wrap text-gray-600">
-                              {errors.photoURL && touched.photoURL ? (
+                              {errors.foto && touched.foto ? (
                                 <svg
                                   className="w-6 h-6"
                                   fill="none"
@@ -458,7 +457,7 @@ const Registrarse = ({ submit, responseGoogle }) => {
                                     d="M6 18L18 6M6 6l12 12"
                                   ></path>
                                 </svg>
-                              ) : touched.photoURL ? (
+                              ) : touched.foto ? (
                                 <svg
                                   className="w-6 h-6"
                                   fill="none"
@@ -478,8 +477,8 @@ const Registrarse = ({ submit, responseGoogle }) => {
                           </div>
                         </div>
                         <div className="text-white  text-sm w-11/12 pt-1 mb-3">
-                          {errors.photoURL && touched.photoURL ? (
-                            <p>{errors.photoURL}</p>
+                          {errors.foto && touched.foto ? (
+                            <p>{errors.foto}</p>
                           ) : (
                             <p className="invisible">solo aprovecho el bug</p>
                           )}
