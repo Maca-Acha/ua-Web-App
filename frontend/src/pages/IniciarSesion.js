@@ -54,7 +54,7 @@ const IniciarSesion = (props) => {
     await props.inicioSesion(values);
           props.obtenerRoles()
   };
-
+  console.log(props)
 
   return (
     <>

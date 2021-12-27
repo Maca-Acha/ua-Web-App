@@ -1,17 +1,16 @@
 const initialState = {
-  usuario: {},
   state: [],
+  usuario: {},
   roles: {},
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "INICIO_SESION":
+    case "USUARIO":
       return {
         ...state,
         usuario: action.payload,
       };
-
     case "ROLES":
       return {
         ...state,

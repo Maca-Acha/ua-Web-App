@@ -4,7 +4,6 @@ const usuarioAction = {
   obtenerRoles: () => {
     return async (dispatch, getState) => {
       const token = localStorage.getItem('token')
-      console.log(token)
       try {
         const respuesta = await axios.post(
           "http://localhost:4000/api/roles",
@@ -15,14 +14,28 @@ const usuarioAction = {
             },
           }
         );
-        console.log(respuesta);
+        console.log(respuesta)
         dispatch({ type: "ROLES", payload: { rol: respuesta.data.rol } });
       } catch (e) {
         console.log(e.message);
       }
     };
   },
-
+  nuevoUsuario: (values)=>{
+    return async(dispatch, getState)=>{
+        try{
+            const usuario = await axios.post("http://localhost:4000/api/registrarse",{...values})
+            if(usuario.data.success){
+                localStorage.setItem('token', usuario.data.response.token)
+                dispatch({type:'USUARIO', payload: usuario.data.response})
+            }else{
+                console.log(usuario.data.error)
+            }
+        }catch(error){
+            console.log(error)
+        }
+    }
+  },
   inicioSesion: (values) => {
     return async (dispatch, getState) => {
       try {
@@ -32,7 +45,7 @@ const usuarioAction = {
         );
         if (usuario.data.success && !usuario.data.error) {
           localStorage.setItem("token", usuario.data.response.token);
-          dispatch({ type: "INICIO_SESION", payload: usuario.data });
+          dispatch({ type: "USUARIO", payload: usuario.data });
           return { success: true, response: usuario.data };
         } else {
           return { error: usuario.data.error };
@@ -42,5 +55,11 @@ const usuarioAction = {
       }
     };
   },
+  cerrarSesion: () => {
+    localStorage.clear()
+    return (dispatch, getState) => {
+        dispatch({type: "USUARIO", payload: ""})
+    }
+  }
 };
 export default usuarioAction;

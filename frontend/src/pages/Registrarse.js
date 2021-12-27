@@ -10,8 +10,9 @@ import usuarioAction from "../redux/actions/usuarioAction";
 import {connect} from "react-redux"
 
 
-const Registrarse = ({ nuevoUsuario, responseGoogle }) => {
-
+const Registrarse = ({ nuevoUsuario, responseGoogle, roles, obtenerRoles }) => {
+  localStorage.getItem("token") && !roles && obtenerRoles()
+  console.log(roles)
   const [showPassword, setShowPassword] = useState(false);
   const [vantaEffect, setVantaEffect] = useState(0);
   const vantaRef = useRef(null);
@@ -72,9 +73,9 @@ const Registrarse = ({ nuevoUsuario, responseGoogle }) => {
       .url("Invalid URL")
       .required("The profile picture is required"),
   });
+
   const enviar = async (values) => {
     await nuevoUsuario(values);
-    console.log(values)
   };
 
   return (
@@ -533,12 +534,14 @@ const Registrarse = ({ nuevoUsuario, responseGoogle }) => {
   );
 };
 const mapDispatchToProps = {
-  nuevoUsuario: usuarioAction.nuevoUsuario
+  nuevoUsuario: usuarioAction.nuevoUsuario,
+  obtenerRoles: usuarioAction.obtenerRoles
 }
 const mapStateToProps = (state) => {
   console.log(state)
   return {
-    usuario: state.reducer.usuario
+    usuario: state.reducer.usuario,
+    roles: state.reducer.roles
   }
 }
 
