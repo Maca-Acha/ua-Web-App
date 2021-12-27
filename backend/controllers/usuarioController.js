@@ -92,7 +92,6 @@ const usuarioControlador = {
     res.json(req.usuario);
   },
   obtenerRoles: async (req, res) => {
-    console.log(req)
     try {
       if (req.user) {
         res.json({ success: true, response: res.user, error: null });
