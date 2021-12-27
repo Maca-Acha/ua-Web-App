@@ -147,3 +147,7 @@ select {
 .vh-70 {
 	height: 70vh;
 }
+
+.coloarzul {
+	@apply bg-blue-500 flex items-center justify-center py-5 md:py-0 md:w-6/12 h-full
+}
