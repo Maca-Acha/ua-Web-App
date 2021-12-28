@@ -2,7 +2,8 @@ const initialState = {
     state:[],
     auxiliar: [],
     cursos:[],
-    curso: {}
+    curso: {},
+    favoritos:[]
 }
 const cursosReducer = (state = initialState, action) => {
     switch (action.type) {   
