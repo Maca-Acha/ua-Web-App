@@ -2,7 +2,7 @@ const Router = require("express").Router();
 const roles = require ("../config/roles")
 const passport = require('../config/passport')
 const {nuevoUsuario, usuariosRegistrados, inicioSesion, obtenerRoles, chekearToken} = require('../controllers/usuarioController')
-const {crearCurso, traerCursos, modificarCurso, borrarCurso, favorito} = require('../controllers/cursosController')
+const {crearCurso, traerCursos, modificarCurso, borrarCurso, favorito, traerCursoId} = require('../controllers/cursosController')
 // const validator = require('../config/validator')
 const {crearOpinion,borrarOpinion,editarOpinion} = require('../controllers/opinionesController')
 
@@ -29,6 +29,7 @@ Router.route("/cursos")
 .get(traerCursos);
 
 Router.route("/curso/:id")
+.get(traerCursoId)
 .put(modificarCurso)
 .delete(borrarCurso);
 

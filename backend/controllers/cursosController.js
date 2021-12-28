@@ -12,6 +12,10 @@ const cursosController = {
       .populate("tutor")
       .then((response) => res.json({ response }));
   },
+  traerCursoId: (req, res) => { //REVISAR
+    Curso.findOne({cursoId: req.params.id})
+      .then((response) => res.json({ response }));
+  },
   modificarCurso: async (req, res) => {
     try {
       actualizado = await Curso.findOneAndUpdate(
