@@ -14,7 +14,6 @@ const usuarioAction = {
             },
           }
         );
-        console.log(respuesta)
         dispatch({ type: "ROLES", payload: {rol: respuesta.data.response.role, token:token, usuario: respuesta.data.response} });
       } catch (e) {
         console.log(e.message);

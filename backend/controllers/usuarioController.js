@@ -10,32 +10,33 @@ const enviarEmail = async (correo, uniqueString) => {
       port: 465,
       secure: true,
       auth:{
-          user:"uauseremailverification@gmail.com",
-          pass:"adminua2021"
+          user:"useremailverifyMindhub@gmail.com",
+          pass:"mindhub2021"
       }
   })
 
-  let remitente = "uauseremailverification@gmail.com"
+  let remitente = "useremailverifyMindhub@gmail.com"
   let opcionesCorreo = {
       from: remitente,
       to: correo,
       subject: "Verificacion de email de usuario",
-      html: `Bienvenido a UA. Presiona <a href=http://localhost:4000/api/verify/${uniqueString}>aquí</a> para verificar tu correo.`
+      html: `Bienvenido a UA. Presiona <a href=http://localhost:4000/api/verificacion/${uniqueString}>aquí</a> para verificar tu correo.`
   };
   await transporter.sendMail(opcionesCorreo, function(error, response){
       if (error){console.log(error)}
       else{console.log("Mensaje enviado")}
   })
-}
+} 
 
 const usuarioControlador = {
 
   verificarCorreo: async (req,res) => {
     const {uniqueString} = req.params;
-    const user = await User.findOne({uniqueString:uniqueString})
-    if(user){
-        user.emailVerificado = true
-        await user.save()
+    const usuario = await Usuario.findOne({uniqueString:uniqueString})
+    if(usuario){
+        usuario.emailVerificado = true
+        usuario.role = "tutor"
+        await usuario.save()
         res.redirect("http://localhost:3000/")
     }
     else{res.json({success: false, response: "Su email no se ha verificado"})}
@@ -98,6 +99,17 @@ const usuarioControlador = {
     });
   },
 
+  borrarUsuario: async (req, res) => {
+    let usuarios;
+    try {
+      await Usuario.findOneAndDelete({ _id: req.params.id });
+      usuarios = await Usuario.find();
+    } catch (error) {
+      console.log(error);
+    }
+    res.json({ response: usuarios, success: true });
+  },
+
   inicioSesion: async (req, res) => {
     const { email, contraseña, google} = req.body;
 
@@ -128,7 +140,8 @@ const usuarioControlador = {
             success: false,
             error: "Tu email no está verificado, por favor revisa tu correo",
             response: null,
-          });
+          })
+          console.log(error);
         }
       } else {
         res.json({
