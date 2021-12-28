@@ -6,6 +6,12 @@ const cursoSchema = new mongoose.Schema({
   tutor: { type: mongoose.Types.ObjectId, ref: "usuario" },
   descripcion: { type: String, requiered: true },
   hashtag: { type: Array },
+  clases:[
+    {
+      tituloClase: { type: String },
+      url: { type: String },
+    }
+  ],
   favoritos: [{ type: mongoose.Types.ObjectId, ref: "usuario" }],
   opiniones: [
     {

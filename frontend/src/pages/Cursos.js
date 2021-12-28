@@ -1,19 +1,31 @@
 import React from "react";
 import Categorias from "../components/Categorias";
+import ReactPlayer from 'react-player'
 
 import CursoTarjeta from "../components/CursoTarjeta";
 import Select from "../components/Select";
 const Cursos = () => {
   return (
+
+    
     <>
+    
       <div>
         <div>
           <div className="text-center pb-12">
             <h1 className="font-bold mt-32 text-3xl md:text-4xl lg:text-5xl font-heading text-white">
               Categorías Principales
             </h1>
+           
           </div>
           <Categorias />
+          <ReactPlayer
+          url='https://www.youtube.com/watch?v=jyezRO3oztw&list=PLs-v5LWbw7JkIz8145zh7_ioAnXON_cMj&index=6'
+          className='react-player'
+          playing
+          width='100%'
+          height='100%'
+        />
         </div>
       </div>
       <section>

@@ -1,10 +1,12 @@
 import React from "react";
 
+
 const Curso = () => {
   //
 
   return (
     <>
+     
       <div className="w-full mt-20 vh-70 flex flex-col md:flex-row items-center">
         <iframe
           className="h-full w-full md:w-9/12"
