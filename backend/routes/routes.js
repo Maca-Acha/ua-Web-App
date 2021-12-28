@@ -6,11 +6,8 @@ const {crearCurso, traerCursos, modificarCurso, borrarCurso, favorito} = require
 // const validator = require('../config/validator')
 const {crearOpinion,borrarOpinion,editarOpinion} = require('../controllers/opinionesController')
 
-<<<<<<< HEAD
 //Usuarios
 
-=======
->>>>>>> 9991cc37b98bf7a1ec20b5253a6f24a79a9aef79
 Router.route("/registrarse")
 .post(passport.authenticate("jwt",{session: false}), roles.checkRoles(["alumno"], {session: false}), nuevoUsuario)
 
@@ -22,13 +19,8 @@ Router.route("/inicioSesion")
 Router.route("/roles") 
 .post(passport.authenticate("jwt",{session:false}), obtenerRoles);
 
-<<<<<<< HEAD
 Router.route("/token")
 .get(passport.authenticate("jwt",{session:false}), chekearToken)
-=======
-
-Router.route("/inicioSesion").post(inicioSesion);
->>>>>>> 9991cc37b98bf7a1ec20b5253a6f24a79a9aef79
 
 //Cursos
 
