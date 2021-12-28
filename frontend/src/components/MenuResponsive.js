@@ -13,7 +13,7 @@ function MenuResponsive(props) {
         <div>
           <Menu.Button className="flex text-sm font-medium  text-white rounded-full  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
             {!props.usuario.foto ? <UserIcon
-              className="w-12 h-12 text-white hover:text-violet-100"
+              className="w-12 h-12 text-white hover:text-rose-100"
               aria-hidden="true"
             />: 
             <div className="w-12 h-12 rounded-full" style={{
@@ -31,7 +31,7 @@ function MenuResponsive(props) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-violet-600 divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-rose-600 divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="px-1 py-1 ">
               {!props.usuario.nombre ? (<>
                 <Menu.Item>
@@ -39,8 +39,8 @@ function MenuResponsive(props) {
                   <Link
                     to="/registrarse"
                     className={`${
-                      active ? "bg-violet-500 text-white" : "text-white"
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm rubik fw-bold`}
+                      active ? "bg-rose-500 text-white" : "text-white"
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm fw-bold`}
                   >
                     {active ? (
                       <SignUpActiveIcon className="mr-2" aria-hidden="true" />
@@ -57,7 +57,7 @@ function MenuResponsive(props) {
                   <Link
                     to="/iniciarsesion"
                     className={`${
-                      active ? "bg-violet-500 text-white" : "text-white"
+                      active ? "bg-rose-500 text-white" : "text-white"
                     } group flex rounded-md items-center w-full px-2 py-2 text-sm rubik fw-bold`}
                   >
                     {active ? (
@@ -81,7 +81,7 @@ function MenuResponsive(props) {
                   <button
                     onClick={()=>props.cerrarSesion()}
                     className={`${
-                      active ? "bg-violet-500 text-white" : "text-white"
+                      active ? "bg-rose-500 text-white" : "text-white"
                     } group flex rounded-md items-center w-full px-2 py-2 text-sm rubik fw-bold`}
                   >
                     {active ? (

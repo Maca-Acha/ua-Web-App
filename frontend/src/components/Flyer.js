@@ -3,7 +3,7 @@ import { PlayIcon, DeviceMobileIcon, StarIcon } from "@heroicons/react/outline";
 const Flyer = () => {
   return (
     <>
-      <div className="border-t-2 border-violet-600 px-28 w-full"></div>
+      <div className="border-t-2 border-rose-600 px-28 w-full"></div>
       <section>
         {/* <h2 >
           Amplia tus oportunidades aprendiendo programación!
@@ -36,7 +36,7 @@ const Flyer = () => {
         </div>
       </section>
 
-      <div className="border-t-2 border-violet-600 px-28 w-full mb-12"></div>
+      <div className="border-t-2 border-rose-600 px-28 w-full mb-12"></div>
     </>
   );
 };
