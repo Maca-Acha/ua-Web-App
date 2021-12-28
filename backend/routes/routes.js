@@ -1,6 +1,6 @@
 const Router = require("express").Router();
 const passport = require('../config/passport')
-const {nuevoUsuario, usuariosRegistrados, inicioSesion, obtenerRoles, chekearToken} = require('../controllers/usuarioController')
+const {nuevoUsuario, usuariosRegistrados, inicioSesion, obtenerRoles, chekearToken, verificarCorreo} = require('../controllers/usuarioController')
 const {crearCurso, traerCursos, modificarCurso, borrarCurso, favorito} = require('../controllers/cursosController')
 // const validator = require('../config/validator')
 const {crearOpinion,borrarOpinion,editarOpinion} = require('../controllers/opinionesController')
@@ -41,5 +41,10 @@ Router.route("/opiniones")
   .post(crearOpinion)
   .delete(borrarOpinion)
   .put(editarOpinion);
+
+// Verificación correo
+
+Router.route("/verificacion/:uniqueString")
+.get(verificarCorreo)
 
 module.exports = Router;
