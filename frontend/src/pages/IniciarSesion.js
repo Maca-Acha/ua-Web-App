@@ -58,7 +58,17 @@ const IniciarSesion = (props) => {
     await props.inicioSesion(values);
           props.obtenerRoles()
   };
-
+  const responseGoogle = (res) => {
+    let googleUser = {
+        email: res.profileObj.email,
+        password: res.profileObj.googleId,
+        google:true,
+        emailVerificado: true
+    }
+    props.inicioSesion(googleUser)
+    .then((res) => res.data.success)
+    .catch((err) => console.log(err))
+}   
   return (
     <>
       <div
@@ -203,8 +213,8 @@ const IniciarSesion = (props) => {
                           Iniciar sesion con Google
                         </button>
                       )}
-                      //   onSuccess={props.responseGoogle}
-                      //   onFailure={props.responseGoogle}
+                         onSuccess={responseGoogle}
+                         onFailure={responseGoogle}
                       cookiePolicy={"single_host_origin"}
                     />
                     <Link

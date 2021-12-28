@@ -70,7 +70,20 @@ import { Link } from "react-router-dom";
   const enviar = async (values) => {
     await nuevoUsuario(values);
   };
-
+  const responseGoogle = async (res) => {
+    let googleUser = {
+        nombre: res.profileObj.name,
+        apellido: 'google',
+        email: res.profileObj.email,
+        contraseña: res.profileObj.googleId,
+        foto: res.profileObj.imageUrl,
+        google: true,
+        emailVerificado: true
+    }
+    await nuevoUsuario(googleUser)
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err))
+  }
   return (
     <>
       <div
@@ -527,7 +540,7 @@ import { Link } from "react-router-dom";
   );
 };
 const mapStateToProps = (state) => {
-  console.log(state)
+  // console.log(state)
   return {
     usuario: state.reducer.usuario,
     token: state.reducer.token,
@@ -537,6 +550,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   nuevoUsuario: usuarioAction.nuevoUsuario,
   obtenerRoles: usuarioAction.obtenerRoles,
+  responseGoogle: usuarioAction.responseGoogle
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Registrarse);

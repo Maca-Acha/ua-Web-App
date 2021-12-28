@@ -34,7 +34,7 @@ function App({roles,obtenerRoles}) {
         <Routes>
 
                      {/* rutas protegidas probando los roles de alumno y tutor */}    
-            { roles.rol === "alumno" && <Route path="/" element={<Inicio />} />}
+             <Route path="/" element={<Inicio />} />
              < Route path="/registrarse" element={<Registrarse />} />
             <Route path="/iniciarsesion" element={<IniciarSesion />} />
             <Route path="/cursos" element={<Cursos />} />
@@ -56,4 +56,4 @@ const mapDispatchToProps = {
   obtenerRoles: usuarioAction.obtenerRoles,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App)
