@@ -29,6 +29,7 @@ Router.route("/cursos")
 .get(traerCursos);
 
 Router.route("/curso/:id")
+.get(traerCursoId)
 .put(modificarCurso)
 .delete(borrarCurso);
 
