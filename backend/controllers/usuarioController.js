@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const usuarioControlador = {
   nuevoUsuario: async (req, res) => {
+    console.log('aquiii req.user', req.user)
     const {
       nombre,
       apellido,
@@ -92,6 +93,10 @@ const usuarioControlador = {
     res.json(req.user);
   },
   obtenerRoles: async (req, res) => {
+<<<<<<< HEAD
+=======
+    // console.log(req.user)
+>>>>>>> 9991cc37b98bf7a1ec20b5253a6f24a79a9aef79
     try {
       if (req.user) {
         res.json({ success: true, response: req.user, error: null });

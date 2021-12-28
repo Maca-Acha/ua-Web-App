@@ -14,7 +14,6 @@ import usuarioAction from "./redux/actions/usuarioAction";
 
 
 function App({roles,obtenerRoles}) {
-
   return (
     <>
       <BrowserRouter>
@@ -42,4 +41,4 @@ const mapDispatchToProps = {
   obtenerRoles: usuarioAction.obtenerRoles,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App)
