@@ -26,21 +26,21 @@ const Cursos = () => {
             <input
               type="text"
               placeholder="Buscar un curso"
-              className="text-center w-80 bg-white appearance-none border-2 border-purple-900 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-600"
+              className="text-center w-80 bg-white appearance-none border-2 border-red-900 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-red-600"
             />
           </div>
 
           <div className="w-50">
             <select
-              className="mb-3 text-purple-600 h-10 text-center px-16 outline-none scrollbarcomments rounded-lg select w-full"
+              className="mb-3 text-red-600 h-10 text-center px-16 outline-none scrollbarcomments rounded-lg select w-full"
               placeholder="Selecciona una categoría"
             >
-              <option value="">Todos</option>
-              <option value="">Musica</option>
-              <option value="">Arte Digital</option>
-              <option value="">Programacion</option>
-              <option value="">Moda</option>
-              <option value="">Belleza</option>
+              <option className="text-center px-16" value="">Todos</option>
+              <option className="text-center px-16" value="">Musica</option>
+              <option className="text-center px-16" value="">Arte Digital</option>
+              <option className="text-center px-16" value="">Programacion</option>
+              <option className="text-center px-16" value="">Moda</option>
+              <option className="text-center px-16" value="">Belleza</option>
             </select>
           </div>
         </div>

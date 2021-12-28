@@ -33,14 +33,12 @@ function App({roles,obtenerRoles}) {
         <Routes>
 
                      {/* rutas protegidas probando los roles de alumno y tutor */}    
-            { roles.rol === "alumno" && <Route path="/" element={<Inicio />} />}
+             <Route path="/" element={<Inicio />} />
              < Route path="/registrarse" element={<Registrarse />} />
             <Route path="/iniciarsesion" element={<IniciarSesion />} />
-            {roles.rol === "alumno" && <Route path="/cursos" element={<Cursos />} /> }
-            {roles.rol === "alumno" && <Route path="/curso" element={<Curso />} />}
-            
+            <Route path="/cursos" element={<Cursos />} />
+            <Route path="/curso" element={<Curso />} />
         </Routes>
-
         <Footer className="fixed top-0 z-50" />
       </BrowserRouter>
     </>
@@ -54,9 +52,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-
- obtenerRoles: usuarioAction.obtenerRoles,
- 
+  obtenerRoles: usuarioAction.obtenerRoles,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

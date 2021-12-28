@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DOTS from "vanta/dist/vanta.dots.min";
 import * as THREE from "three";
 import { Formik } from "formik";
@@ -10,6 +10,10 @@ import { connect } from "react-redux";
 import GoogleLogin from "react-google-login";
 
 const IniciarSesion = (props) => {
+  let navigate = useNavigate()
+  localStorage.getItem("token") && props.token === "" && props.obtenerRoles()
+  props.usuario.nombre && navigate("/", {replace: true})
+
   const [showPassword, setShowPassword] = useState(false);
   const [vantaEffect, setVantaEffect] = useState(0);
   const vantaRef = useRef(null);
@@ -18,8 +22,8 @@ const IniciarSesion = (props) => {
   };
 
   const SignInSchema = yup.object().shape({
-    email: yup.string().email().required("this field is required"),
-    contraseña: yup.string().required("this field is required"),
+    email: yup.string().email().required("Campo requerido"),
+    contraseña: yup.string().required("Campo requerido"),
   });
 
   useEffect(() => {
@@ -34,7 +38,7 @@ const IniciarSesion = (props) => {
           minHeight: 200.0,
           minWidth: 200.0,
           scale: 1.0,
-          color: 0x7c3aed,
+          color: 0xe11d48,
           scaleMobile: 1.0,
           showLines: false,
           spacing: 50.0,
@@ -54,8 +58,16 @@ const IniciarSesion = (props) => {
     await props.inicioSesion(values);
           props.obtenerRoles()
   };
-
-
+  const responseGoogle = (res) => {
+    let googleUser = {
+        email: res.profileObj.email,
+        password: res.profileObj.googleId,
+        google:true,
+    }
+    props.inicioSesion(googleUser)
+    .then((res) => res.dat.success)
+    .catch((err) => console.log(err))
+}   
   return (
     <>
       <div
@@ -102,7 +114,7 @@ const IniciarSesion = (props) => {
                         </span>
                       </div>
                       <input
-                        className="flex-shrink flex-grow text-violet-600 rubik leading-normal w-px  border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative  font-roboto text-base outline-none"
+                        className="flex-shrink flex-grow text-gray-900 rubik leading-normal w-px  border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative  font-roboto text-base outline-none"
                         name="email"
                         type="email"
                         placeholder="Email"
@@ -132,7 +144,7 @@ const IniciarSesion = (props) => {
                       </div>
                       <input
                         type={showPassword ? "text" : "password"}
-                        className="flex-shrink flex-grow text-violet-600 rubik leading-normal w-px  border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative  font-roboto text-base outline-none"
+                        className="flex-shrink flex-grow text-gray-900 rubik leading-normal w-px  border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative  font-roboto text-base outline-none"
                         name="contraseña"
                         onChange={handleChange("contraseña")}
                         placeholder="********"
@@ -184,7 +196,7 @@ const IniciarSesion = (props) => {
                     </div>
 
                     <button
-                      className="w-full px-4 py-2 font-bold  transition text-violet-800 bg-violet-300 rounded-full hover:bg-violet-800  hover:text-white focus:outline-none focus:shadow-outline"
+                      className="w-full px-4 py-2 font-bold  transition text-rose-800 bg-rose-300 rounded-full hover:bg-rose-800  hover:text-white focus:outline-none focus:shadow-outline"
                       type="submit"
                     >
                       Iniciar sesion
@@ -195,18 +207,18 @@ const IniciarSesion = (props) => {
                         <button
                           onClick={renderProps.onClick}
                           disabled={renderProps.disabled}
-                          className="w-full px-4 py-2 font-bold transition text-violet-800 bg-violet-300 rounded-full hover:bg-violet-800  hover:text-white focus:outline-none focus:shadow-outline mt-2 mb-5"
+                          className="w-full px-4 py-2 font-bold transition text-rose-800 bg-rose-300 rounded-full hover:bg-rose-800  hover:text-white focus:outline-none focus:shadow-outline mt-2 mb-5"
                         >
                           Iniciar sesion con Google
                         </button>
                       )}
-                      //   onSuccess={props.responseGoogle}
-                      //   onFailure={props.responseGoogle}
+                         onSuccess={responseGoogle}
+                         onFailure={responseGoogle}
                       cookiePolicy={"single_host_origin"}
                     />
                     <Link
                       to="/registrarse"
-                      className="text-3xl fw-bold text-white font-roboto text-center leading-normal hover:text-violet-900 mb-7"
+                      className="text-3xl fw-bold text-white font-roboto text-center leading-normal hover:text-rose-300 mb-7"
                     >
                       No tienes cuenta todavía? crea una
                     </Link>
@@ -225,5 +237,11 @@ const mapDispatchToProps = {
   inicioSesion: usuarioAction.inicioSesion,
   obtenerRoles: usuarioAction.obtenerRoles,
 };
+const mapStateToProps = (state) => {
+  return {
+    usuario: state.reducer.usuario,
+    token: state.reducer.token,
+  }
+}
 
-export default connect(null, mapDispatchToProps)(IniciarSesion);
+export default connect(mapStateToProps, mapDispatchToProps)(IniciarSesion);

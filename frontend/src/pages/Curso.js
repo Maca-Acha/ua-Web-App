@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Curso = () => {
   const [mostrarDescripcion, setMostrarDescripcion] = useState(true);
@@ -35,6 +35,14 @@ const Curso = () => {
     }
   };
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    })
+  }, [])
+
   return (
     <>
       <div className="w-full mt-20 vh-70 flex flex-col md:flex-row items-center">
@@ -57,10 +65,11 @@ const Curso = () => {
         </div>
       </div>
 
-      <div className="bg-purple-500 w-full h-20 flex flex-col md:flex-row ">
+      <div className="bg-transparent w-full h-20 flex flex-col md:flex-row ">
         <div className="flex w-full md:w-6/12 flex-col md:flex-row">
           <div
-            className="bg-blue-500 flex items-center justify-center py-5 md:py-0 md:w-6/12 h-full"
+          // border-b-8 border-rose-600
+            className={`${mostrarDescripcion ? "border-b-8 border-rose-600" : "" } flex items-center justify-center py-5 md:py-0 md:w-6/12 h-full`}
             onClick={() => colores("1")}
           >
             <h2 className="font-bold text-xl md:text-2xl lg:text-3xl text-center font-heading text-white cursor-pointer">
@@ -69,10 +78,10 @@ const Curso = () => {
           </div>
 
           <div
-            className="bg-green-500 md:w-6/12 h-full flex items-center justify-center cursor-pointer"
+            className={`${mostrarOpiniones ? "border-b-8 border-rose-600" : "" } md:w-6/12 h-full flex items-center justify-center cursor-pointer`}
             onClick={() => colores("2")}
           >
-            <h2 className="font-bold text-center text-xl md:text-2xl lg:text-3xl font-heading text-white">
+            <h2 className={` font-bold text-center text-xl md:text-2xl lg:text-3xl font-heading text-white`}>
               Opiniones
             </h2>
           </div>
@@ -80,7 +89,7 @@ const Curso = () => {
 
         <div className="flex w-full md:w-6/12 flex-col md:flex-row">
           <div
-            className="bg-purple-500 flex items-center justify-center  md:w-6/12 h-full cursor-pointer"
+            className={`${mostrarNotas ? "border-b-8 border-rose-600" : "" } md:w-6/12 h-full flex items-center justify-center cursor-pointer`}
             onClick={() => colores("3")}
           >
             <h2 className="font-bold text-xl md:text-2xl lg:text-3xl font-heading text-white">
@@ -89,7 +98,7 @@ const Curso = () => {
           </div>
 
           <div
-            className="bg-purple-500 md:w-6/12 h-full flex items-center justify-center cursor-pointer"
+            className={`${mostrarRecursos ? "border-b-8 border-rose-600" : "" } md:w-6/12 h-full flex items-center justify-center cursor-pointer`}
             onClick={() => colores("4")}
           >
             <h2 className="font-bold text-center text-xl md:text-2xl lg:text-3xl font-heading text-white">
@@ -100,26 +109,26 @@ const Curso = () => {
       </div>
 
       {mostrarDescripcion && (
-        <div className="h-full vh-70 w-full bg-blue-500">
-          <span className="invisible"> a </span>
+        <div className="h-full vh-70 w-full bg-transparent">
+          <h2 className="text-center text-white text-6xl mt-16 font-bold"> Descripcion </h2>
         </div>
       )}
 
       {mostrarOpiniones && (
-        <div className="h-full vh-70 w-full bg-green-500">
-          <span className="invisible"> a </span>
+        <div className="h-full vh-70 w-full bg-transparent">
+          <h2 className="text-center text-white text-6xl mt-16 font-bold"> Opiniones </h2>
         </div>
       )}
 
       {mostrarNotas && (
-        <div className="h-full vh-70 w-full bg-purple-500">
-          <span className="invisible"> a </span>
+        <div className="h-full vh-70 w-full bbg-transparent">
+          <h2 className="text-center text-white text-6xl mt-16 font-bold"> Notas </h2>
         </div>
       )}
 
       {mostrarRecursos && (
-        <div className="h-full vh-70 w-full bg-purple-500">
-          <span className="invisible"> a </span>
+        <div className="h-full vh-70 w-full bg-transparent">
+          <h2 className="text-center text-white text-6xl mt-16 font-bold"> Recursos </h2>
         </div>
       )}
     </>
