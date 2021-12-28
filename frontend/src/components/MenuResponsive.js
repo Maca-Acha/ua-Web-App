@@ -2,16 +2,24 @@ import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { UserIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
-function MenuResponsive() {
+import {connect} from "react-redux"
+import { ClampToEdgeWrapping } from "three";
+import usuarioAction from "../redux/actions/usuarioAction";
+
+function MenuResponsive(props) {
   return (
     <div className="text-right fixed">
       <Menu as="div" className="text-left">
         <div>
-          <Menu.Button className="flex text-sm font-medium p-1 text-white bg-violet-600 rounded-full  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-            <UserIcon
-              className="w-8 h-8 text-white hover:text-violet-100"
+          <Menu.Button className="flex text-sm font-medium  text-white rounded-full  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+            {!props.usuario.foto ? <UserIcon
+              className="w-12 h-12 text-white hover:text-violet-100"
               aria-hidden="true"
-            />
+            />: 
+            <div className="w-12 h-12 rounded-full" style={{
+              backgroundImage:`url(${props.usuario.foto})`, backgroundSize:"cover", backgroundPosition:"center"
+            }}></div>
+            }
           </Menu.Button>
         </div>
         <Transition
@@ -25,7 +33,8 @@ function MenuResponsive() {
         >
           <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-violet-600 divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="px-1 py-1 ">
-              <Menu.Item>
+              {!props.usuario.nombre ? (<>
+                <Menu.Item>
                 {({ active }) => (
                   <Link
                     to="/registrarse"
@@ -66,6 +75,32 @@ function MenuResponsive() {
                   </Link>
                 )}
               </Menu.Item>
+              </>): (<>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    onClick={()=>props.cerrarSesion()}
+                    className={`${
+                      active ? "bg-violet-500 text-white" : "text-white"
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm rubik fw-bold`}
+                  >
+                    {active ? (
+                      <SignInActiveIcon
+                        className="w-5 h-5 mr-2"
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <SignInInactiveIcon
+                        className="w-5 h-5 mr-2"
+                        aria-hidden="true"
+                      />
+                    )}
+                    <span className="ml-2">Cerrar Sesion</span>
+                  </button>
+                )}
+              </Menu.Item>
+              </>)
+             }
             </div>
           </Menu.Items>
         </Transition>
@@ -219,5 +254,14 @@ function SignOutActiveIcon() {
     </svg>
   );
 }
+const mapDispatchToProps = {
+  obtenerRoles: usuarioAction.obtenerRoles,
+  cerrarSesion: usuarioAction.cerrarSesion
+}
+const mapStateToProps = (state) => {
+  return {
+    usuario: state.reducer.usuario,
+  }
+}
 
-export default MenuResponsive;
+export default connect(mapStateToProps, mapDispatchToProps)(MenuResponsive);

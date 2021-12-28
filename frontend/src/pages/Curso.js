@@ -35,6 +35,12 @@ const Curso = () => {
     }
   };
 
+  window.scrollTo({
+    top:0,
+    left:0,
+    behavior:"smooth"
+  })
+  
   return (
     <>
       <div className="w-full mt-20 vh-70 flex flex-col md:flex-row items-center">
