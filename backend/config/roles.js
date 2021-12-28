@@ -1,9 +1,9 @@
-const passport = require('passport')
+// const passport = require('passport')
 
 
 
 const checkRoles = roles => (req, res, next) => {
-console.log(req.user.role)
+console.log('desde roles.js', req.user)
   
 //  if (role.includes(req.user.rol)){
 //      return next()
@@ -11,5 +11,4 @@ console.log(req.user.role)
 //  return res.json({message: 'Unauthorized', success: false})
 
 }
-
 module.exports = {checkRoles} 

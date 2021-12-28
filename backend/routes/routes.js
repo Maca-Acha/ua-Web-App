@@ -7,9 +7,9 @@ const {crearCurso, traerCursos, modificarCurso, borrarCurso, favorito} = require
 const {crearOpinion,borrarOpinion,editarOpinion} = require('../controllers/opinionesController')
 
 Router.route("/registrarse")
-.post(passport.authenticate("jwt",{session: false}), roles.checkRoles(["alumno"], {session: false}),nuevoUsuario)
+.post(passport.authenticate("jwt",{session: false}), roles.checkRoles(["alumno"], {session: false}), nuevoUsuario)
 
-.get(usuariosRegistrados)
+// .get(usuariosRegistrados)
 
 Router.route("/roles")
   .post(passport.authenticate("jwt",{session:false}), obtenerRoles);

@@ -24,12 +24,7 @@ function App({roles,obtenerRoles}) {
   // }
   // // eslint-disable-next-line react-hooks/exhaustive-deps
   // ,[])
-
-
-function App() {
-
-
-  
+ 
   return (
     <>
       <BrowserRouter>
@@ -64,4 +59,4 @@ const mapDispatchToProps = {
  
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App)

@@ -25,7 +25,7 @@ const usuarioControlador = {
           google,
         });
         const token = jwt.sign({ ...nuevoUsuario }, process.env.SECRET_KEY);
-        await nuevoUsuario.save();
+        // await nuevoUsuario.save();
         res.json({
           success: true,
           response: { token, ...nuevoUsuario._doc },
