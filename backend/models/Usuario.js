@@ -11,7 +11,7 @@ const usuarioSchema = new mongoose.Schema({
     admin:{ type: Boolean, default: false},
     role:{ type: String, default:"alumno"},
     uniqueString:{type: String, required: true},
-    emailVerificado:{type: Boolean, required: true}
+    emailVerificado:{type: Boolean, required: true, default: false}
 })
 
 const Usuario = mongoose.model("usuario", usuarioSchema)

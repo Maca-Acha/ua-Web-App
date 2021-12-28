@@ -10,7 +10,7 @@ const Main = (props) => {
       <div className="mt-10 mx-auto px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28 flex justify-center items-center">
         <div className="text-center">
           <h1 className="text-center text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-            <span className="block xl:inline text-violet-600">
+            <span className="block xl:inline text-rose-600">
               Universidad Autodidacta
             </span>{" "}
             <br className="hidden xl:block" />
@@ -26,7 +26,7 @@ const Main = (props) => {
             <div className="rounded-md shadow">
               <a
                 href="#"
-                className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-violet-600 hover:bg-violet-700 md:py-4 md:text-lg md:px-10"
+                className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-rose-600 hover:bg-rose-700 md:py-4 md:text-lg md:px-10"
               >
                 Ver Cursos
               </a>
@@ -34,7 +34,7 @@ const Main = (props) => {
             <div className="mt-3 sm:mt-0 sm:ml-3">
               <a
                 href="#"
-                className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-violet-700 bg-violet-100 hover:bg-violet-200 md:py-4 md:text-lg md:px-10"
+                className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-rose-700 bg-rose-100 hover:bg-rose-200 md:py-4 md:text-lg md:px-10"
               >
                 Lo mas popular
               </a>

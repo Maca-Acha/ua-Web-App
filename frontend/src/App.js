@@ -14,14 +14,27 @@ import usuarioAction from "./redux/actions/usuarioAction";
 
 
 function App({roles,obtenerRoles}) {
+  // console.log(roles)
 
+
+
+
+  // useEffect(() => {
+  //   obtenerRoles();
+  // }
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // ,[])
+ 
   return (
     <>
       <BrowserRouter>
         <Navbar className="fixed top-0 z-50" />
-        <Routes> 
-            <Route path="/" element={<Inicio />} />
-            <Route path="/registrarse" element={<Registrarse />} />
+                   
+        <Routes>
+
+                     {/* rutas protegidas probando los roles de alumno y tutor */}    
+             <Route path="/" element={<Inicio />} />
+             < Route path="/registrarse" element={<Registrarse />} />
             <Route path="/iniciarsesion" element={<IniciarSesion />} />
             <Route path="/cursos" element={<Cursos />} />
             <Route path="/curso" element={<Curso />} />
@@ -42,4 +55,4 @@ const mapDispatchToProps = {
   obtenerRoles: usuarioAction.obtenerRoles,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App)

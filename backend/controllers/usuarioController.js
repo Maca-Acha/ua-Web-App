@@ -53,6 +53,7 @@ const usuarioControlador = {
       tutor,
       admin,
       role,
+      emailVerificado
     } = req.body;
     try {
       const usuarioExiste = await Usuario.findOne({ email });
@@ -64,7 +65,6 @@ const usuarioControlador = {
         });
       } else {
         let uniqueString = crypto.randomBytes(15).toString('hex')
-        let emailVerificado = false
         const contraseñaHasheada = bcryptjs.hashSync(contraseña, 10);
         const nuevoUsuario = new Usuario({
           nombre,
@@ -112,9 +112,9 @@ const usuarioControlador = {
 
   inicioSesion: async (req, res) => {
     const { email, contraseña, google} = req.body;
-
     try {
       const emailExiste = await Usuario.findOne({ email });
+       console.log('emailExiste', emailExiste)
       if (emailExiste) {
 
         if (emailExiste.emailVerificado){
@@ -155,9 +155,10 @@ const usuarioControlador = {
     }
   },
   chekearToken: (req, res) => {
-    res.json(req.user);
+    res.json(req.usuario);
   },
   obtenerRoles: async (req, res) => {
+    console.log(req.user)
     try {
       if (req.user) {
         res.json({ success: true, response: req.user, error: null });

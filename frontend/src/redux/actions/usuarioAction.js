@@ -23,7 +23,13 @@ const usuarioAction = {
   nuevoUsuario: (values)=>{
     return async(dispatch, getState)=>{
         try{
-            const usuario = await axios.post("http://localhost:4000/api/registrarse",{...values})
+          const token = localStorage.getItem('token')
+            const usuario = await axios.post("http://localhost:4000/api/registrarse",{...values}, {
+                    headers: {
+                        Authorization:`Bearer ${token}`
+                    }
+                })
+            // console.log(usuario)
             if(usuario.data.success){
                 localStorage.setItem('token', usuario.data.response.token)
                 dispatch({type:'USUARIO', payload: usuario.data.response})
@@ -42,13 +48,14 @@ const usuarioAction = {
           "http://localhost:4000/api/inicioSesion",
           { ...values }
         );
-        if (usuario.data.success && !usuario.data.error) {
-          localStorage.setItem("token", usuario.data.response.token);
-          dispatch({ type: "USUARIO", payload: usuario.data });
-          return { success: true, response: usuario.data };
-        } else {
-          return { error: usuario.data.error };
-        }
+        console.log('usuario', usuario)
+        // if (usuario.data.success && !usuario.data.error) {
+        //   localStorage.setItem("token", usuario.data.response.token);
+        //   dispatch({ type: "USUARIO", payload: usuario.data });
+        //   return { success: true, response: usuario.data };
+        // } else {
+        //   return { error: usuario.data.error };
+        // }
       } catch (e) {
         console.log(e.message);
       }
