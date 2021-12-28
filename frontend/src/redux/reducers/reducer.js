@@ -1,18 +1,26 @@
 const initialState = {
-    state:[],
-    roles: {}
+  usuario: {},
+  state: [],
+  roles: {},
+};
 
-}
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "INICIO_SESION":
+      return {
+        ...state,
+        usuario: action.payload,
+      };
 
-const reducer =(state=initialState,action) =>{
-    switch(action.type){
-        case "ROLES": 
-        return{
-            ...state,
-            roles:action.payload
-        }
-        default: return state
-    }
-}
+    case "ROLES":
+      return {
+        ...state,
+        roles: action.payload,
+      };
 
-export default reducer
+    default:
+      return state;
+  }
+};
+
+export default reducer;
