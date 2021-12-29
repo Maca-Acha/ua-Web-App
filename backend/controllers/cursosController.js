@@ -53,11 +53,11 @@ const cursosController = {
     .catch((err) => console.log(err))      
   },
   cursoUsuarioId:async (req, res) => {
-    Curso.find({favoritos: {_id: req.body.usuario}})
+    Curso.find({favoritos: req.params.id}, {titulo:1, foto:1, hashtag:1}) 
             .then((response) => {
                 res.json({response})
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.log(err)) 
   }
 };
 

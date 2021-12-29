@@ -34,7 +34,7 @@ Router.route("/curso/:id")
 .put(modificarCurso)
 .delete(borrarCurso);
 
-Router.route("/cursoUsuarioId")
+Router.route("/cursoUsuario/:id")
 .get(cursoUsuarioId)
 
 //Favoritos

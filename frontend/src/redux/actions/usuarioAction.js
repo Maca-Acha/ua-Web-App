@@ -14,7 +14,6 @@ const usuarioAction = {
                         },
                     }
                 );
-                console.log(respuesta);
                 dispatch({
                     type: "ROLES",
                     payload: {

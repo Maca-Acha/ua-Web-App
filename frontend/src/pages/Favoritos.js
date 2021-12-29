@@ -1,14 +1,83 @@
 import React from "react";
+import {connect} from "react-redux"
+import cursosAction from "../redux/actions/cursosAction";
+import { useEffect } from "react";
+import usuarioAction from "../redux/actions/usuarioAction";
+import {Link}  from "react-router-dom";
 
-const Favoritos = () => {
+
+
+const Favoritos = (props) => {
+  useEffect(() => {
+    props.obtenerRoles()
+    props.usuario._id && props.traerCursosFav(props.usuario._id) 
+  },[props.usuario._id])
+  
+  props.usuario._id && console.log(props.cursosFav)
   return (
     <>
       <div className="mt-28 text-rose-600 font-bold text-center text-6xl py-5">
         <p>Mis cursos Favoritos</p>
-        {/* HAGAN UN MAP DE LAS CARDS YA HECHAS XDDDD */}
+        {props.usuario._id && props.cursosFav[0] && props.cursosFav.map((curso, index) => {
+          return (
+            <>
+              <div
+                className="max-w-sm rounded flex flex-col justify-between pb-5 overflow-hidden shadow-lg bg-rose-500"
+                key={index}
+              >
+                <div>
+                  <div
+                    className="w-full h-60"
+                    style={{
+                      backgroundImage: `url(${curso.foto})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}
+                  ></div>
+
+                  <div className="px-6 pt-4 pb-2 flex justify-evenly items-center">
+                    {curso.hashtag.map((hashtag) => {
+                      return (
+                        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-900 mr-2 mb-2">
+                          #{hashtag}
+                        </span>
+                      );
+                    })}
+                  </div>
+
+                  <div className="px-6 py-4">
+                    <div className="font-bold text-center text-xl mb-2 text-white">
+                      {curso.titulo}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex justify-center items-center">
+                  <Link
+                    to={`/curso/${curso._id}`}
+                    className=" bg-gray-200 text-center rounded-full w-6/12 px-3 py-1 text-md font-semibold text-rose-600 hover:bg-rose-700 hover:text-white"
+                  >
+                    Ver curso
+                  </Link>
+                </div>
+              </div>
+            </>
+          );
+        })}
       </div>
     </>
   );
 };
-
-export default Favoritos;
+const mapStateToProps = (state) => {
+  console.log(state)
+  return{
+    usuario: state.reducer.usuario,
+    cursosFav: state.cursosReducer.cursosFav,
+  }
+}
+const mapDispatchToProps = {
+  traerCursosFav: cursosAction.traerCursosFav,
+  obtenerRoles: usuarioAction.obtenerRoles,
+  traerCursos: cursosAction.traerCursos
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Favoritos);

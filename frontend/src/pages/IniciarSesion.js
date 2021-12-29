@@ -6,7 +6,6 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import usuarioAction from "../redux/actions/usuarioAction";
 import { connect } from "react-redux";
-
 import GoogleLogin from "react-google-login";
 
 const IniciarSesion = (props) => {
@@ -16,6 +15,7 @@ const IniciarSesion = (props) => {
   const [showPassword, setShowPassword] = useState(false);
   const [vantaEffect, setVantaEffect] = useState(0);
   const vantaRef = useRef(null);
+  
   const handlePassword = () => {
     setShowPassword(!showPassword);
   };
@@ -64,8 +64,9 @@ const IniciarSesion = (props) => {
         google:true,
     }
     props.inicioSesion(googleUser)
-    .then((res) => res.dat.success)
-    .catch((err) => console.log(err))
+    /* .then((res) => res.dat.success)
+    console.log(res)
+    .catch((err) => console.log(err)) */
 }   
   return (
     <>

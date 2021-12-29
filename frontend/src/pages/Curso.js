@@ -11,8 +11,7 @@ const Curso = (props) => {
   console.log(params);
 
   const id = params.id;
-  console.log(props);
-  console.log(id);
+
 
   const [item, setItem] = useState("descripcion");
   const [fav, setFav] = useState(false);
