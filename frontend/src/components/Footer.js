@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
     <>
-      <footer className="text-gray-600 body-font bg-transparent border-t-2 border-violet-600">
+      <footer className="text-gray-600 body-font bg-transparent border-t-2 border-rose-600">
         <div className="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
           <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
             <Link to="/" className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
               <img
                 className="h-8 w-auto font-2xl sm:h-10"
-                src="./assets/logo.png"
+                src="https://by3301files.storage.live.com/y4mH5ghEidPfF8io-3hp7rZuKY-QlDVXGQnJ6YBGjb22fjHzqhmZMuKrrmQMFwqjiJ1eU5SOfw5ukm-PpvnPN8ma9WbcUmRY-lneLkMt6kL9qeh3OhnJZh6dGcWOkexSArqr4mRAG8hEK2jsKhVAMNlLNIUIjmbMxVSlY6ZqUh5JUM5yNMNET1jYFw_e1PDEwZj?width=1500&height=1500&cropmode=none"
                 alt="UA"
               />
             </Link>
@@ -23,22 +23,22 @@ const Footer = () => {
               </h2>
               <nav className="list-none mb-10">
                 <li>
-                  <Link to="/categorias" className="text-white hover:text-violet-300" href="#">
+                  <Link to="/categorias" className="text-white hover:text-rose-300" href="#">
                     Programación
                   </Link>
                 </li>
                 <li>
-                  <Link to="/" className="text-white hover:text-violet-300" href="#">
+                  <Link to="/" className="text-white hover:text-rose-300" href="#">
                     Arte Digital
                   </Link>
                 </li>
                 <li>
-                  <Link to="/" className="text-white hover:text-violet-300" href="#">
+                  <Link to="/" className="text-white hover:text-rose-300" href="#">
                     Belleza
                   </Link>
                 </li>
                 <li>
-                  <Link to="/" className="text-white hover:text-violet-300" href="#">
+                  <Link to="/" className="text-white hover:text-rose-300" href="#">
                     Moda
                   </Link>
                 </li>
@@ -50,22 +50,22 @@ const Footer = () => {
               </h2>
               <nav className="list-none mb-10">
                 <li>
-                  <Link to="/" className="text-white hover:text-violet-300" href="#">
+                  <Link to="/" className="text-white hover:text-rose-300" href="#">
                     First Link
                   </Link>
                 </li>
                 <li>
-                  <Link to="/" className="text-white hover:text-violet-300" href="#">
+                  <Link to="/" className="text-white hover:text-rose-300" href="#">
                     Second Link
                   </Link>
                 </li>
                 <li>
-                  <Link to="/" className="text-white hover:text-violet-300" href="#">
+                  <Link to="/" className="text-white hover:text-rose-300" href="#">
                     Third Link
                   </Link>
                 </li>
                 <li>
-                  <Link to="/" className="text-white hover:text-violet-300" href="#">
+                  <Link to="/" className="text-white hover:text-rose-300" href="#">
                     Fourth Link
                   </Link>
                 </li>
@@ -73,7 +73,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="bg-violet-600">
+        <div className="bg-rose-600">
           <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
             <p className="text-white text-sm text-center sm:text-left">
               © {new Date().getFullYear()} UA —

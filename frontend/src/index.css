@@ -15,19 +15,19 @@ body::-webkit-scrollbar,
 
 body::-webkit-scrollbar-thumb,
 .scrollbarcomments::-webkit-scrollbar-thumb {
-  background-color: #7c3aed;
+  background-color: #e11d48;
   border-radius: 5px;
 }
 
 ::-moz-selection {
   /* Code for Firefox */
   color: white;
-  background: #a78bfa;
+  background: #e11d48;
 }
 
 ::selection {
   color: white;
-  background: #a78bfa;
+  background: #e11d48;
 }
 
 .header {
@@ -40,7 +40,7 @@ body::-webkit-scrollbar-thumb,
   padding: 1rem 0;
   position: fixed;
   width: 100%;
-  background: #7c3aed;
+  background: #e11d48;
   color: black;
   transition: 0.4s all ease;
 }
@@ -148,3 +148,14 @@ select {
 	height: 70vh;
 }
 
+.coloarzul {
+	@apply bg-blue-500 flex items-center justify-center py-5 md:py-0 md:w-6/12 h-full
+}
+
+select {
+	text-align: center;
+	text-align-last: center;
+  }
+  option {
+	text-align: left;
+  }

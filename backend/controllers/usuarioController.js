@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const usuarioControlador = {
   nuevoUsuario: async (req, res) => {
+    // console.log('aquiii req.user', req.user)
     const {
       nombre,
       apellido,
@@ -48,27 +49,37 @@ const usuarioControlador = {
       res.json({ success: false });
     }
   },
-  usuariosRegistrados: (req, res) => {
-    Usuario.find().then((response) => {
-      res.json({ response });
-    });
+  usuariosRegistrados: async (req, res) => {
+    try{
+      const usuarios = await Usuario.find()
+
+      let usuariosArray = []
+      
+      usuarios.map(usuario => {
+        usuariosArray.push({
+          nombre: usuario.nombre,
+          apellido: usuario.apellido,
+          foto: usuario.foto,
+          id: usuario._id
+        })
+      })
+      res.json({success: true, response: usuariosArray, error: null}) 
+    }catch (e){
+      res.json({success:false, response:null, error: e})
+    }
   },
   inicioSesion: async (req, res) => {
     const { email, contraseña, google} = req.body;
 
     try {
       const emailExiste = await Usuario.findOne({ email });
-      console.log(emailExiste);
-
       if (emailExiste) {
         let contraseñaCorrecta = bcryptjs.compareSync(
           contraseña,
           emailExiste.contraseña
         );
-        console.log(contraseñaCorrecta);
         if (contraseñaCorrecta) {
           const token = jwt.sign({ ...emailExiste }, process.env.SECRET_KEY);
-          console.log(token);
           res.json({
             success: true,
             response: { token, ...emailExiste._doc },
@@ -82,7 +93,6 @@ const usuarioControlador = {
           });
         }
       } else {
-        console.log(emailExiste);
         res.json({
           success: false,
           error: "El email es incorrecto",
@@ -94,14 +104,13 @@ const usuarioControlador = {
     }
   },
   chekearToken: (req, res) => {
-    res.json(req.usuario);
+    res.json(req.user);
   },
   obtenerRoles: async (req, res) => {
+    // console.log(req.user)
     try {
-      // console.log("en el controller")
-      // console.log(req.usuario);
-      if ((req.usuario)) {
-        res.json({ success: true, response: res.usuario, error: null });
+      if (req.user) {
+        res.json({ success: true, response: req.user, error: null });
       }
     } catch (error) {
       res.json({ success: false, response: null, error: error });

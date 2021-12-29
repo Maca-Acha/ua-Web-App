@@ -10,14 +10,8 @@ function Navbar() {
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", function () {
       const header = document.querySelector(".header");
-      const text = document.querySelector(".color-text");
-      const text2 = document.querySelector(".color-text-2");
-      const menuIcon = document.querySelector(".menuIcon");
 
       header.classList.toggle("active", window.scrollY > 10);
-      text.classList.toggle("active", window.scrollY > 10);
-      text2.classList.toggle("active", window.scrollY > 10);
-      menuIcon.classList.toggle("active", window.scrollY > 10);
     });
   }
 
@@ -37,12 +31,12 @@ function Navbar() {
                       <span className="sr-only">lucianhoff</span>
                       <img
                         className="h-8 w-auto font-2xl sm:h-10"
-                        src="./assets/logo-white.png"
+                        src="https://by3301files.storage.live.com/y4mzBYeXrSYJZt4WgWCBeBFZgcoVAOgfCBtDJKncLvTMLVnqPfn0fK3ew3CGdxAbaiR0jcsO7xvhHnCg5e-Kv-O_p9TlP_mlwDN3AK1u55ZJPryL_4rU3UZfNXOAO6Hz2nhZMv4zaO48_z4yO-9qK3Rh3bceNch3jWheGRADShznOR8qnLOlAHkBUzN6dWAarLb?width=1500&height=1500&cropmode=none"
                         alt="UA"
                       />
                     </Link>
                     <div className="-mr-2 flex items-center md:hidden">
-                      <Popover.Button className="rounded-md p-3 inline-flex items-center justify-center menuIcon hover:text-violet-900 hover:bg-violet-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-violet-500 sticky">
+                      <Popover.Button className="rounded-md p-3 inline-flex items-center justify-center menuIcon hover:text-rose-900 hover:bg-rose-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-rose-500 sticky">
                         <span className="sr-only">Open main menu</span>
                         <MenuIcon className="h-6 w-6" aria-hidden="true" />
                       </Popover.Button>
@@ -61,7 +55,7 @@ function Navbar() {
                       Cursos
                     </Link>
                   </div>
-                  <div className="flex pr-24">
+                  <div className="flex pr-24 -mt-2.5">
                     <MenuResponsive className="z-20 absolute" />
                   </div>
                 </div>
@@ -81,17 +75,17 @@ function Navbar() {
                 focus
                 className="absolute z-10 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
               >
-                <div className="rounded-lg shadow-md bg-violet-600 ring-1 ring-black ring-opacity-5 overflow-hidden">
+                <div className="rounded-lg shadow-md bg-rose-600 ring-1 ring-black ring-opacity-5 overflow-hidden">
                   <div className="px-4 pt-4 flex items-center justify-between">
                     <div className="">
                       <img
                         className="h-8 w-auto"
-                        src="./assets/logo-white.png"
+                        src="https://by3301files.storage.live.com/y4mzBYeXrSYJZt4WgWCBeBFZgcoVAOgfCBtDJKncLvTMLVnqPfn0fK3ew3CGdxAbaiR0jcsO7xvhHnCg5e-Kv-O_p9TlP_mlwDN3AK1u55ZJPryL_4rU3UZfNXOAO6Hz2nhZMv4zaO48_z4yO-9qK3Rh3bceNch3jWheGRADShznOR8qnLOlAHkBUzN6dWAarLb?width=1500&height=1500&cropmode=none"
                         alt="UA"
                       />
                     </div>
                     <div className="-mr-2">
-                      <Popover.Button className=" rounded-md p-2 inline-flex items-center justify-center text-white hover:bg-violet-300 focus:outline-none">
+                      <Popover.Button className=" rounded-md p-2 inline-flex items-center justify-center text-white hover:bg-rose-300 focus:outline-none">
                         <span className="sr-only">Close main menu</span>
                         <XIcon className="h-8 w-8 " aria-hidden="true" />
                       </Popover.Button>
@@ -100,13 +94,13 @@ function Navbar() {
                   <div className="px-2 pt-2 pb-3 space-y-1 flex items-center justify-center flex-col ">
                     <Link
                       to="/"
-                      className="text-gray-50 text-xl text-center font-bold hover:text-violet-400"
+                      className="text-gray-50 text-xl text-center font-bold hover:text-rose-400"
                     >
                       Inicio
                     </Link>
                     <Link
                       to="/cursos"
-                      className="text-gray-50 text-xl font-bold hover:text-violet-400"
+                      className="text-gray-50 text-xl font-bold hover:text-rose-400"
                     >
                       Cursos
                     </Link>
@@ -115,13 +109,13 @@ function Navbar() {
                   <div className="flex flex-col justify-center items-center text-center">
                     <Link
                       to="/iniciarsesion"
-                      className="block w-full py-3 text-center font-medium text-white bg-violet-400   hover:bg-violet-700 hover:font-bold"
+                      className="block w-full py-3 text-center font-medium text-white bg-rose-400   hover:bg-rose-700 hover:font-bold"
                     >
                       Iniciar Sesion
                     </Link>
                     <Link
-                      to="/signup"
-                      className="block w-full py-3 text-center font-medium text-white bg-violet-400 hover:bg-violet-700 hover:font-bold"
+                      to="/registrarse"
+                      className="block w-full py-3 text-center font-medium text-white bg-rose-400 hover:bg-rose-700 hover:font-bold"
                     >
                       Registrarse
                     </Link>

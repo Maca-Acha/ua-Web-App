@@ -2,16 +2,31 @@ import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { UserIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
-function MenuResponsive() {
+import { connect } from "react-redux";
+import { ClampToEdgeWrapping } from "three";
+import usuarioAction from "../redux/actions/usuarioAction";
+
+function MenuResponsive(props) {
   return (
     <div className="text-right fixed">
       <Menu as="div" className="text-left">
         <div>
-          <Menu.Button className="flex text-sm font-medium p-1 text-white bg-violet-600 rounded-full  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-            <UserIcon
-              className="w-8 h-8 text-white hover:text-violet-100"
-              aria-hidden="true"
-            />
+          <Menu.Button className="flex text-sm font-medium  text-white rounded-full  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+            {!props.usuario.foto ? (
+              <UserIcon
+                className="w-12 h-12 text-white hover:text-rose-100"
+                aria-hidden="true"
+              />
+            ) : (
+              <div
+                className="w-12 h-12 rounded-full"
+                style={{
+                  backgroundImage: `url(${props.usuario.foto})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              ></div>
+            )}
           </Menu.Button>
         </div>
         <Transition
@@ -23,49 +38,133 @@ function MenuResponsive() {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-violet-600 divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-rose-600 divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="px-1 py-1 ">
-              <Menu.Item>
-                {({ active }) => (
-                  <Link
-                    to="/registrarse"
-                    className={`${
-                      active ? "bg-violet-500 text-white" : "text-white"
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm rubik fw-bold`}
-                  >
-                    {active ? (
-                      <SignUpActiveIcon className="mr-2" aria-hidden="true" />
-                    ) : (
-                      <SignUpInactiveIcon className="mr-2" aria-hidden="true" />
+              {!props.usuario.nombre ? (
+                <>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        to="/registrarse"
+                        className={`${
+                          active ? "bg-rose-500 text-white" : "text-white"
+                        } group flex rounded-md items-center w-full px-2 py-2 text-sm fw-bold`}
+                      >
+                        {active ? (
+                          <SignUpActiveIcon
+                            className="mr-2"
+                            aria-hidden="true"
+                          />
+                        ) : (
+                          <SignUpInactiveIcon
+                            className="mr-2"
+                            aria-hidden="true"
+                          />
+                        )}
+                        <span className="ml-2">Registrarse</span>
+                      </Link>
                     )}
-                    <span className="ml-2">Registrarse</span>
-                  </Link>
-                )}
-              </Menu.Item>
+                  </Menu.Item>
 
-              <Menu.Item>
-                {({ active }) => (
-                  <Link
-                    to="/iniciarsesion"
-                    className={`${
-                      active ? "bg-violet-500 text-white" : "text-white"
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm rubik fw-bold`}
-                  >
-                    {active ? (
-                      <SignInActiveIcon
-                        className="w-5 h-5 mr-2"
-                        aria-hidden="true"
-                      />
-                    ) : (
-                      <SignInInactiveIcon
-                        className="w-5 h-5 mr-2"
-                        aria-hidden="true"
-                      />
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        to="/iniciarsesion"
+                        className={`${
+                          active ? "bg-rose-500 text-white" : "text-white"
+                        } group flex rounded-md items-center w-full px-2 py-2 text-sm rubik fw-bold`}
+                      >
+                        {active ? (
+                          <SignInActiveIcon
+                            className="w-5 h-5 mr-2"
+                            aria-hidden="true"
+                          />
+                        ) : (
+                          <SignInInactiveIcon
+                            className="w-5 h-5 mr-2"
+                            aria-hidden="true"
+                          />
+                        )}
+                        <span className="ml-2">Iniciar Sesion</span>
+                      </Link>
                     )}
-                    <span className="ml-2">Iniciar Sesion</span>
-                  </Link>
-                )}
-              </Menu.Item>
+                  </Menu.Item>
+                </>
+              ) : (
+                <>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        to="/favoritos"
+                        className={`${
+                          active ? "bg-rose-500 text-white" : "text-white"
+                        } group flex rounded-md items-center w-full px-2 py-2 text-sm rubik fw-bold`}
+                      >
+                        {active ? (
+                          <FavInactiveIcon
+                            className="w-5 h-5 mr-2"
+                            aria-hidden="true"
+                          />
+                        ) : (
+                          <FavActiveIcon
+                            className="w-5 h-5 mr-2"
+                            aria-hidden="true"
+                          />
+                        )}
+                        <span className="ml-2">Mis favoritos</span>
+                      </Link>
+                    )}
+                  </Menu.Item>
+
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        to="/configuracion"
+                        className={`${
+                          active ? "bg-rose-500 text-white" : "text-white"
+                        } group flex rounded-md items-center w-full px-2 py-2 text-sm rubik fw-bold`}
+                      >
+                        {active ? (
+                          <CogActiveIcon
+                            className="w-5 h-5 mr-2"
+                            aria-hidden="true"
+                          />
+                        ) : (
+                          <CogInactiveIcon
+                            className="w-5 h-5 mr-2"
+                            aria-hidden="true"
+                          />
+                        )}
+                        <span className="ml-2">Configuración</span>
+                      </Link>
+                    )}
+                  </Menu.Item>
+
+                  <Menu.Item>
+                    {({ active }) => (
+                      <button
+                        onClick={() => props.cerrarSesion()}
+                        className={`${
+                          active ? "bg-rose-500 text-white" : "text-white"
+                        } group flex rounded-md items-center w-full px-2 py-2 text-sm rubik fw-bold`}
+                      >
+                        {active ? (
+                          <SignOutActiveIcon
+                            className="w-5 h-5 mr-2"
+                            aria-hidden="true"
+                          />
+                        ) : (
+                          <SignOutInactiveIcon
+                            className="w-5 h-5 mr-2"
+                            aria-hidden="true"
+                          />
+                        )}
+                        <span className="ml-2">Cerrar Sesion</span>
+                      </button>
+                    )}
+                  </Menu.Item>
+                </>
+              )}
             </div>
           </Menu.Items>
         </Transition>
@@ -220,4 +319,52 @@ function SignOutActiveIcon() {
   );
 }
 
-export default MenuResponsive;
+function FavActiveIcon() {
+  return (
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      stroke="#fff"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+      />
+    </svg>
+  );
+}
+
+function FavInactiveIcon() {
+  return (
+    <svg
+      className="w-6 h-6"
+      fill="#fff"
+      stroke="#fff"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+      />
+    </svg>
+  );
+}
+
+const mapDispatchToProps = {
+  obtenerRoles: usuarioAction.obtenerRoles,
+  cerrarSesion: usuarioAction.cerrarSesion,
+};
+const mapStateToProps = (state) => {
+  return {
+    usuario: state.reducer.usuario,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MenuResponsive);
