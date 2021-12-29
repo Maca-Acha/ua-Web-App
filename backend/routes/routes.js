@@ -1,52 +1,72 @@
 const Router = require("express").Router();
-const roles = require ("../config/roles")
-const passport = require('../config/passport')
-const {nuevoUsuario, usuariosRegistrados, inicioSesion, obtenerRoles, chekearToken} = require('../controllers/usuarioController')
-const {crearCurso, traerCursos, modificarCurso, borrarCurso, favorito, traerCursoId, cursoUsuarioId} = require('../controllers/cursosController')
+const roles = require("../config/roles");
+const passport = require("../config/passport");
+const {
+  nuevoUsuario,
+  usuariosRegistrados,
+  inicioSesion,
+  obtenerRoles,
+  chekearToken,
+} = require("../controllers/usuarioController");
+const {
+  crearCurso,
+  traerCursos,
+  modificarCurso,
+  borrarCurso,
+  favorito,
+  traerCursoId,
+  cursoUsuarioId,
+} = require("../controllers/cursosController");
 // const validator = require('../config/validator')
-const {crearOpinion,borrarOpinion,editarOpinion} = require('../controllers/opinionesController')
+const {
+  crearOpinion,
+  borrarOpinion,
+  editarOpinion,
+} = require("../controllers/opinionesController");
 
 //Usuarios
 
 Router.route("/registrarse")
-.post(passport.authenticate("jwt",{session: false}), roles.checkRoles(["alumno"], {session: false}), nuevoUsuario)
-// .post(nuevoUsuario)
-.get(usuariosRegistrados)
+  .post(
+    passport.authenticate("jwt", { session: false }),
+    roles.checkRoles(["alumno"], { session: false }),
+    nuevoUsuario
+  )
+  // .post(nuevoUsuario)
+  .get(usuariosRegistrados);
 
+Router.route("/inicioSesion").post(inicioSesion);
 
-Router.route("/inicioSesion")
-.post(inicioSesion);
+Router.route("/roles").post(
+  passport.authenticate("jwt", { session: false }),
+  obtenerRoles
+);
 
-Router.route("/roles") 
-.post(passport.authenticate("jwt",{session:false}), obtenerRoles);
-
-Router.route("/token")
-.get(passport.authenticate("jwt",{session:false}), chekearToken)
+Router.route("/token").get(
+  passport.authenticate("jwt", { session: false }),
+  chekearToken
+);
 
 //Cursos
 
-Router.route("/cursos")
-.post(crearCurso)
-.get(traerCursos);
+Router.route("/cursos").post(crearCurso).get(traerCursos);
 
 Router.route("/curso/:id")
-.get(traerCursoId)
-.put(modificarCurso)
-.delete(borrarCurso);
+  .get(traerCursoId)
+  .put(modificarCurso)
+  .delete(borrarCurso);
 
-Router.route("/cursoUsuarioId")
-.get(cursoUsuarioId)
+Router.route("/cursoUsuarioId").get(cursoUsuarioId);
 
 //Favoritos
 
-Router.route("/favoritos")
-.put(favorito);
+Router.route("/favoritos").put(favorito);
 
 // Opiniones
 
 Router.route("/opiniones")
-  .post(passport.authenticate('jwt', {session: false}) ,crearOpinion)
-  .delete(borrarOpinion)
-  .put(editarOpinion);
+  .post(passport.authenticate("jwt", { session: false }), crearOpinion)
+  .delete(passport.authenticate("jwt", { session: false }), borrarOpinion)
+  .put(passport.authenticate("jwt", { session: false }), editarOpinion);
 
 module.exports = Router;
