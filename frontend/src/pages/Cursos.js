@@ -8,45 +8,15 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import usuarioAction from "../redux/actions/usuarioAction";
 
 const Cursos = (props) => {
-  let cursosArray = [
-    {
-      titulo: "Curso de React",
-      descripcion: "Curso de React",
-      foto: "https://i.imgur.com/dZ5xN9q.jpg",
-      url: "https://www.youtube.com/watch?v=wTpuKOhGfJE&list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqddX7&index=1",
-      hastag: ["aprender", "python", "SQLite"],
-      id: "12345678",
-    },
-    {
-      titulo: "Curso Maestro de Python 3: Aprende Desde Cero.",
-      foto: "https://media.charlesleifer.com/blog/photos/sqlite-and-python.png",
-      tutor: "Facundo Techeira",
-      descripcion:
-        "Aprende a programar con clases y objetos, a usar ficheros y bases de datos SQLite, interfaces gráficas y más con Python!Aprende a programar con clases y objetos, a usar ficheros y bases de datos SQLite, interfaces gráficas y más con Python!",
-      hastag: ["aprender", "python", "SQLite"],
-      clases: [
-        {
-          tituloClase: "Bienvenida.",
-          url: "https://www.youtube.com/watch?v=AwWPM4Nok7Y&list=PLs-v5LWbw7JkIz8145zh7_ioAnXON_cMj",
-        },
-        {
-          tituloClase: "El entorno del Aprendizaje.",
-          url: "https://www.youtube.com/watch?v=jyezRO3oztw&list=PLs-v5LWbw7JkIz8145zh7_ioAnXON_cMj&index=6",
-        },
-      ],
-      id: "1234",
-    },
-  ];
-
   useEffect(() => {
     props.traerCursos();
-    props.obtenerRoles()
+    props.obtenerRoles();
   }, []);
 
   console.log(props.cursos);
   return (
     <>
-      <div>
+      {/* <div>
         <div>
           <div className="text-center pb-12">
             <h1 className="font-bold mt-32 text-3xl md:text-4xl lg:text-5xl font-heading text-white">
@@ -55,8 +25,8 @@ const Cursos = (props) => {
           </div>
           <Categorias />
         </div>
-      </div>
-      <section>
+      </div> */}
+      <section className="mt-32">
         <h2 className="font-bold mt-16 text-center text-3xl md:text-4xl lg:text-5xl font-heading text-white">
           Todos los cursos
         </h2>
@@ -99,8 +69,6 @@ const Cursos = (props) => {
         </div>
         <div className="flex justify-center items-center p-14">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
-            {/* <CursoTarjeta /> */}
-
             {props.cursos.map((curso, index) => {
               return (
                 <>
@@ -162,7 +130,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   traerCursos: cursosAction.traerCursos,
-  obtenerRoles: usuarioAction.obtenerRoles
+  obtenerRoles: usuarioAction.obtenerRoles,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cursos);
