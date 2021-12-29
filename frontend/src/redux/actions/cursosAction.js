@@ -25,7 +25,7 @@ const cursosAction = {
                 let response = await axios.get("http://localhost:4000/api/cursoUsuarioId" , {usuarioId})
                 dispatch({type: "FAVORITOS", payload: response.data.response})
             }else{
-                console.log(error)
+                console.log("error")
             }
         }
     }, 
@@ -36,7 +36,7 @@ const cursosAction = {
                 let res = await axios.get("http://localhost:4000/api/opiniones")
                 dispatch({type: "CURSOS", payload: res.data.response })
             }else{
-                console.log(error)
+                console.log("error")
             }
         }
     },

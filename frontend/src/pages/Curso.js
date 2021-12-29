@@ -166,7 +166,7 @@ const Curso = () => {
             </div>
 
             <div className=" md:pl-8">
-              <Opiniones />
+              <Opiniones id="{props._id}" />
             </div>
           </div>
         </div>

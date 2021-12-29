@@ -1,15 +1,18 @@
 import { connect } from "react-redux";
+import cursosAction from "../redux/actions/cursosAction";
+import usuarioAction from "../redux/actions/usuarioAction";
 import Opinion from "./Opinion";
-const Opiniones = () => {
+import { useRef } from "react";
+
+const Opiniones = (props) => {
+  const input = useRef()
+  
+  
+
   return (
     <>
       <div className="bg-transparent p-5 rounded-lg flex flex-col justify-start items-start ">
         <div className="overflow-y-scroll h-96 w-full p-2 scrollbarcomments">
-          <Opinion />
-          <Opinion />
-          <Opinion />
-          <Opinion />
-          <Opinion />
           <Opinion />
         </div>
 
@@ -34,6 +37,7 @@ const Opiniones = () => {
             </span>
           </label>
           <input
+          ref={input}
             type="text"
             className="flex-shrink flex-grow text-gray-900 bg-white rubik leading-normal w-px  border-0 h-10 border-grey-light px-3 self-center relative  font-roboto text-base outline-none placeholder-gray-600"
             
@@ -61,6 +65,10 @@ const mapStateToProps = (state) => {
   return {};
 };
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  crearOpinion: cursosAction.crearOpinion,
+  traerUsuarios: usuarioAction.traerUsuarios
+
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Opiniones);

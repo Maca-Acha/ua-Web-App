@@ -2,16 +2,23 @@ import { connect } from "react-redux";
 import { useState, useRef } from "react";
 
 const Opinion = (props) => {
+  const input = useRef()
   const [modoEditar, setModoEditar] = useState(false);
-
-
-  const borrarComentario = () => {
-
+  const borrarOpinion= () => {
+    props.borrarOpinion(props.id, props.opinion._id)
   }
+
+  function editarOpinion() {
+      let opinionEditada = {
+        opinion:input.current.value
+      }
+      props.editarOpinion(props.opinion._id, opinionEditada)
+  } 
+
 
   return (
     <>
-      <div className="overflow-y-scroll p-2 scrollbarcomments w-full">
+      <div className="overflow-y-scroll p-2 scrollbarOpinion w-full">
         <div className="bg-transparent  w-full border-2 border-white py-2 px-3 rounded-lg rounded-r-lg">
           <div className="flex items-center justify-between w-full">
             <div className="flex items-center">
@@ -46,7 +53,7 @@ const Opinion = (props) => {
                   />
                 </svg>
               </span>
-              <span>
+              <span onClick={() => borrarOpinion()}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6 cursor-pointer"
@@ -69,10 +76,13 @@ const Opinion = (props) => {
             {modoEditar ? (
               <>
                 <div className="flex flex-col pl-20">
-                  <input className="mt-2 mb-1 py-2 rounded-full text-gray-900 pl-5 bg-white w-full focus:outline-none focus:border-rose-900 focus:ring-1 focus:ring-rose-900" />
+                  <input 
+                  ref= {input}
+                  defaultValue={props.opinion}
+                  className="mt-2 mb-1 py-2 rounded-full text-gray-900 pl-5 bg-white w-full focus:outline-none focus:border-rose-900 focus:ring-1 focus:ring-rose-900" />
                   <div className="mt-2">
                     <button className="inline-flex bg-white text-gray-900 rounded-full h-6 px-3 justify-center items-center py-3"
-                    onClick={() => setModoEditar(!modoEditar)}>
+                    onClick={() => editarOpinion()}>
                     
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -126,9 +136,13 @@ const Opinion = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    cursos: state.cursosReducer.cursos
+  };
 };
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Opinion);
