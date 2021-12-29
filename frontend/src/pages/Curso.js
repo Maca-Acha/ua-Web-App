@@ -3,6 +3,7 @@ import Opiniones from "../components/Opiniones";
 import ReactPlayer from "react-player";
 import { Link, useParams } from "react-router-dom";
 import cursosAction from "../redux/actions/cursosAction";
+import usuarioAction from "../redux/actions/usuarioAction";
 import { connect } from "react-redux";
 const Curso = (props) => {
   const params = useParams();
@@ -25,6 +26,8 @@ const Curso = (props) => {
     });
 
     props.traerCursos();
+
+    props.obtenerRoles()
   }, []);
 
   console.log(props.usuario._id);
@@ -244,6 +247,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   traerCursos: cursosAction.traerCursos,
+  obtenerRoles: usuarioAction.obtenerRoles,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Curso);

@@ -5,6 +5,7 @@ import CursoTarjeta from "../components/CursoTarjeta";
 import cursosAction from "../redux/actions/cursosAction";
 import { connect } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import usuarioAction from "../redux/actions/usuarioAction";
 
 const Cursos = (props) => {
   let cursosArray = [
@@ -39,6 +40,7 @@ const Cursos = (props) => {
 
   useEffect(() => {
     props.traerCursos();
+    props.obtenerRoles()
   }, []);
 
   console.log(props.cursos);
@@ -160,6 +162,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   traerCursos: cursosAction.traerCursos,
+  obtenerRoles: usuarioAction.obtenerRoles
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cursos);

@@ -17,6 +17,9 @@ import Configuracion from "./pages/Configuracion";
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 
 function App({roles,obtenerRoles}) {
+
+
+  
   return (
     <>
       <BrowserRouter>
