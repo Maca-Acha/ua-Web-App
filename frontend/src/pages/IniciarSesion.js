@@ -56,17 +56,17 @@ const IniciarSesion = (props) => {
 
   const enviar = async (values) => {
     await props.inicioSesion(values);
-          props.obtenerRoles()
+          // props.obtenerRoles()
   };
   const responseGoogle = (res) => {
     let googleUser = {
         email: res.profileObj.email,
-        password: res.profileObj.googleId,
+        contraseña: res.profileObj.googleId,
         google:true,
         emailVerificado: true
     }
     props.inicioSesion(googleUser)
-    .then((res) => res.data.success)
+    .then((res) => console.log(res))
     .catch((err) => console.log(err))
 }   
   return (

@@ -417,8 +417,6 @@ const usuarioControlador = {
       contraseña,
       foto,
       google,
-      tutor,
-      admin,
       role,
       emailVerificado
     } = req.body;
@@ -440,8 +438,6 @@ const usuarioControlador = {
           contraseña: contraseñaHasheada,
           foto,
           google,
-          tutor,
-          admin,
           role,
           uniqueString,
           emailVerificado
@@ -481,7 +477,10 @@ const usuarioControlador = {
     const { email, contraseña, google} = req.body;
     try {
       const emailExiste = await Usuario.findOne({ email });
-       console.log('emailExiste', emailExiste)
+      console.log('emailExiste', emailExiste)
+      if (emailExiste.google && !google){
+        res.json({success:false, error:"Usuario no existe", response:null})
+      }
       if (emailExiste) {
 
         if (emailExiste.emailVerificado){
@@ -522,18 +521,18 @@ const usuarioControlador = {
     }
   },
   chekearToken: (req, res) => {
-    res.json(req.usuario);
+    res.json({success:true, response: req.user, error:null});
   },
-  obtenerRoles: async (req, res) => {
-    console.log(req.user)
-    try {
-      if (req.user) {
-        res.json({ success: true, response: req.user, error: null });
-      }
-    } catch (error) {
-      res.json({ success: false, response: null, error: error });
-    }
-  },
+  // obtenerRoles: async (req, res) => {
+  //   console.log(req.user)
+  //   try {
+  //     if (req.user) {
+  //       res.json({ success: true, response: req.user, error: null });
+  //     }
+  //   } catch (error) {
+  //     res.json({ success: false, response: null, error: error });
+  //   }
+  // },
 };
 
 module.exports = usuarioControlador;
