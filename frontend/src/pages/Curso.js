@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Opiniones from "../components/Opiniones";
+import { connect } from "react-redux";
+import usuarioAction from "../redux/actions/usuarioAction";
 
-const Curso = () => {
+const Curso = (props) => {
+  props.obtenerRoles()
   const [item, setItem] = useState("descripcion");
-
   const [fav, setFav] = useState(false);
 
   useEffect(() => {
@@ -212,5 +214,7 @@ const Curso = () => {
     </>
   );
 };
-
-export default Curso;
+const mapDispatchToProps = {
+  obtenerRoles: usuarioAction.obtenerRoles
+}
+export default connect(null,mapDispatchToProps)(Curso);

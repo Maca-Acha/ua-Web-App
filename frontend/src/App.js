@@ -10,10 +10,14 @@ import "./index.css";
 import {connect} from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import usuarioAction from "./redux/actions/usuarioAction";
-// import { useEffect } from "react";
+import { useEffect } from "react";
 
 
-function App({roles,obtenerRoles}) {
+
+function App(props) {
+  useEffect(() => {
+    localStorage.getItem("token") && props.token === "" && props.obtenerRoles()
+  })
   return (
     <>
       <BrowserRouter>

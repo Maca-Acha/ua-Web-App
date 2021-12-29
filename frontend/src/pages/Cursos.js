@@ -1,9 +1,12 @@
 import React from "react";
 import Categorias from "../components/Categorias";
-
 import CursoTarjeta from "../components/CursoTarjeta";
 import Select from "../components/Select";
-const Cursos = () => {
+import usuarioAction from "../redux/actions/usuarioAction";
+import {connect} from "react-redux"
+
+const Cursos = (props) => {
+  props.obtenerRoles()
   return (
     <>
       <div>
@@ -13,7 +16,7 @@ const Cursos = () => {
               Categorías Principales
             </h1>
           </div>
-          <Categorias />
+          <Categorias  />
         </div>
       </div>
       <section>
@@ -57,5 +60,7 @@ const Cursos = () => {
     </>
   );
 };
-
-export default Cursos;
+const mapDispatchToProps = {
+  obtenerRoles: usuarioAction.obtenerRoles
+}
+export default connect(null,mapDispatchToProps)(Cursos);

@@ -11,7 +11,6 @@ import GoogleLogin from "react-google-login";
 
 const IniciarSesion = (props) => {
   let navigate = useNavigate()
-  localStorage.getItem("token") && props.token === "" && props.obtenerRoles()
   props.usuario.nombre && navigate("/", {replace: true})
 
   const [showPassword, setShowPassword] = useState(false);
