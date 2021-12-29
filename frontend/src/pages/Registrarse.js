@@ -88,6 +88,7 @@ const Registrarse = ({usuario, nuevoUsuario, token, obtenerRoles }) => {
         google: true,
         emailVerificado: true
     }
+    console.log(res)
     await nuevoUsuario(googleUser)
     .then((res) => console.log(res))
     .catch((err) => console.log(err))
