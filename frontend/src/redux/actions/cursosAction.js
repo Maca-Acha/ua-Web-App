@@ -1,4 +1,5 @@
 import axios from "axios";
+
 const cursosAction = {
     filtroCursos: (cursos, value) => {
         return (dispatch, getState) => {
@@ -17,6 +18,17 @@ const cursosAction = {
             dispatch({type: "CURSO_ID", payload: respuesta.data.response})
         }
     },
+    favoritos: (usuarioId, cursoId) => {
+        return async (dispatch, getState) => {
+            if(usuarioId && cursoId){
+                await axios.put("http://localhost:4000/api/like/", {usuarioId, cursoId} )
+                let response = await axios.get("http://localhost:4000/api/cursoUsuarioId" , {usuarioId})
+                dispatch({type: "FAVORITOS", payload: response.data.response})
+            }else{
+                console.log(error)
+            }
+        }
+    }, 
     crearOpinion: ( cursoId, opinion, usuarioId) => {
         return async(dispatch, getState)=>{
             if(cursoId && usuarioId){
