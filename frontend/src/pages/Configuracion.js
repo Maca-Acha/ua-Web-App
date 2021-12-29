@@ -190,8 +190,8 @@ const Configuracion = () => {
       {item === "tutor" && (
         <div className="w-full my-16">
           <div className="max-w-5xl mx-auto px-6 sm:px-6 lg:px-8 mb-12">
-            <div className="bg-transparent w-full shadow rounded p-8 sm:p-12">
-              <p className="text-5xl font-bold leading-7 text-center text-white">
+            <div className="bg-transparent w-full p-8 sm:p-12">
+              <p className="text-5xl font-bold text-center text-white">
                 Rellene todos los campos
               </p>
               <form>

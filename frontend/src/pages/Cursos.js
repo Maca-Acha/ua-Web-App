@@ -1,17 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Categorias from "../components/Categorias";
 
 import CursoTarjeta from "../components/CursoTarjeta";
-
+import cursosAction from "../redux/actions/cursosAction";
+import { connect } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
-const Cursos = () => {
-  const navigate = useNavigate();
-
-  const location = useLocation();
-
-  const params = useParams();
-
+const Cursos = (props) => {
   let cursosArray = [
     {
       titulo: "Curso de React",
@@ -42,6 +37,11 @@ const Cursos = () => {
     },
   ];
 
+  useEffect(() => {
+    props.traerCursos();
+  }, []);
+
+  console.log(props.cursos);
   return (
     <>
       <div>
@@ -99,11 +99,13 @@ const Cursos = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
             {/* <CursoTarjeta /> */}
 
-            {cursosArray.map((curso, index) => {
+            {props.cursos.map((curso, index) => {
               return (
                 <>
-                  <div className="max-w-sm rounded flex flex-col justify-between pb-5 overflow-hidden shadow-lg bg-rose-500"
-                  key={index}>
+                  <div
+                    className="max-w-sm rounded flex flex-col justify-between pb-5 overflow-hidden shadow-lg bg-rose-500"
+                    key={index}
+                  >
                     <div>
                       <div
                         className="w-full h-60"
@@ -115,10 +117,10 @@ const Cursos = () => {
                       ></div>
 
                       <div className="px-6 pt-4 pb-2 flex justify-evenly items-center">
-                        {curso.hastag.map((hastag) => {
+                        {curso.hashtag.map((hashtag) => {
                           return (
                             <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-900 mr-2 mb-2">
-                              #{hastag}
+                              #{hashtag}
                             </span>
                           );
                         })}
@@ -133,7 +135,7 @@ const Cursos = () => {
 
                     <div className="flex justify-center items-center">
                       <Link
-                        to={`/curso/${curso.id}`}
+                        to={`/curso/${curso._id}`}
                         className=" bg-gray-200 text-center rounded-full w-6/12 px-3 py-1 text-md font-semibold text-rose-600 hover:bg-rose-700 hover:text-white"
                       >
                         Ver curso
@@ -150,4 +152,14 @@ const Cursos = () => {
   );
 };
 
-export default Cursos;
+const mapStateToProps = (state) => {
+  return {
+    cursos: state.cursosReducer.cursos,
+  };
+};
+
+const mapDispatchToProps = {
+  traerCursos: cursosAction.traerCursos,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cursos);

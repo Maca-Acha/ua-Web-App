@@ -1,39 +1,49 @@
 import { connect } from "react-redux";
 import { useState, useRef } from "react";
-
+import usuarioAction from "../redux/actions/usuarioAction";
 const Opinion = (props) => {
-  const input = useRef()
+  const input = useRef();
   const [modoEditar, setModoEditar] = useState(false);
-  const borrarOpinion= () => {
-    props.borrarOpinion(props.id, props.opinion._id)
-  }
+  const borrarOpinion = () => {
+    props.borrarOpinion(props.id, props.opinion._id);
+  };
+
+  console.log(props.usuarios);
 
   function editarOpinion() {
-      let opinionEditada = {
-        opinion:input.current.value
-      }
-      props.editarOpinion(props.opinion._id, opinionEditada)
-  } 
-
-
+    let opinionEditada = {
+      opinion: input.current.value,
+    };
+    props.editarOpinion(props.opinion._id, opinionEditada);
+  }
+  console.log(props);
   return (
     <>
       <div className="overflow-y-scroll p-2 scrollbarcomments w-full">
         <div className="bg-transparent  w-full border-2 border-white py-2 px-3 rounded-lg rounded-r-lg">
           <div className="flex items-center justify-between w-full">
             <div className="flex items-center">
-              <span
-                style={{
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  backgroundImage: `url(https://i1.wp.com/codigoespagueti.com/wp-content/uploads/2015/08/mono-titi.jpg?fit=640%2C360&quality=80&ssl=1)`,
-                }}
-                className="w-14 h-14 flex items-center justify-center font-bold rounded-full"
-              ></span>
-
-              <span className="fw-bold text-white text-2xl pl-5">
-                Mono titi
-              </span>
+              
+              {props.usuarios.map((usuario, index) =>
+                usuario.id === props.opinion.usuarioId ? (
+                  <span
+                    style={{
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      backgroundImage: `url(${usuario.foto})`,
+                    }}
+                    key={index}
+                    className="w-14 h-14 flex items-center justify-center font-bold  rounded-full"
+                  ></span>
+                ) : null
+              )}
+              {props.usuarios.map((usuario, index) =>
+                usuario.id === props.opinion.usuarioId ? (
+                  <span className="fw-bold text-white text-2xl pl-5">
+                    {usuario.nombre} {usuario.apellido}
+                  </span>
+                ) : null
+              )}
             </div>
 
             <div className="flex">
@@ -76,14 +86,16 @@ const Opinion = (props) => {
             {modoEditar ? (
               <>
                 <div className="flex flex-col pl-20">
-                  <input 
-                  ref= {input}
-                  defaultValue={props.opinion}
-                  className="mt-2 mb-1 py-2 rounded-full text-gray-900 pl-5 bg-white w-full focus:outline-none focus:border-rose-900 focus:ring-1 focus:ring-rose-900" />
+                  <input
+                    ref={input}
+                    defaultValue={props.opinion}
+                    className="mt-2 mb-1 py-2 rounded-full text-gray-900 pl-5 bg-white w-full focus:outline-none focus:border-rose-900 focus:ring-1 focus:ring-rose-900"
+                  />
                   <div className="mt-2">
-                    <button className="inline-flex bg-white text-gray-900 rounded-full h-6 px-3 justify-center items-center py-3"
-                    onClick={() => editarOpinion()}>
-                    
+                    <button
+                      className="inline-flex bg-white text-gray-900 rounded-full h-6 px-3 justify-center items-center py-3"
+                      onClick={() => editarOpinion()}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-4 w-4 cursor-pointer mr-1"
@@ -101,8 +113,10 @@ const Opinion = (props) => {
                       Edit comment
                     </button>
 
-                    <button className="inline-flex bg-rose-600 text-white rounded-full h-6 px-3 justify-center items-center ml-3 py-3"
-                     onClick={() => setModoEditar(!modoEditar)}>
+                    <button
+                      className="inline-flex bg-rose-600 text-white rounded-full h-6 px-3 justify-center items-center ml-3 py-3"
+                      onClick={() => setModoEditar(!modoEditar)}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-4 w-4 mr-1"
@@ -124,8 +138,7 @@ const Opinion = (props) => {
               </>
             ) : (
               <p className="text-white py-3 pl-20 text-xl text-left fw-bold">
-                Que ganas de comerme una ensalada de frutas owo aa aaaa aaa aaaa
-                aaa
+                {props.opinion.opinion}
               </p>
             )}
           </div>
@@ -137,12 +150,13 @@ const Opinion = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    cursos: state.cursosReducer.cursos
+    cursos: state.cursosReducer.cursos,
+    usuarios: state.reducer.usuarios,
   };
 };
 
 const mapDispatchToProps = {
-
+  traerUsuarios: usuarioAction.traerUsuarios,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Opinion);

@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const usuarioControlador = {
   nuevoUsuario: async (req, res) => {
-    console.log('aquiii req.user', req.user)
+    // console.log('aquiii req.user', req.user)
     const {
       nombre,
       apellido,
@@ -52,7 +52,9 @@ const usuarioControlador = {
   usuariosRegistrados: async (req, res) => {
     try{
       const usuarios = await Usuario.find()
+
       let usuariosArray = []
+      
       usuarios.map(usuario => {
         usuariosArray.push({
           nombre: usuario.nombre,

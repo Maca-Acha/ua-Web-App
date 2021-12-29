@@ -4,16 +4,47 @@ import usuarioAction from "../redux/actions/usuarioAction";
 import Opinion from "./Opinion";
 import { useRef } from "react";
 
-const Opiniones = (props) => {
-  const input = useRef()
-  
-  
+const Opiniones = ({
+  id,
+  crearOpinion,
+  usuario,
+  traerOpiniones,
+  traerCursos,
+  cursos,
+  curso,
+  opiniones,
+  traerUsuarios
+}) => {
+  const input = useRef();
+  console.log(id);
+  console.log(curso);
+
+  const dejarOpinion = async () => {
+    let opiniones = {
+      cursoId: id,
+      opinion: input.current.value,
+    };
+
+    const opinionAgregada = await crearOpinion(opiniones);
+    input.current.value = "";
+
+    if (opinionAgregada.success) {
+      console.log("se agrego la opinion");
+      traerCursos();
+    }
+  };
+
+  traerUsuarios()
 
   return (
     <>
       <div className="bg-transparent p-5 rounded-lg flex flex-col justify-start items-start ">
         <div className="overflow-y-scroll h-96 w-full p-2 scrollbarcomments">
-          <Opinion />
+          {opiniones.length > 0
+            ? opiniones.map((opinion, index) => {
+                return <Opinion key={index} opinion={opinion} />;
+              })
+            : null}
         </div>
 
         {/* INPUT */}
@@ -37,14 +68,16 @@ const Opiniones = (props) => {
             </span>
           </label>
           <input
-          ref={input}
+            ref={input}
             type="text"
             className="flex-shrink flex-grow text-gray-900 bg-white rubik leading-normal w-px  border-0 h-10 border-grey-light px-3 self-center relative  font-roboto text-base outline-none placeholder-gray-600"
-            
             placeholder="Escribe tu opinion ..."
           />
           <div className="flex -mr-px bg-white  rounded-r-lg">
-            <span className="flex items-center leading-normal border-0 px-3 whitespace-no-wrap text-gray-900">
+            <span
+              className="flex items-center leading-normal border-0 px-3 whitespace-no-wrap text-gray-900"
+              onClick={() => dejarOpinion()}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 cursor-pointer rotate-90"
@@ -62,13 +95,18 @@ const Opiniones = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    usuario: state.reducer.usuario,
+    curso: state.cursosReducer.curso,
+    cursos: state.cursosReducer.cursos,
+  };
 };
 
 const mapDispatchToProps = {
   crearOpinion: cursosAction.crearOpinion,
-  traerUsuarios: usuarioAction.traerUsuarios
-
+  traerOpiniones: cursosAction.traerOpiniones,
+  traerUsuarios: usuarioAction.traerUsuarios,
+  traerCursos: cursosAction.traerCursos,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Opiniones);

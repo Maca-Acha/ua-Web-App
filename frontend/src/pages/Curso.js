@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import Opiniones from "../components/Opiniones";
 import ReactPlayer from "react-player";
 import { Link, useParams } from "react-router-dom";
-
-const Curso = () => {
+import cursosAction from "../redux/actions/cursosAction";
+import { connect } from "react-redux";
+const Curso = (props) => {
   const params = useParams();
 
   console.log(params);
 
   const id = params.id;
-
+  console.log(props);
   console.log(id);
 
   const [item, setItem] = useState("descripcion");
@@ -22,39 +23,18 @@ const Curso = () => {
       left: 0,
       behavior: "smooth",
     });
+
+    props.traerCursos();
   }, []);
 
-  let cursosArray = [
-    {
-      titulo: "Curso de React",
-      descripcion: "Sit nulla consequat reprehenderit ipsum. Aliquip nostrud cupidatat esse nisi eu sit officia occaecat qui laborum. Elit proident incididunt irure sint minim nisi non.",
-      acercaDe: "Ad non consequat incididunt velit proident laboris incididunt reprehenderit aliquip eiusmod officia.",
-      foto: "https://i.imgur.com/dZ5xN9q.jpg",
-      url: "https://www.youtube.com/watch?v=wTpuKOhGfJE&list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqddX7",
-      hastag: ["aprender", "python", "SQLite"],
-      id: "12345678",
-    },
-    {
-      titulo: "Curso Maestro de Python 3: Aprende Desde Cero.",
-      foto: "https://media.charlesleifer.com/blog/photos/sqlite-and-python.png",
-      tutor: "Facundo Techeira",
-      descripcion:
-        "Aprende a programar con clases y objetos, a usar ficheros y bases de datos SQLite, interfaces gráficas y más con Python!Aprende a programar con clases y objetos, a usar ficheros y bases de datos SQLite, interfaces gráficas y más con Python!",
-      hastag: ["aprender", "python", "SQLite"],
-      url: "https://www.youtube.com/watch?v=AwWPM4Nok7Y&list=PLs-v5LWbw7JkIz8145zh7_ioAnXON_cMj",
-      
-      id: "1234",
-    },
-  ];
+  console.log(props.usuario._id);
+  const cursoId = props.cursos.find((curso) => curso._id === id);
 
-  const cursoId = cursosArray.find((curso) => curso.id === id);
+  console.log(props.cursos);
+  console.log(props.usuarios);
 
-
-  console.log("id del curso")
-  console.log(cursoId);
-  console.log()
-
-
+  console.log("id del curso");
+  console.log();
   return (
     <>
       {cursoId && (
@@ -68,7 +48,6 @@ const Curso = () => {
               controls={true}
               volume={0.7}
               playsinline={true}
-              playIcon={true}
             />
           </div>
 
@@ -152,7 +131,7 @@ const Curso = () => {
                 </h2>
 
                 <p className="text-white md:pl-16 pt-5 text-xl md:max-w-7xl">
-                  {cursoId.acercaDe}
+                  {cursoId.acerca}
                 </p>
               </div>
 
@@ -174,9 +153,16 @@ const Curso = () => {
                   Instructor
                 </h2>
                 <div className="flex items-center">
-                  <div className="bg-red-500 h-16 w-16 rounded-full md:ml-16 mt-5 "></div>
+                  <div
+                    className="h-16 w-16 rounded-full md:ml-16 mt-5 "
+                    style={{
+                      backgroundImage: `url(${cursoId.tutor.foto})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}
+                  ></div>
                   <p className="text-white ml-5 pt-5 text-xl md:max-w-7xl font-bold">
-                    Nombre del instructor
+                    {`${cursoId.tutor.nombre} ${cursoId.tutor.apellido}`}
                   </p>
                 </div>
               </div>
@@ -197,7 +183,7 @@ const Curso = () => {
                 </div>
 
                 <div className=" md:pl-8">
-                  <Opiniones id="{props._id}" />
+                  <Opiniones id={id} opiniones={cursoId.opiniones} />
                 </div>
               </div>
             </div>
@@ -248,4 +234,16 @@ const Curso = () => {
   );
 };
 
-export default Curso;
+const mapStateToProps = (state) => {
+  return {
+    cursos: state.cursosReducer.cursos,
+    usuario: state.reducer.usuario,
+    usuarios: state.reducer.usuarios,
+  };
+};
+
+const mapDispatchToProps = {
+  traerCursos: cursosAction.traerCursos,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Curso);

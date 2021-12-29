@@ -56,9 +56,18 @@ const usuarioAction = {
     };
   },
   traerUsuarios: () => {
+    // return async (dispatch, getState) => {
+    //   const usuarios = await axios.get("http://localhost:4000/api/registrarse")
+    //   dispatch({type: "USUARIOS", payload: usuarios.data.response})
+    // }
+
     return async (dispatch, getState) => {
-      const usuarios = await axios.get("http://localhost:4000/api/registrarse")
-      dispatch({type: "USUARIOS", payload: usuarios.data.response})
+      try {
+        const usuarios = await axios.get("http://localhost:4000/api/registrarse")
+        dispatch({ type: "USUARIOS", payload: usuarios.data.response });
+      } catch (e) {
+        console.log(e.message);
+      }
     }
   },
   cerrarSesion: () => {

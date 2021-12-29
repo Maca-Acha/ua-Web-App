@@ -7,6 +7,7 @@ const cursoSchema = new mongoose.Schema({
   descripcion: { type: String, requiered: true },
   acerca: { type: String, requiered: true },
   hashtag: { type: Array },
+  url: { type: String, required: true },
   favoritos: [{ type: mongoose.Types.ObjectId, ref: "usuario" }],
   opiniones: [
     {
