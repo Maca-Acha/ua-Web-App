@@ -13,7 +13,8 @@ const cursosController = {
       .then((response) => res.json({ response }));
   },
   traerCursoId: (req, res) => { //REVISAR
-    Curso.findOne({cursoId: req.params.id})
+    Curso.findOne({_id: req.params.id})
+      .populate("tutor")
       .then((response) => res.json({ response }));
   },
   modificarCurso: async (req, res) => {
@@ -38,7 +39,23 @@ const cursosController = {
     }
     res.json({ response: cursos, success: true });
   },
-  favorito: async (req,res)=>{
+  favorito: async (req,res) =>{
+    const {cursoId, usuarioId, bool} = req.body
+    try{
+      const favorito = await Curso.findOneAndUpdate(
+        {_id: cursoId},
+        bool?
+        {$addToSet:{favoritos:usuarioId}}
+        :{$pull:{favoritos:usuarioId}},
+        {new:true}
+        )
+        res.json({success:true, response: favorito, error:null})
+    }catch(e){
+      res.json({success:false, response:null, error:e})
+    }
+  },
+  /* favorito: async (req,res)=>{
+    console.log(req.body)
     const id = req.body.cursoId
     const curso = await Curso.findOne({_id : id}).lean()
     const favoritoExist = curso.favoritos.some(favorito => favorito.toString() === req.body.usuarioId.toString())
@@ -51,13 +68,14 @@ const cursosController = {
         res.json({response})
     })
     .catch((err) => console.log(err))      
-  },
+  }, */
   cursoUsuarioId:async (req, res) => {
-    Curso.find({favoritos: req.params.id}, {titulo:1, foto:1, hashtag:1}) 
-            .then((response) => {
-                res.json({response})
-            })
-            .catch((err) => console.log(err)) 
+    Curso.find({favoritos: req.params.id})
+       
+      .then((response) => {
+          res.json({response})
+      })
+      .catch((err) => console.log(err)) 
   }
 };
 

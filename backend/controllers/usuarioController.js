@@ -11,8 +11,6 @@ const usuarioControlador = {
       contraseña,
       foto,
       google,
-      tutor,
-      admin,
       role,
     } = req.body;
     try {
@@ -32,17 +30,15 @@ const usuarioControlador = {
           contraseña: contraseñaHasheada,
           foto,
           google,
-          tutor,
-          admin,
-          role,
+          role
         });
-        console.log('nuevoUsuario', nuevoUsuario)
         const token = jwt.sign({ ...nuevoUsuario }, process.env.SECRET_KEY);
         await nuevoUsuario.save();
+        
         res.json({
           success: true,
           response: { token, ...nuevoUsuario._doc },
-          error: null,
+          error: null
         });
       }
     } catch (e) {
@@ -72,7 +68,6 @@ const usuarioControlador = {
     const { email, contraseña, google} = req.body;
     try {
       const emailExiste = await Usuario.findOne({ email });
-       console.log('emailExiste', emailExiste)
       if (emailExiste) {
         let contraseñaCorrecta = bcryptjs.compareSync(
           contraseña,
@@ -104,9 +99,9 @@ const usuarioControlador = {
     }
   },
   chekearToken: (req, res) => {
-    res.json(req.usuario);
+    res.json({success:true, response: req.user, error:null})
   },
-  obtenerRoles: async (req, res) => {
+  /* obtenerRoles: async (req, res) => {
     try {
       if (req.user) {
         res.json({ success: true, response: req.user, error: null });
@@ -114,7 +109,7 @@ const usuarioControlador = {
     } catch (error) {
       res.json({ success: false, response: null, error: error });
     }
-  },
+  }, */
 };
 
 module.exports = usuarioControlador;

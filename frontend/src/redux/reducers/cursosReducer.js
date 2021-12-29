@@ -6,7 +6,6 @@ const initialState = {
     cursosFav:[],
 }
 const cursosReducer = (state = initialState, action) => {
-    console.log(action)
     switch (action.type) {   
         case 'FILTRO_CURSOS':
             const filtrado = action.payload.cursos.filter((curso => curso.titulo.toLowerCase().startsWith(action.payload.value.toLowerCase())))

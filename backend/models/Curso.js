@@ -4,7 +4,7 @@ const cursoSchema = new mongoose.Schema({
   titulo: { type: String, required: true },
   foto: { type: String, required: true },
   tutor: { type: mongoose.Types.ObjectId, ref: "usuario" },
-  descripcion: { type: String, requiered: true },
+  descripcion: { type: String, required: true },
   acerca: { type: String, requiered: true },
   hashtag: { type: Array },
   url: { type: String, required: true },

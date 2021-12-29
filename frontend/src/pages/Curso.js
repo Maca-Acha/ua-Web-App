@@ -5,16 +5,33 @@ import { Link, useParams } from "react-router-dom";
 import cursosAction from "../redux/actions/cursosAction";
 import usuarioAction from "../redux/actions/usuarioAction";
 import { connect } from "react-redux";
+import { toast } from "react-toastify"
+
 const Curso = (props) => {
   const params = useParams();
-
-  console.log(params);
-
   const id = params.id;
-
-
   const [item, setItem] = useState("descripcion");
-  const [fav, setFav] = useState(false);
+/*   const [fav, setFav] = useState("") */
+
+  console.log(props.curso.favoritos)
+  const favo = async () => {
+    let fav
+    props.curso.favoritos.some(fav => fav === props.usuario._id)
+    ? (fav = {
+      cursoId: id,
+      usuarioId: props.usuario._id,
+      bool: false
+    }):(fav = {
+      cursoId: id,
+      usuarioId: props.usuario._id,
+      bool: true
+    })
+    const favFuncion = await props.favoritos(fav)
+    if(favFuncion.success){
+      props.traerCursoId(id)
+    }
+  }
+
 
   useEffect(() => {
     window.scrollTo({
@@ -22,27 +39,35 @@ const Curso = (props) => {
       left: 0,
       behavior: "smooth",
     });
-
-    props.traerCursos();
-
-    props.obtenerRoles()
+    props.obtenerRoles();
+    props.traerCursoId(id)
   }, []);
+  
+/*   if (!localStorage.getItem("token") && fav === "") {
+    setFav(false)
+  }//fav cambia si esta likeado o no. si no hay
+  if(props.curso.favoritos && fav === ""){
+      setFav(props.curso.favoritos.some(e => e.id === props.usuario._id))
+  }
+ */
+  function botonFav() {
+    if (localStorage.getItem("token")) {
+/*         setFav(!fav) */
+        favo()
+    } else {
+        toast.warning("Debes Iniciar sesion para poder añadir a Favoritos", {
+        position: toast.POSITION.TOP_CENTER,
+        })
+    }
+  }
 
-  console.log(props.usuario._id);
-  const cursoId = props.cursos.find((curso) => curso._id === id);
-
-  console.log(props.cursos);
-  console.log(props.usuarios);
-
-  console.log("id del curso");
-  console.log();
   return (
     <>
-      {cursoId && (
+      {props.curso._id && (
         <>
           <div className="w-full mt-20 vh-70 flex flex-col md:flex-row items-center">
             <ReactPlayer
-              url={cursoId.url}
+              url={props.curso.url}
               className="react-player"
               width="100%"
               height="100%"
@@ -99,16 +124,16 @@ const Curso = (props) => {
 
               <button
                 className={`flex items-center justify-center py-5 md:py-0 md:w-6/12 h-full transition-all `}
-                onClick={() => setFav(!fav)}
+                onClick={() => favo()}
               >
                 <span className="font-bold text-center text-xl md:text-2xl lg:text-3xl font-heading text-white ">
-                  {fav ? "Quitar de favoritos" : "Agregar a favoritos"}
+                  {props.curso.favoritos.some(fav => fav === props.usuario._id) ? "Quitar de favoritos" : "Agregar a favoritos"}
                 </span>
                 <span className="pl-2 ">
                   <svg
                     className="w-8 h-8"
-                    fill={`${fav ? "#facc15" : "none"} `}
-                    stroke={`${fav ? "#facc15" : "#fff"} `}
+                    fill={`${props.curso.favoritos.some(fav => fav === props.usuario._id) ? "#facc15" : "none"} `}
+                    stroke={`${props.curso.favoritos.some(fav => fav === props.usuario._id) ? "#facc15" : "#fff"} `}
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
                   >
@@ -118,7 +143,7 @@ const Curso = (props) => {
                       strokeWidth={2}
                       d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
                     />
-                  </svg>
+                  </svg> 
                 </span>
               </button>
             </div>
@@ -132,7 +157,7 @@ const Curso = (props) => {
                 </h2>
 
                 <p className="text-white md:pl-16 pt-5 text-xl md:max-w-7xl">
-                  {cursoId.acerca}
+                  {props.curso.acerca}
                 </p>
               </div>
 
@@ -143,7 +168,7 @@ const Curso = (props) => {
                   Descripción
                 </h2>
                 <p className="text-white md:pl-16 pt-5 text-xl md:max-w-7xl">
-                  {cursoId.descripcion}
+                  {props.curso.descripcion}
                 </p>
               </div>
 
@@ -157,13 +182,13 @@ const Curso = (props) => {
                   <div
                     className="h-16 w-16 rounded-full md:ml-16 mt-5 "
                     style={{
-                      backgroundImage: `url(${cursoId.tutor.foto})`,
+                      backgroundImage: `url(${props.curso.tutor.foto})`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                     }}
                   ></div>
                   <p className="text-white ml-5 pt-5 text-xl md:max-w-7xl font-bold">
-                    {`${cursoId.tutor.nombre} ${cursoId.tutor.apellido}`}
+                    {`${props.curso.tutor.nombre} ${props.curso.tutor.apellido}`}
                   </p>
                 </div>
               </div>
@@ -184,7 +209,7 @@ const Curso = (props) => {
                 </div>
 
                 <div className=" md:pl-8">
-                  <Opiniones id={id} opiniones={cursoId.opiniones} />
+                  <Opiniones id={id} opiniones={props.curso.opiniones} />
                 </div>
               </div>
             </div>
@@ -236,16 +261,19 @@ const Curso = (props) => {
 };
 
 const mapStateToProps = (state) => {
+  console.log(state)
   return {
-    cursos: state.cursosReducer.cursos,
     usuario: state.reducer.usuario,
     usuarios: state.reducer.usuarios,
+    curso: state.cursosReducer.curso
   };
 };
 
 const mapDispatchToProps = {
   traerCursos: cursosAction.traerCursos,
   obtenerRoles: usuarioAction.obtenerRoles,
+  favoritos: cursosAction.favoritos,
+  traerCursoId: cursosAction.traerCursoId
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Curso);
