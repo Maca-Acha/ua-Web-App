@@ -43,10 +43,6 @@ const usuarioControlador = {
   },
 
   nuevoUsuario: async (req, res) => {
-<<<<<<< HEAD
-=======
-    // console.log('aquiii req.user', req.user)
->>>>>>> ced30bbe79a5182e2dadec4217f06c3d7b5db3eb
     const {
       nombre,
       apellido,
