@@ -43,7 +43,7 @@ Router.route("/favoritos")
 // Opiniones
 
 Router.route("/opiniones")
-  .post(crearOpinion)
+  .post(passport.authenticate('jwt', {session: false}) ,crearOpinion)
   .delete(borrarOpinion)
   .put(editarOpinion);
 

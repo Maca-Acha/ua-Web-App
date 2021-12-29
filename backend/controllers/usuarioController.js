@@ -43,6 +43,10 @@ const usuarioControlador = {
   },
 
   nuevoUsuario: async (req, res) => {
+<<<<<<< HEAD
+=======
+    // console.log('aquiii req.user', req.user)
+>>>>>>> ced30bbe79a5182e2dadec4217f06c3d7b5db3eb
     const {
       nombre,
       apellido,
@@ -93,10 +97,24 @@ const usuarioControlador = {
       res.json({ success: false });
     }
   },
-  usuariosRegistrados: (req, res) => {
-    Usuario.find().then((response) => {
-      res.json({ response });
-    });
+  usuariosRegistrados: async (req, res) => {
+    try{
+      const usuarios = await Usuario.find()
+
+      let usuariosArray = []
+      
+      usuarios.map(usuario => {
+        usuariosArray.push({
+          nombre: usuario.nombre,
+          apellido: usuario.apellido,
+          foto: usuario.foto,
+          id: usuario._id
+        })
+      })
+      res.json({success: true, response: usuariosArray, error: null}) 
+    }catch (e){
+      res.json({success:false, response:null, error: e})
+    }
   },
 
   borrarUsuario: async (req, res) => {

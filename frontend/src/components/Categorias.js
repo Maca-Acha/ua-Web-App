@@ -51,7 +51,7 @@ const Categorias = () => {
           {categoriasArray.map((curso, index) => {
             return (
               <>
-                <div>
+                <div key={index}>
                   <Link to={curso.url}>
                     <div className="w-full bg-white rounded-lg sahdow-lg overflow-hidden flex flex-col md:flex-row">
                       <div className="w-full h-80">

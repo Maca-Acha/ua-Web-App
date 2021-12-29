@@ -10,8 +10,11 @@ import "./index.css";
 import {connect} from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import usuarioAction from "./redux/actions/usuarioAction";
-// import { useEffect } from "react";
+import { useEffect } from "react";
+import Favoritos from "./pages/Favoritos";
+import Configuracion from "./pages/Configuracion";
 
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 
 function App({roles,obtenerRoles}) {
   // console.log(roles)
@@ -38,7 +41,9 @@ function App({roles,obtenerRoles}) {
              < Route path="/registrarse" element={<Registrarse />} />
             <Route path="/iniciarsesion" element={<IniciarSesion />} />
             <Route path="/cursos" element={<Cursos />} />
-            <Route path="/curso" element={<Curso />} />
+            <Route path="/curso/:id" element={<Curso />} />
+            <Route path="/favoritos" element={<Favoritos />} />
+            <Route path="/configuracion" element={<Configuracion />} />
         </Routes>
         <Footer className="fixed top-0 z-50" />
       </BrowserRouter>
