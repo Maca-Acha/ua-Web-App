@@ -18,7 +18,7 @@ const Opinion = (props) => {
 
   return (
     <>
-      <div className="overflow-y-scroll p-2 scrollbarOpinion w-full">
+      <div className="overflow-y-scroll p-2 scrollbarcomments w-full">
         <div className="bg-transparent  w-full border-2 border-white py-2 px-3 rounded-lg rounded-r-lg">
           <div className="flex items-center justify-between w-full">
             <div className="flex items-center">

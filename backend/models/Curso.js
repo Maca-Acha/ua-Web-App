@@ -5,6 +5,7 @@ const cursoSchema = new mongoose.Schema({
   foto: { type: String, required: true },
   tutor: { type: mongoose.Types.ObjectId, ref: "usuario" },
   descripcion: { type: String, requiered: true },
+  acerca: { type: String, requiered: true },
   hashtag: { type: Array },
   favoritos: [{ type: mongoose.Types.ObjectId, ref: "usuario" }],
   opiniones: [
@@ -13,6 +14,7 @@ const cursoSchema = new mongoose.Schema({
       opinion: { type: String },
     },
   ],
+  categoria: { type: String, required: true },
 });
 
 const Curso = mongoose.model("curso", cursoSchema);

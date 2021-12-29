@@ -151,3 +151,11 @@ select {
 .coloarzul {
 	@apply bg-blue-500 flex items-center justify-center py-5 md:py-0 md:w-6/12 h-full
 }
+
+select {
+	text-align: center;
+	text-align-last: center;
+  }
+  option {
+	text-align: left;
+  }

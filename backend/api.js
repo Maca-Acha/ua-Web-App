@@ -1,6 +1,31 @@
 const data = {
     cursos: [
-        { titulo: "Curso Maestro de Python 3: Aprende Desde Cero." },
+        {
+            titulo: "Curso de React",
+            descripcion: "Curso de React",
+            foto: "https://i.imgur.com/dZ5xN9q.jpg",
+            url:"https://www.youtube.com/watch?v=wTpuKOhGfJE&list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqddX7&index=1"
+        },
+        {
+            titulo: "Curso Maestro de Python 3: Aprende Desde Cero.",
+            foto: "https://media.charlesleifer.com/blog/photos/sqlite-and-python.png",
+            tutor: "Facundo Techeira",
+            descripcion: "Aprende a programar con clases y objetos, a usar ficheros y bases de datos SQLite, interfaces gráficas y más con Python!",
+            hastag: ["aprender", "python", "SQLite"],
+            clases: [
+                {
+                    tituloClase: "Bienvenida.",
+                    url: "https://www.youtube.com/watch?v=AwWPM4Nok7Y&list=PLs-v5LWbw7JkIz8145zh7_ioAnXON_cMj",
+                },
+                {
+                    tituloClase: "El entorno del Aprendizaje.",
+                    url: "https://www.youtube.com/watch?v=jyezRO3oztw&list=PLs-v5LWbw7JkIz8145zh7_ioAnXON_cMj&index=6",
+                },
+            ],
+        },
+        {
+             titulo: "Curso Maestro de Python 3: Aprende Desde Cero."
+        },
         {
             foto: "https://media.charlesleifer.com/blog/photos/sqlite-and-python.png",
         },

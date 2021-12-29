@@ -2,8 +2,46 @@ import React from "react";
 import Categorias from "../components/Categorias";
 
 import CursoTarjeta from "../components/CursoTarjeta";
-import Select from "../components/Select";
+
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+
 const Cursos = () => {
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
+  const params = useParams();
+
+  let cursosArray = [
+    {
+      titulo: "Curso de React",
+      descripcion: "Curso de React",
+      foto: "https://i.imgur.com/dZ5xN9q.jpg",
+      url: "https://www.youtube.com/watch?v=wTpuKOhGfJE&list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqddX7&index=1",
+      hastag: ["aprender", "python", "SQLite"],
+      id: "12345678",
+    },
+    {
+      titulo: "Curso Maestro de Python 3: Aprende Desde Cero.",
+      foto: "https://media.charlesleifer.com/blog/photos/sqlite-and-python.png",
+      tutor: "Facundo Techeira",
+      descripcion:
+        "Aprende a programar con clases y objetos, a usar ficheros y bases de datos SQLite, interfaces gráficas y más con Python!Aprende a programar con clases y objetos, a usar ficheros y bases de datos SQLite, interfaces gráficas y más con Python!",
+      hastag: ["aprender", "python", "SQLite"],
+      clases: [
+        {
+          tituloClase: "Bienvenida.",
+          url: "https://www.youtube.com/watch?v=AwWPM4Nok7Y&list=PLs-v5LWbw7JkIz8145zh7_ioAnXON_cMj",
+        },
+        {
+          tituloClase: "El entorno del Aprendizaje.",
+          url: "https://www.youtube.com/watch?v=jyezRO3oztw&list=PLs-v5LWbw7JkIz8145zh7_ioAnXON_cMj&index=6",
+        },
+      ],
+      id: "1234",
+    },
+  ];
+
   return (
     <>
       <div>
@@ -30,27 +68,81 @@ const Cursos = () => {
             />
           </div>
 
-          <div className="w-50">
+          <div className="flex justify-evenly items-center">
+            <label className="text-white text-xl pr-10">Categoría:</label>
             <select
-              className="mb-3 text-red-600 h-10 text-center px-16 outline-none scrollbarcomments rounded-lg select w-full"
+              className=" text-red-600 h-10 px-10 outline-none scrollbarcomments rounded-lg w-full"
               placeholder="Selecciona una categoría"
             >
-              <option className="text-center px-16" value="">Todos</option>
-              <option className="text-center px-16" value="">Musica</option>
-              <option className="text-center px-16" value="">Arte Digital</option>
-              <option className="text-center px-16" value="">Programacion</option>
-              <option className="text-center px-16" value="">Moda</option>
-              <option className="text-center px-16" value="">Belleza</option>
+              <option className="px-10" value="">
+                Todas
+              </option>
+              <option className="px-10" value="">
+                Musica
+              </option>
+              <option className="px-10" value="">
+                Arte Digital
+              </option>
+              <option className="px-10" value="">
+                Programacion
+              </option>
+              <option className="px-10" value="">
+                Moda
+              </option>
+              <option className="px-10" value="">
+                Belleza
+              </option>
             </select>
           </div>
         </div>
         <div className="flex justify-center items-center p-14">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
-            <CursoTarjeta />
-            <CursoTarjeta />
-            <CursoTarjeta />
-            <CursoTarjeta />
-            <CursoTarjeta />
+            {/* <CursoTarjeta /> */}
+
+            {cursosArray.map((curso, index) => {
+              return (
+                <>
+                  <div className="max-w-sm rounded flex flex-col justify-between pb-5 overflow-hidden shadow-lg bg-rose-500"
+                  key={index}>
+                    <div>
+                      <div
+                        className="w-full h-60"
+                        style={{
+                          backgroundImage: `url(${curso.foto})`,
+                          backgroundSize: "cover",
+                          backgroundPosition: "center",
+                        }}
+                      ></div>
+
+                      <div className="px-6 pt-4 pb-2 flex justify-evenly items-center">
+                        {curso.hastag.map((hastag) => {
+                          return (
+                            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-900 mr-2 mb-2">
+                              #{hastag}
+                            </span>
+                          );
+                        })}
+                      </div>
+
+                      <div className="px-6 py-4">
+                        <div className="font-bold text-center text-xl mb-2 text-white">
+                          {curso.titulo}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-center items-center">
+                      <Link
+                        to={`/curso/${curso.id}`}
+                        className=" bg-gray-200 text-center rounded-full w-6/12 px-3 py-1 text-md font-semibold text-rose-600 hover:bg-rose-700 hover:text-white"
+                      >
+                        Ver curso
+                      </Link>
+                    </div>
+                  </div>
+                </>
+              );
+            })}
           </div>
         </div>
       </section>
