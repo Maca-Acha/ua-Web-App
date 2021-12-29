@@ -42,7 +42,7 @@ const Opiniones = ({
         <div className="overflow-y-scroll h-96 w-full p-2 scrollbarcomments">
           {opiniones.length > 0
             ? opiniones.map((opinion, index) => {
-                return <Opinion key={index} opinion={opinion} />;
+                return <Opinion key={index} opinion={opinion} id={id} />;
               })
             : null}
         </div>

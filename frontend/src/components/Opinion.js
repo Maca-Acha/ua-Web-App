@@ -1,11 +1,13 @@
 import { connect } from "react-redux";
 import { useState, useRef } from "react";
 import usuarioAction from "../redux/actions/usuarioAction";
+import cursosAction from "../redux/actions/cursosAction";
 const Opinion = (props) => {
   const input = useRef();
   const [modoEditar, setModoEditar] = useState(false);
-  const borrarOpinion = () => {
+  const opinionBorrada = () => {
     props.borrarOpinion(props.id, props.opinion._id);
+    console.log("comentario borrado");
   };
 
   function editarOpinion() {
@@ -62,7 +64,7 @@ const Opinion = (props) => {
                       />
                     </svg>
                   </span>
-                  <span onClick={() => borrarOpinion()}>
+                  <span onClick={() => opinionBorrada()}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-6 w-6 cursor-pointer"
@@ -159,6 +161,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   traerUsuarios: usuarioAction.traerUsuarios,
+  borrarOpinion: cursosAction.borrarOpinion
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Opinion);

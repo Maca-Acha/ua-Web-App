@@ -9,7 +9,7 @@ const Footer = () => {
             <Link to="/" className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
               <img
                 className="h-8 w-auto font-2xl sm:h-10"
-                src="./assets/logo.png"
+                src="https://by3301files.storage.live.com/y4mH5ghEidPfF8io-3hp7rZuKY-QlDVXGQnJ6YBGjb22fjHzqhmZMuKrrmQMFwqjiJ1eU5SOfw5ukm-PpvnPN8ma9WbcUmRY-lneLkMt6kL9qeh3OhnJZh6dGcWOkexSArqr4mRAG8hEK2jsKhVAMNlLNIUIjmbMxVSlY6ZqUh5JUM5yNMNET1jYFw_e1PDEwZj?width=1500&height=1500&cropmode=none"
                 alt="UA"
               />
             </Link>
