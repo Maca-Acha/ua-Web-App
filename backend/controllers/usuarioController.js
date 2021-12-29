@@ -52,7 +52,9 @@ const usuarioControlador = {
   usuariosRegistrados: async (req, res) => {
     try{
       const usuarios = await Usuario.find()
+
       let usuariosArray = []
+      
       usuarios.map(usuario => {
         usuariosArray.push({
           nombre: usuario.nombre,

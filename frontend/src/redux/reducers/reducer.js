@@ -3,7 +3,7 @@ const initialState = {
   usuario: {},
   roles: {},
   token: "",
-  usuarios: []
+  usuarios: {}
 };
 
 const reducer = (state = initialState, action) => {

@@ -10,14 +10,8 @@ function Navbar() {
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", function () {
       const header = document.querySelector(".header");
-      const text = document.querySelector(".color-text");
-      const text2 = document.querySelector(".color-text-2");
-      const menuIcon = document.querySelector(".menuIcon");
 
       header.classList.toggle("active", window.scrollY > 10);
-      text.classList.toggle("active", window.scrollY > 10);
-      text2.classList.toggle("active", window.scrollY > 10);
-      menuIcon.classList.toggle("active", window.scrollY > 10);
     });
   }
 
@@ -37,7 +31,7 @@ function Navbar() {
                       <span className="sr-only">lucianhoff</span>
                       <img
                         className="h-8 w-auto font-2xl sm:h-10"
-                        src="./assets/logo-white.png"
+                        src="https://by3301files.storage.live.com/y4mzBYeXrSYJZt4WgWCBeBFZgcoVAOgfCBtDJKncLvTMLVnqPfn0fK3ew3CGdxAbaiR0jcsO7xvhHnCg5e-Kv-O_p9TlP_mlwDN3AK1u55ZJPryL_4rU3UZfNXOAO6Hz2nhZMv4zaO48_z4yO-9qK3Rh3bceNch3jWheGRADShznOR8qnLOlAHkBUzN6dWAarLb?width=1500&height=1500&cropmode=none"
                         alt="UA"
                       />
                     </Link>
@@ -86,7 +80,7 @@ function Navbar() {
                     <div className="">
                       <img
                         className="h-8 w-auto"
-                        src="./assets/logo-white.png"
+                        src="https://by3301files.storage.live.com/y4mzBYeXrSYJZt4WgWCBeBFZgcoVAOgfCBtDJKncLvTMLVnqPfn0fK3ew3CGdxAbaiR0jcsO7xvhHnCg5e-Kv-O_p9TlP_mlwDN3AK1u55ZJPryL_4rU3UZfNXOAO6Hz2nhZMv4zaO48_z4yO-9qK3Rh3bceNch3jWheGRADShznOR8qnLOlAHkBUzN6dWAarLb?width=1500&height=1500&cropmode=none"
                         alt="UA"
                       />
                     </div>
