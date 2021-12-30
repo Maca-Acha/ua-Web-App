@@ -1,23 +1,25 @@
 const Router = require("express").Router();
 const roles = require ("../config/roles")
 const passport = require('../config/passport')
-const {nuevoUsuario, usuariosRegistrados, inicioSesion, obtenerRoles, chekearToken} = require('../controllers/usuarioController')
+const {nuevoUsuario, usuariosRegistrados, inicioSesion, obtenerRoles, chekearToken, editarUsuario} = require('../controllers/usuarioController')
 const {crearCurso, traerCursos, modificarCurso, borrarCurso, favorito} = require('../controllers/cursosController')
 // const validator = require('../config/validator')
 const {crearOpinion,borrarOpinion,editarOpinion} = require('../controllers/opinionesController')
 
 Router.route("/registrarse")
+// .post(passport.authenticate('jwt', { session:false }), roles.checkRoles(['admin', 'alumno', 'tutor']), nuevoUsuario)
 .post(nuevoUsuario)
 .get(usuariosRegistrados)
 
 Router.route("/inicioSesion")
 .post(inicioSesion);
 
+Router.route("/editarUsuario/:id")
+.put(editarUsuario);
+
 Router.route("/roles") 
 .post(passport.authenticate("jwt",{session:false}), obtenerRoles);
 
-
-Router.route("/inicioSesion").post(inicioSesion);
 
 //Cursos
 

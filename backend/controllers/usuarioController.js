@@ -36,7 +36,6 @@ const usuarioControlador = {
           admin,
           role,
         });
-        console.log('nuevoUsuario', nuevoUsuario)
         const token = jwt.sign({ ...nuevoUsuario }, process.env.SECRET_KEY);
         await nuevoUsuario.save();
         res.json({
@@ -56,9 +55,10 @@ const usuarioControlador = {
   },
   inicioSesion: async (req, res) => {
     const { email, contraseña, google} = req.body;
+    console.log(req.body)
     try {
       const emailExiste = await Usuario.findOne({ email });
-       console.log('emailExiste', emailExiste)
+      //  console.log('emailExiste', emailExiste)
       if (emailExiste) {
         let contraseñaCorrecta = bcryptjs.compareSync(
           contraseña,
@@ -93,7 +93,6 @@ const usuarioControlador = {
     res.json(req.usuario);
   },
   obtenerRoles: async (req, res) => {
-    console.log(req.user)
     try {
       if (req.user) {
         res.json({ success: true, response: req.user, error: null });
@@ -102,6 +101,27 @@ const usuarioControlador = {
       res.json({ success: false, response: null, error: error });
     }
   },
+  editarUsuario: async (req, res) => {
+    let id = req.params.id
+    let value = req.body
+    let contraseña = req.body.contraseña
+    try {
+      const contraseñaHasheada = bcryptjs.hashSync(contraseña, 10);
+      const editarUsuario = {
+        nombre: req.body.nombre,
+        apellido: req.body.apellido,
+        email: req.body.email,
+        contraseña: contraseñaHasheada,
+        foto: req.body.foto,
+      };
+      // console.log(editarUsuario)
+      const token = jwt.sign({ ...editarUsuario }, process.env.SECRET_KEY);
+      let edit = await Usuario.findOneAndUpdate({_id:id}, editarUsuario, {new:true})
+      res.json({success: true, response: edit})
+    } catch (error) {
+      res.json({success: false, response: error.message})
+    }        
+  }
 };
 
 module.exports = usuarioControlador;
