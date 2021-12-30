@@ -1,31 +1,23 @@
 import React, { useEffect } from "react";
-import Categorias from "../components/Categorias";
-
-import CursoTarjeta from "../components/CursoTarjeta";
 import cursosAction from "../redux/actions/cursosAction";
 import { connect } from "react-redux";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import {Link} from "react-router-dom";
 import usuarioAction from "../redux/actions/usuarioAction";
 
 const Cursos = (props) => {
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+    
     props.traerCursos();
     props.obtenerRoles();
   }, []);
 
-  console.log(props.cursos);
   return (
     <>
-      {/* <div>
-        <div>
-          <div className="text-center pb-12">
-            <h1 className="font-bold mt-32 text-3xl md:text-4xl lg:text-5xl font-heading text-white">
-              Categorías Principales
-            </h1>
-          </div>
-          <Categorias />
-        </div>
-      </div> */}
       <section className="mt-32">
         <h2 className="font-bold mt-16 text-center text-3xl md:text-4xl lg:text-5xl font-heading text-white">
           Todos los cursos
@@ -34,6 +26,7 @@ const Cursos = (props) => {
         <div className="flex justify-center items-center md:items-baseline flex-col md:flex-row mt-10">
           <div className="mr-0 md:mr-32 mb-5 md:mb-0">
             <input
+            onChange={(e)=> props.filtroCursos(e.target.value)}
               type="text"
               placeholder="Buscar un curso"
               className="text-center w-80 bg-white appearance-none border-2 border-red-900 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-red-600"
@@ -69,7 +62,7 @@ const Cursos = (props) => {
         </div>
         <div className="flex justify-center items-center p-14">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
-            {props.cursos.map((curso, index) => {
+            {props.auxiliar.map((curso, index) => {
               return (
                 <>
                   <div
@@ -87,9 +80,9 @@ const Cursos = (props) => {
                       ></div>
 
                       <div className="px-6 pt-4 pb-2 flex justify-evenly items-center">
-                        {curso.hashtag.map((hashtag) => {
+                        {curso.hashtag.map((hashtag, index) => {
                           return (
-                            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-900 mr-2 mb-2">
+                            <span key={index} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-900 mr-2 mb-2">
                               #{hashtag}
                             </span>
                           );
@@ -123,14 +116,17 @@ const Cursos = (props) => {
 };
 
 const mapStateToProps = (state) => {
+  console.log(state)
   return {
     cursos: state.cursosReducer.cursos,
+    auxiliar: state.cursosReducer.auxiliar
   };
 };
 
 const mapDispatchToProps = {
   traerCursos: cursosAction.traerCursos,
   obtenerRoles: usuarioAction.obtenerRoles,
+  filtroCursos: cursosAction.filtroCursos
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cursos);

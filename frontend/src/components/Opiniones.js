@@ -3,38 +3,36 @@ import cursosAction from "../redux/actions/cursosAction";
 import usuarioAction from "../redux/actions/usuarioAction";
 import Opinion from "./Opinion";
 import { useRef } from "react";
+import Swal from "sweetalert2";
 
 const Opiniones = ({
   id,
-  crearOpinion,
   usuario,
-  traerOpiniones,
+  crearOpinion,
   traerCursos,
-  cursos,
-  curso,
   opiniones,
-  traerUsuarios
+  traerUsuarios,
+  traerCursoId,
+  editarOpinion
 }) => {
   const input = useRef();
-  console.log(id);
-  console.log(curso);
+
 
   const dejarOpinion = async () => {
     let opiniones = {
       cursoId: id,
       opinion: input.current.value,
     };
-
     const opinionAgregada = await crearOpinion(opiniones);
     input.current.value = "";
 
     if (opinionAgregada.success) {
-      console.log("se agrego la opinion");
-      traerCursos();
+      traerCursos()
+      traerCursoId(id)
     }
   };
+  traerUsuarios();
 
-  traerUsuarios()
 
   return (
     <>
@@ -42,7 +40,7 @@ const Opiniones = ({
         <div className="overflow-y-scroll h-96 w-full p-2 scrollbarcomments">
           {opiniones.length > 0
             ? opiniones.map((opinion, index) => {
-                return <Opinion key={index} opinion={opinion} id={id} />;
+                return <Opinion key={index} opinion={opinion} id={id} editarOpinion={editarOpinion} traerCursos={traerCursos} />;
               })
             : null}
         </div>
@@ -68,6 +66,7 @@ const Opiniones = ({
             </span>
           </label>
           <input
+            disabled={!usuario._id ? true : false}
             ref={input}
             type="text"
             className="flex-shrink flex-grow text-gray-900 bg-white rubik leading-normal w-px  border-0 h-10 border-grey-light px-3 self-center relative  font-roboto text-base outline-none placeholder-gray-600"
@@ -76,7 +75,58 @@ const Opiniones = ({
           <div className="flex -mr-px bg-white  rounded-r-lg">
             <span
               className="flex items-center leading-normal border-0 px-3 whitespace-no-wrap text-gray-900"
-              onClick={() => dejarOpinion()}
+              onClick={() => {
+                if(!usuario._id){
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: "bottom-right",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    background: "#be123c",
+                    iconColor: "#fff",
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener(
+                            "mouseenter",
+                            Swal.stopTimer
+                        );
+                        toast.addEventListener(
+                            "mouseleave",
+                            Swal.resumeTimer
+                        );
+                    },
+                });
+                Toast.fire({
+                    icon: "error",
+                    title: `<span style="color:#FFF"> Debes estar registrado para dejar tu opinion! <span>`,
+                })
+                }else{
+                  dejarOpinion()
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: "bottom-right",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    background: "#be123c",
+                    iconColor: "#fff",
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener(
+                            "mouseenter",
+                            Swal.stopTimer
+                        );
+                        toast.addEventListener(
+                            "mouseleave",
+                            Swal.resumeTimer
+                        );
+                    },
+                });
+                Toast.fire({
+                    icon: "success",
+                    title: `<span style="color:#FFF"> Opinion agregada! <span>`,
+                })
+                }
+              }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -104,9 +154,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   crearOpinion: cursosAction.crearOpinion,
+  editarOpinion: cursosAction.editarOpinion,
   traerOpiniones: cursosAction.traerOpiniones,
   traerUsuarios: usuarioAction.traerUsuarios,
   traerCursos: cursosAction.traerCursos,
+  traerCursoId: cursosAction.traerCursoId
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Opiniones);

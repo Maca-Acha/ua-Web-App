@@ -2,12 +2,12 @@ const initialState = {
   state: [],
   usuario: {},
   roles: {},
-  token: "",
-  usuarios: {}
+  usuarios: {},
+  prueba:[]
 };
 
 const reducer = (state = initialState, action) => {
-  // console.log(action)
+
   switch (action.type) {
     case "USUARIO":
       return {
@@ -23,8 +23,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         roles: action.payload.rol,
-        token: action.payload.token,
         usuario: action.payload.usuario
+      };
+    case "PRUEBA":
+      return {
+        ...state,
+        prueba: action.payload,
       };
 
     default:

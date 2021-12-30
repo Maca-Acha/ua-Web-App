@@ -2,8 +2,7 @@ const Curso = require("../models/Curso");
 
 const opinionesController = {
   crearOpinion: async (req, res) => {
-    const { cursoId, opinion} = req.body;
-    console.log(req.user._id)
+    const { cursoId, opinion } = req.body;
     try {
       const nuevaOpinion = await Curso.findOneAndUpdate(
         { _id: cursoId },
@@ -39,25 +38,25 @@ const opinionesController = {
   editarOpinion: async (req, res) => {
     const { opinionId, opinion } = req.body;
     try {
-      let editarOpinion = await Curso.findOneAndUpdate(
-        {"opiniones._id": opinionId},
+        let editarOpinion = await Curso.findOneAndUpdate(
+        { "opiniones._id": opinionId },
         {
           $set: {
             "opiniones.$.opinion": opinion,
-          }
+          },
         },
         { new: true }
-      )
-
-      res.json({ success: true, response: editarOpinion, error: null });
+      );
+      res.json({ success: true, response: editarOpinion , error: null });
     } catch (e) {
       res.json({ success: false, response: null, error: e.message });
     }
-  }
+  },
+  traerOpiniones:async (req, res) => {
+    Curso.find()
+    .then(response => {res.json({success: true, response: response})})
+    
+  },
 };
 
 module.exports = opinionesController;
-
-// .$. operador posicional que limita el contenido del array con la condicion de la matriz
-// entonces va a buscar el primer elemento que cumpla la condicion, o sea que buscara en
-//opiniones el primer elemento que tenga el id que coincida con el id que le pasamos

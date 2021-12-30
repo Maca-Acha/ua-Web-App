@@ -12,7 +12,9 @@
     "nodemailer": "^6.7.2",
     "nodemon": "^2.0.15",
     "passport": "^0.5.2",
-    "passport-jwt": "^4.0.0"
+    "passport-jwt": "^4.0.0",
+    "react-toastify": "^8.1.0",
+    "sweetalert2": "^11.3.2"
   },
   "scripts": {
     "start": "nodemon server.js",

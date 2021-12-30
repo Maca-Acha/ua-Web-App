@@ -1,16 +1,16 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment} from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
-// import "animate.css";
 import { Link } from "react-router-dom";
 import "../index.css";
 import MenuResponsive from "./MenuResponsive";
+import usuarioAction from "../redux/actions/usuarioAction";
+import { connect } from "react-redux";
 
-function Navbar() {
+function Navbar(props) {
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", function () {
       const header = document.querySelector(".header");
-
       header.classList.toggle("active", window.scrollY > 10);
     });
   }
@@ -107,18 +107,44 @@ function Navbar() {
                   </div>
 
                   <div className="flex flex-col justify-center items-center text-center">
-                    <Link
-                      to="/iniciarsesion"
-                      className="block w-full py-3 text-center font-medium text-white bg-rose-400   hover:bg-rose-700 hover:font-bold"
-                    >
-                      Iniciar Sesion
-                    </Link>
-                    <Link
-                      to="/registrarse"
-                      className="block w-full py-3 text-center font-medium text-white bg-rose-400 hover:bg-rose-700 hover:font-bold"
-                    >
-                      Registrarse
-                    </Link>
+                    {!props.usuario._id ? (
+                      <>
+                        <Link
+                          to="/iniciarsesion"
+                          className="block w-full py-3 text-center font-medium text-white bg-rose-400   hover:bg-rose-700 hover:font-bold"
+                        >
+                          Iniciar Sesion
+                        </Link>
+                        <Link
+                          to="/registrarse"
+                          className="block w-full py-3 text-center font-medium text-white bg-rose-400 hover:bg-rose-700 hover:font-bold"
+                        >
+                          Registrarse
+                        </Link>
+                      </>
+                    ) : (
+                      <>
+                        <Link
+                          to="/favoritos"
+                          className="block w-full py-3 text-center font-medium text-white bg-rose-400   hover:bg-rose-700 hover:font-bold"
+                        >
+                          Mis favoritos
+                        </Link>
+                        <Link
+                          to="/configuracion"
+                          className="block w-full py-3 text-center font-medium text-white bg-rose-400 hover:bg-rose-700 hover:font-bold"
+                        >
+                          Configuración
+                        </Link>
+                        <button
+
+                          onClick={() => props.cerrarSesion()}
+                          className="block w-full py-3 text-center font-medium text-white bg-rose-400 hover:bg-rose-700 hover:font-bold"
+                        >
+                          Cerrar Sesion
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               </Popover.Panel>
@@ -130,4 +156,15 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+const mapDispatchToProps = {
+  obtenerRoles: usuarioAction.obtenerRoles,
+  cerrarSesion: usuarioAction.cerrarSesion,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    usuario: state.reducer.usuario,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

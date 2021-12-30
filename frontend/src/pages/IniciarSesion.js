@@ -1,22 +1,20 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import DOTS from "vanta/dist/vanta.dots.min";
-import * as THREE from "three";
 import { Formik } from "formik";
 import * as yup from "yup";
 import usuarioAction from "../redux/actions/usuarioAction";
 import { connect } from "react-redux";
-
 import GoogleLogin from "react-google-login";
 
 const IniciarSesion = (props) => {
   let navigate = useNavigate()
-  localStorage.getItem("token") && props.token === "" && props.obtenerRoles()
   props.usuario.nombre && navigate("/", {replace: true})
-
+  !props.usuario.nombre && props.obtenerRoles()
   const [showPassword, setShowPassword] = useState(false);
   const [vantaEffect, setVantaEffect] = useState(0);
   const vantaRef = useRef(null);
+  
   const handlePassword = () => {
     setShowPassword(!showPassword);
   };
@@ -27,11 +25,15 @@ const IniciarSesion = (props) => {
   });
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
     if (!vantaEffect) {
       setVantaEffect(
         DOTS({
           el: vantaRef.current,
-          //   THREE,
           mouseControls: true,
           touchControls: true,
           gyroControls: true,
@@ -56,18 +58,16 @@ const IniciarSesion = (props) => {
 
   const enviar = async (values) => {
     await props.inicioSesion(values);
-          props.obtenerRoles()
   };
   const responseGoogle = (res) => {
     let googleUser = {
         email: res.profileObj.email,
-        password: res.profileObj.googleId,
+        contraseña: res.profileObj.googleId,
         google:true,
         emailVerificado: true
     }
     props.inicioSesion(googleUser)
-    .then((res) => res.data.success)
-    .catch((err) => console.log(err))
+    
 }   
   return (
     <>
@@ -213,8 +213,8 @@ const IniciarSesion = (props) => {
                           Iniciar sesion con Google
                         </button>
                       )}
-                         onSuccess={responseGoogle}
-                         onFailure={responseGoogle}
+                      onSuccess={responseGoogle}
+                      onFailure={responseGoogle}
                       cookiePolicy={"single_host_origin"}
                     />
                     <Link
