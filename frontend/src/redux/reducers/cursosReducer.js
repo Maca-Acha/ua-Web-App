@@ -8,7 +8,7 @@ const initialState = {
 const cursosReducer = (state = initialState, action) => {
     switch (action.type) {   
         case 'FILTRO_CURSOS':
-            const filtrado = action.payload.cursos.filter((curso => curso.titulo.toLowerCase().startsWith(action.payload.value.toLowerCase())))
+            const filtrado = action.payload.cursos.filter((curso => curso.titulo.toLowerCase().includes(action.payload.value.toLowerCase())))
             return{
                 ...state,
                 auxiliar: filtrado
@@ -16,7 +16,8 @@ const cursosReducer = (state = initialState, action) => {
         case 'CURSOS':
             return{
                 ...state,
-                cursos: action.payload
+                cursos: action.payload,
+                auxiliar: action.payload
             }
         case 'CURSO_ID':
             return{

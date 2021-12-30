@@ -493,7 +493,7 @@ const usuarioControlador = {
           error: "El email no existe",
           response: null,
         });
-      } else if (emailExiste.emailVerificado) {
+      } else{
         
         const contraseñaValida = bcryptjs.compareSync(
           contraseña,
@@ -514,13 +514,6 @@ const usuarioControlador = {
             response: null,
           });
         }
-      }else {
-        res.json({
-          success: false,
-          error: "Tu email no está verificado, por favor revisa tu correo",
-          response: null,
-        })
-        console.log(error);
       }
     } catch (e) {
       res.json({

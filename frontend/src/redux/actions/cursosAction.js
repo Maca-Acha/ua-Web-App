@@ -2,8 +2,10 @@ import axios from "axios";
 import { toast } from "react-toastify"
 
 const cursosAction = {
-  filtroCursos: (cursos, value) => {
+  filtroCursos: (value) => {
     return (dispatch, getState) => {
+      const cursos = getState().cursosReducer.cursos
+
       dispatch({ type: "FILTRO_CURSOS", payload: { cursos, value } });
     };
   },

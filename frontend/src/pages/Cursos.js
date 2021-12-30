@@ -11,6 +11,7 @@ const Cursos = (props) => {
       left: 0,
       behavior: "smooth",
     });
+    
     props.traerCursos();
     props.obtenerRoles();
   }, []);
@@ -25,6 +26,7 @@ const Cursos = (props) => {
         <div className="flex justify-center items-center md:items-baseline flex-col md:flex-row mt-10">
           <div className="mr-0 md:mr-32 mb-5 md:mb-0">
             <input
+            onChange={(e)=> props.filtroCursos(e.target.value)}
               type="text"
               placeholder="Buscar un curso"
               className="text-center w-80 bg-white appearance-none border-2 border-red-900 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-red-600"
@@ -60,7 +62,7 @@ const Cursos = (props) => {
         </div>
         <div className="flex justify-center items-center p-14">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
-            {props.cursos.map((curso, index) => {
+            {props.auxiliar.map((curso, index) => {
               return (
                 <>
                   <div
@@ -114,14 +116,17 @@ const Cursos = (props) => {
 };
 
 const mapStateToProps = (state) => {
+  console.log(state)
   return {
     cursos: state.cursosReducer.cursos,
+    auxiliar: state.cursosReducer.auxiliar
   };
 };
 
 const mapDispatchToProps = {
   traerCursos: cursosAction.traerCursos,
   obtenerRoles: usuarioAction.obtenerRoles,
+  filtroCursos: cursosAction.filtroCursos
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cursos);
