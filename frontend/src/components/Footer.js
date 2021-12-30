@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -6,10 +6,13 @@ const Footer = () => {
       <footer className="text-gray-600 body-font bg-transparent border-t-2 border-rose-600">
         <div className="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
           <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
-            <Link to="/" className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+            <Link
+              to="/"
+              className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900"
+            >
               <img
                 className="h-8 w-auto font-2xl sm:h-10"
-                src="https://by3301files.storage.live.com/y4mH5ghEidPfF8io-3hp7rZuKY-QlDVXGQnJ6YBGjb22fjHzqhmZMuKrrmQMFwqjiJ1eU5SOfw5ukm-PpvnPN8ma9WbcUmRY-lneLkMt6kL9qeh3OhnJZh6dGcWOkexSArqr4mRAG8hEK2jsKhVAMNlLNIUIjmbMxVSlY6ZqUh5JUM5yNMNET1jYFw_e1PDEwZj?width=1500&height=1500&cropmode=none"
+                src="./assets/logo.png"
                 alt="UA"
               />
             </Link>
@@ -18,27 +21,46 @@ const Footer = () => {
 
           <div className="flex-grow flex-col md:flex-row flex flex-wrap justify-evenly md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
             <div className="">
-              <h2 className="title-font font-bold text-white tracking-widest text-md mb-3">
+              <Link
+                to="/cursos"
+                className="cursor-pointer title-font font-bold text-white tracking-widest text-md mb-3"
+              >
                 CATEGORIAS
-              </h2>
+              </Link>
               <nav className="list-none mb-10">
                 <li>
-                  <Link to="/categorias" className="text-white hover:text-rose-300" href="#">
+                  <Link
+                    to="/cursos"
+                    className="text-white hover:text-rose-300"
+                    href="#"
+                  >
                     Programación
                   </Link>
                 </li>
                 <li>
-                  <Link to="/" className="text-white hover:text-rose-300" href="#">
+                  <Link
+                    to="/cursos"
+                    className="text-white hover:text-rose-300"
+                    href="#"
+                  >
                     Arte Digital
                   </Link>
                 </li>
                 <li>
-                  <Link to="/" className="text-white hover:text-rose-300" href="#">
+                  <Link
+                    to="/cursos"
+                    className="text-white hover:text-rose-300"
+                    href="#"
+                  >
                     Belleza
                   </Link>
                 </li>
                 <li>
-                  <Link to="/" className="text-white hover:text-rose-300" href="#">
+                  <Link
+                    to="/cursos"
+                    className="text-white hover:text-rose-300"
+                    href="#"
+                  >
                     Moda
                   </Link>
                 </li>
@@ -46,27 +68,34 @@ const Footer = () => {
             </div>
             <div className="">
               <h2 className="title-font font-bold text-white tracking-widest text-md mb-3">
-                CATEGORIES
+                NOSOTROS
               </h2>
               <nav className="list-none mb-10">
                 <li>
-                  <Link to="/" className="text-white hover:text-rose-300" href="#">
-                    First Link
+                  <Link
+                    to="/"
+                    className="text-white hover:text-rose-300"
+                    href="#"
+                  >
+                    Como ayudamos?
                   </Link>
                 </li>
                 <li>
-                  <Link to="/" className="text-white hover:text-rose-300" href="#">
-                    Second Link
+                  <Link
+                    to="/"
+                    className="text-white hover:text-rose-300"
+                    href="#"
+                  >
+                    Quienes somos?
                   </Link>
                 </li>
                 <li>
-                  <Link to="/" className="text-white hover:text-rose-300" href="#">
-                    Third Link
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/" className="text-white hover:text-rose-300" href="#">
-                    Fourth Link
+                  <Link
+                    to="/"
+                    className="text-white hover:text-rose-300"
+                    href="#"
+                  >
+                    Que hacemos?
                   </Link>
                 </li>
               </nav>

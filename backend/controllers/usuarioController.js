@@ -32,7 +32,9 @@ const usuarioControlador = {
           google,
           role
         });
+
         const token = jwt.sign({ ...nuevoUsuario }, process.env.SECRET_KEY);
+
         await nuevoUsuario.save();
         
         res.json({
@@ -46,70 +48,74 @@ const usuarioControlador = {
     }
   },
   usuariosRegistrados: async (req, res) => {
-    try{
-      const usuarios = await Usuario.find()
+    try {
+      const usuarios = await Usuario.find();
 
-      let usuariosArray = []
-      
-      usuarios.map(usuario => {
+      let usuariosArray = [];
+
+      usuarios.map((usuario) => {
         usuariosArray.push({
           nombre: usuario.nombre,
           apellido: usuario.apellido,
           foto: usuario.foto,
-          id: usuario._id
-        })
-      })
-      res.json({success: true, response: usuariosArray, error: null}) 
-    }catch (e){
-      res.json({success:false, response:null, error: e})
+          id: usuario._id,
+        });
+      });
+      res.json({ success: true, response: usuariosArray, error: null });
+    } catch (e) {
+      res.json({ success: false, response: null, error: e });
     }
   },
   inicioSesion: async (req, res) => {
     const { email, contraseña, google} = req.body;
     try {
       const emailExiste = await Usuario.findOne({ email });
-      if (emailExiste) {
-        let contraseñaCorrecta = bcryptjs.compareSync(
+
+      if (emailExiste.google && !google) {
+        res.json({
+          success: false,
+          error: "El usuario no puede iniciar sesion con una cuenta de google",
+          response: null,
+        });
+      }
+
+      if (!emailExiste) {
+        res.json({
+          success: false,
+          error: "El email no existe",
+          response: null,
+        });
+      } else {
+        const contraseñaValida = bcryptjs.compareSync(
           contraseña,
           emailExiste.contraseña
         );
-        if (contraseñaCorrecta) {
+        if (contraseñaValida) {
           const token = jwt.sign({ ...emailExiste }, process.env.SECRET_KEY);
           res.json({
             success: true,
             response: { token, ...emailExiste._doc },
-            error: null
+            error: null,
           });
         } else {
           res.json({
             success: false,
-            error: "La contraseña es incorrecta",
+            error: "La contraseña o email es incorrecto",
             response: null,
           });
         }
-      } else {
-        res.json({
-          success: false,
-          error: "El email es incorrecto",
-          response: null,
-        });
       }
-    } catch (error) {
-      res.json({ success: false, response: null, error: error });
+    } catch (e) {
+      res.json({
+        success: false,
+        error: "Error inesperado",
+        response: null,
+      });
     }
   },
   chekearToken: (req, res) => {
     res.json({success:true, response: req.user, error:null})
   },
-  /* obtenerRoles: async (req, res) => {
-    try {
-      if (req.user) {
-        res.json({ success: true, response: req.user, error: null });
-      }
-    } catch (error) {
-      res.json({ success: false, response: null, error: error });
-    }
-  }, */
 };
 
 module.exports = usuarioControlador;

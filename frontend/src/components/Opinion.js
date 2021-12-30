@@ -1,21 +1,48 @@
 import { connect } from "react-redux";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import usuarioAction from "../redux/actions/usuarioAction";
 import cursosAction from "../redux/actions/cursosAction";
+
 const Opinion = (props) => {
   const input = useRef();
   const [modoEditar, setModoEditar] = useState(false);
-  const opinionBorrada = () => {
-    props.borrarOpinion(props.id, props.opinion._id);
-    console.log("comentario borrado");
+
+  useEffect(() => {
+    return () => {
+      props.traerCursos();
+    };
+  }, [])
+
+  console.log(props.opinion._id);
+  const opinionBorrada = async () => {
+    let borrarOpinionObj = {
+      cursoId: props.id,
+      opinionId: props.opinion._id,
+    };
+
+    let res = await props.borrarOpinion(borrarOpinionObj);
+
+    if (res.success) {
+      props.traerCursos();
+      console.log("comentario borrado");
+    }
+
   };
 
-  function editarOpinion() {
-    let opinionEditada = {
+  const terminarEditar = async () => {
+    let x = {
+      opinionId: props.opinion._id,
       opinion: input.current.value,
     };
-    props.editarOpinion(props.opinion._id, opinionEditada);
-  }
+    const res = await props.editarOpinion(x);
+
+    if (res.success) {
+      props.traerCursos();
+      console.log("comentario editado");
+      setModoEditar(!modoEditar);
+    }
+  };
+
   console.log(props);
   return (
     <>
@@ -23,26 +50,28 @@ const Opinion = (props) => {
         <div className="bg-transparent  w-full border-2 border-white py-2 px-3 rounded-lg rounded-r-lg">
           <div className="flex items-center justify-between w-full">
             <div className="flex items-center">
-              {props.usuarios.length > 1 && props.usuarios.map((usuario, index) =>
-                usuario.id === props.opinion.usuarioId ? (
-                  <span
-                    style={{
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      backgroundImage: `url(${usuario.foto})`,
-                    }}
-                    key={index}
-                    className="w-14 h-14 flex items-center justify-center font-bold  rounded-full"
-                  ></span>
-                ) : null
-              )}
-              {props.usuarios.length > 1 && props.usuarios.map((usuario, index) =>
-                usuario.id === props.opinion.usuarioId ? (
-                  <span className="fw-bold text-white text-2xl pl-5">
-                    {usuario.nombre} {usuario.apellido}
-                  </span>
-                ) : null
-              )}
+              {props.usuarios.length > 1 &&
+                props.usuarios.map((usuario, index) =>
+                  usuario.id === props.opinion.usuarioId ? (
+                    <span
+                      style={{
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        backgroundImage: `url(${usuario.foto})`,
+                      }}
+                      key={index}
+                      className="w-14 h-14 flex items-center justify-center font-bold  rounded-full"
+                    ></span>
+                  ) : null
+                )}
+              {props.usuarios.length > 1 &&
+                props.usuarios.map((usuario, index) =>
+                  usuario.id === props.opinion.usuarioId ? (
+                    <span className="fw-bold text-white text-2xl pl-5">
+                      {usuario.nombre} {usuario.apellido}
+                    </span>
+                  ) : null
+                )}
             </div>
 
             <div className="flex">
@@ -91,13 +120,13 @@ const Opinion = (props) => {
                 <div className="flex flex-col pl-20">
                   <input
                     ref={input}
-                    defaultValue={props.opinion}
+                    defaultValue={props.opinion.opinion}
                     className="mt-2 mb-1 py-2 rounded-full text-gray-900 pl-5 bg-white w-full focus:outline-none focus:border-rose-900 focus:ring-1 focus:ring-rose-900"
                   />
                   <div className="mt-2">
                     <button
                       className="inline-flex bg-white text-gray-900 rounded-full h-6 px-3 justify-center items-center py-3"
-                      onClick={() => editarOpinion()}
+                      onClick={() => terminarEditar()}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -161,7 +190,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   traerUsuarios: usuarioAction.traerUsuarios,
-  borrarOpinion: cursosAction.borrarOpinion
+  borrarOpinion: cursosAction.borrarOpinion,
+  traerCursos: cursosAction.traerCursos,
+  editarOpinion: cursosAction.editarOpinion,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Opinion);
