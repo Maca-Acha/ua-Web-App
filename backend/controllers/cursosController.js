@@ -54,21 +54,6 @@ const cursosController = {
       res.json({success:false, response:null, error:e})
     }
   },
-  /* favorito: async (req,res)=>{
-    console.log(req.body)
-    const id = req.body.cursoId
-    const curso = await Curso.findOne({_id : id}).lean()
-    const favoritoExist = curso.favoritos.some(favorito => favorito.toString() === req.body.usuarioId.toString())
-    const action = favoritoExist ? "$pull" : "$push"
-    Curso.findOneAndUpdate(
-        {_id:id},{[action]:{favoritos: req.body.usuarioId}},
-        {new:true}
-    ).lean()
-    .then((response) => {
-        res.json({response})
-    })
-    .catch((err) => console.log(err))      
-  }, */
   cursoUsuarioId:async (req, res) => {
     Curso.find({favoritos: req.params.id})
        
@@ -76,6 +61,16 @@ const cursosController = {
           res.json({response})
       })
       .catch((err) => console.log(err)) 
+  },
+  prueba: async(req, res) => {
+    try{
+      const fecheo = await Curso.find({
+        cursoRelacionado: req.params.cursoId,
+      })
+      res.json({response: fecheo})
+    }catch(e){
+      res.json({success:false, error: e})
+    }
   }
 };
 

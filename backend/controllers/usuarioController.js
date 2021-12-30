@@ -32,7 +32,9 @@ const usuarioControlador = {
           google,
           role
         });
+
         const token = jwt.sign({ ...nuevoUsuario }, process.env.SECRET_KEY);
+
         await nuevoUsuario.save();
         
         res.json({
@@ -68,12 +70,27 @@ const usuarioControlador = {
     const { email, contraseña, google} = req.body;
     try {
       const emailExiste = await Usuario.findOne({ email });
-      if (emailExiste) {
-        let contraseñaCorrecta = bcryptjs.compareSync(
+
+      if (emailExiste.google && !google) {
+        res.json({
+          success: false,
+          error: "El usuario no puede iniciar sesion con una cuenta de google",
+          response: null,
+        });
+      }
+
+      if (!emailExiste) {
+        res.json({
+          success: false,
+          error: "El email no existe",
+          response: null,
+        });
+      } else {
+        const contraseñaValida = bcryptjs.compareSync(
           contraseña,
           emailExiste.contraseña
         );
-        if (contraseñaCorrecta) {
+        if (contraseñaValida) {
           const token = jwt.sign({ ...emailExiste }, process.env.SECRET_KEY);
           res.json({
             success: true,
@@ -83,19 +100,17 @@ const usuarioControlador = {
         } else {
           res.json({
             success: false,
-            error: "La contraseña es incorrecta",
+            error: "La contraseña o email es incorrecto",
             response: null,
           });
         }
-      } else {
-        res.json({
-          success: false,
-          error: "El email es incorrecto",
-          response: null,
-        });
       }
-    } catch (error) {
-      res.json({ success: false, response: null, error: error });
+    } catch (e) {
+      res.json({
+        success: false,
+        error: "Error inesperado",
+        response: null,
+      });
     }
   },
   chekearToken: async (req, res) => {

@@ -48,11 +48,15 @@ const opinionesController = {
         },
         { new: true }
       );
-
-      res.json({ success: true, response: editarOpinion.opinion , error: null });
+      res.json({ success: true, response: editarOpinion , error: null });
     } catch (e) {
       res.json({ success: false, response: null, error: e.message });
     }
+  },
+  traerOpiniones:async (req, res) => {
+    Curso.find()
+    .then(response => {res.json({success: true, response: response})})
+    
   },
 };
 

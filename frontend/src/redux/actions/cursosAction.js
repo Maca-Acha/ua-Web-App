@@ -78,26 +78,12 @@ const cursosAction = {
             headers: { Authorization: "Bearer " + token },
           }
         );
-        return { success: true };
+        let respuesta = await axios.get("http://localhost:4000/api/opiniones");
+        return { success: true, response: respuesta};
       } catch (error) {
         return { error: error };
       }
     };
-
-    // return async (dispatch, getState) => {
-    //   const token = localStorage.getItem("token");
-    //   await axios.put(
-    //     "http://localhost:4000/api/opiniones",
-    //     { opinionId, opinion },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     }
-    //   );
-    //   let res = await axios.get("http://localhost:4000/api/opiniones");
-    //   dispatch({ type: "CURSOS", payload: res.data.response });
-    // };
   },
   borrarOpinion: (borrarOpinion) => {
     return async (dispatch, getState) => {
@@ -118,22 +104,13 @@ const cursosAction = {
         return { error: error };
       }
     };
-
-    // return async (dispatch, getState) => {
-    //   const token = localStorage.getItem("token");
-    //   await axios.delete(
-    //     "http://localhost:4000/api/opiniones",
-    //     { cursoId, opinionId },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     }
-    //   );
-    //   let res = await axios.get("http://localhost:4000/api/opiniones");
-    //   dispatch({ type: "CURSOS", payload: res.data.response });
-    // };
   },
+  prueba: (cursoId) => {
+    return async(dispatch, getState) => {
+      let res = await axios.get(`http://localhost:4000/api/prueba/${cursoId}`)
+      dispatch({type:"PRUEBA", payload: res.data.response})
+    }
+  }
 };
 
 export default cursosAction;

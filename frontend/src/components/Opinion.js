@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import { useState, useRef } from "react";
 import usuarioAction from "../redux/actions/usuarioAction";
 import cursosAction from "../redux/actions/cursosAction";
+
 const Opinion = (props) => {
   const input = useRef();
   const [modoEditar, setModoEditar] = useState(false);
@@ -11,32 +12,31 @@ const Opinion = (props) => {
       cursoId: props.id,
       opinionId: props.opinion._id,
     };
-
-    let res = await props.borrarOpinion(borrarOpinionObj);
-
-    if (res.success) {
+    let respuesta = await props.borrarOpinion(borrarOpinionObj);
+    if(respuesta){
       props.traerOpiniones();
-      props.traerCursos();
+      props.traerCursos()
+      props.traerCursoId(props.id)
     }
-
-    console.log("comentario borrado");
   };
 
   const terminarEditar = async () => {
-    let x = {
-      cursoId: props.id,
+    let opinionObj = {
       opinionId: props.opinion._id,
-    }
-    console.log("x")
-    const res = await props.editarOpinion(x);
+      opinion: input.current.value,
 
-    if (res.success) {
-      props.traerCursos();
-      setModoEditar(!modoEditar);
     }
-  }
+    const respuesta = await props.editarOpinion(opinionObj)
+    if(respuesta){
+      console.log("comentario editado")
+      props.prueba(props.id)
+      props.traerCursos()
+      props.traerCursoId(props.id)
+      setModoEditar(!modoEditar)
 
-  console.log(props);
+    }
+  };
+
   return (
     <>
       <div className="overflow-y-scroll p-2 scrollbarcomments w-full">
@@ -184,6 +184,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   traerUsuarios: usuarioAction.traerUsuarios,
   borrarOpinion: cursosAction.borrarOpinion,
+  traerCursos: cursosAction.traerCursos,
+  traerOpiniones: cursosAction.traerOpiniones,
+  prueba: cursosAction.prueba,
+  traerCursoId: cursosAction.traerCursoId
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Opinion);

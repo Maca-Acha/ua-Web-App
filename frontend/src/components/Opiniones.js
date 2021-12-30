@@ -14,24 +14,23 @@ const Opiniones = ({
   curso,
   opiniones,
   traerUsuarios,
+  traerCursoId,
   editarOpinion
 }) => {
   const input = useRef();
-  console.log(id);
-  console.log(curso);
+
 
   const dejarOpinion = async () => {
     let opiniones = {
       cursoId: id,
       opinion: input.current.value,
     };
-
     const opinionAgregada = await crearOpinion(opiniones);
     input.current.value = "";
 
     if (opinionAgregada.success) {
-      console.log("se agrego la opinion");
-      traerCursos();
+      traerCursos()
+      traerCursoId(id)
     }
   };
 
@@ -109,6 +108,7 @@ const mapDispatchToProps = {
   traerOpiniones: cursosAction.traerOpiniones,
   traerUsuarios: usuarioAction.traerUsuarios,
   traerCursos: cursosAction.traerCursos,
+  traerCursoId: cursosAction.traerCursoId
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Opiniones);
