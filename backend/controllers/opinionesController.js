@@ -48,7 +48,6 @@ const opinionesController = {
         },
         { new: true }
       );
-
       res.json({ success: true, response: editarOpinion , error: null });
     } catch (e) {
       res.json({ success: false, response: null, error: e.message });
