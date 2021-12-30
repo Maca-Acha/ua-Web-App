@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Categorias from "../components/Categorias";
-
 import CursoTarjeta from "../components/CursoTarjeta";
 import cursosAction from "../redux/actions/cursosAction";
 import { connect } from "react-redux";
@@ -23,7 +22,7 @@ const Cursos = (props) => {
               Categorías Principales
             </h1>
           </div>
-          <Categorias />
+          <Categorias  />
         </div>
       </div> */}
       <section className="mt-32">

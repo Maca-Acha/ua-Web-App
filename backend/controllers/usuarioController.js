@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 
 const usuarioControlador = {
   nuevoUsuario: async (req, res) => {
-    // console.log('aquiii req.user', req.user)
     const {
       nombre,
       apellido,
@@ -12,8 +11,6 @@ const usuarioControlador = {
       contraseña,
       foto,
       google,
-      tutor,
-      admin,
       role,
     } = req.body;
     try {
@@ -33,16 +30,15 @@ const usuarioControlador = {
           contraseña: contraseñaHasheada,
           foto,
           google,
-          tutor,
-          admin,
-          role,
+          role
         });
         const token = jwt.sign({ ...nuevoUsuario }, process.env.SECRET_KEY);
         await nuevoUsuario.save();
+        
         res.json({
           success: true,
           response: { token, ...nuevoUsuario._doc },
-          error: null,
+          error: null
         });
       }
     } catch (e) {
@@ -70,7 +66,6 @@ const usuarioControlador = {
   },
   inicioSesion: async (req, res) => {
     const { email, contraseña, google} = req.body;
-
     try {
       const emailExiste = await Usuario.findOne({ email });
       if (emailExiste) {
@@ -104,10 +99,9 @@ const usuarioControlador = {
     }
   },
   chekearToken: (req, res) => {
-    res.json(req.user);
+    res.json({success:true, response: req.user, error:null})
   },
-  obtenerRoles: async (req, res) => {
-    // console.log(req.user)
+  /* obtenerRoles: async (req, res) => {
     try {
       if (req.user) {
         res.json({ success: true, response: req.user, error: null });
@@ -115,7 +109,7 @@ const usuarioControlador = {
     } catch (error) {
       res.json({ success: false, response: null, error: error });
     }
-  },
+  }, */
 };
 
 module.exports = usuarioControlador;
