@@ -1,15 +1,19 @@
 import { connect } from "react-redux";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import usuarioAction from "../redux/actions/usuarioAction";
 import cursosAction from "../redux/actions/cursosAction";
-
 
 const Opinion = (props) => {
   const input = useRef();
   const [modoEditar, setModoEditar] = useState(false);
 
-  console.log(props.opinion._id);
+  useEffect(() => {
+    return () => {
+      props.traerCursos();
+    };
+  }, [])
 
+  console.log(props.opinion._id);
   const opinionBorrada = async () => {
     let borrarOpinionObj = {
       cursoId: props.id,
@@ -19,11 +23,10 @@ const Opinion = (props) => {
     let res = await props.borrarOpinion(borrarOpinionObj);
 
     if (res.success) {
-      props.traerOpiniones();
       props.traerCursos();
+      console.log("comentario borrado");
     }
 
-    console.log("comentario borrado");
   };
 
   const terminarEditar = async () => {
@@ -31,11 +34,11 @@ const Opinion = (props) => {
       opinionId: props.opinion._id,
       opinion: input.current.value,
     };
-    console.log(x);
     const res = await props.editarOpinion(x);
 
     if (res.success) {
       props.traerCursos();
+      console.log("comentario editado");
       setModoEditar(!modoEditar);
     }
   };
@@ -188,6 +191,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   traerUsuarios: usuarioAction.traerUsuarios,
   borrarOpinion: cursosAction.borrarOpinion,
+  traerCursos: cursosAction.traerCursos,
+  editarOpinion: cursosAction.editarOpinion,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Opinion);
