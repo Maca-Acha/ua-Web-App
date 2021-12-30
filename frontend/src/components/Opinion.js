@@ -65,7 +65,7 @@ const Opinion = (props) => {
               {props.usuarios.length > 1 &&
                 props.usuarios.map((usuario, index) =>
                   usuario.id === props.opinion.usuarioId ? (
-                    <span className="fw-bold text-white text-2xl pl-5">
+                    <span key={index} className="fw-bold text-white text-2xl pl-5">
                       {usuario.nombre} {usuario.apellido}
                     </span>
                   ) : null
