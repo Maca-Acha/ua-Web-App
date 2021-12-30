@@ -1,5 +1,7 @@
 const data = {
     cursos: [
+<<<<<<< HEAD
+=======
         {
             titulo: "Curso de React",
             descripcion: "Curso de React",
@@ -26,16 +28,13 @@ const data = {
         {
              titulo: "Curso Maestro de Python 3: Aprende Desde Cero."
         },
+>>>>>>> 79fe6095df14c8abb16ed2faee3efab79d6e4ad7
         {
+            titulo: "Curso Maestro de Python 3: Aprende Desde Cero.",
             foto: "https://media.charlesleifer.com/blog/photos/sqlite-and-python.png",
-        },
-        { tutor: "Facundo Techeira" },
-        {
-            descripcion:
-                "Aprende a programar con clases y objetos, a usar ficheros y bases de datos SQLite, interfaces gráficas y más con Python!",
-        },
-        { hastag: ["aprender", "python", "SQLite", "clases y objetos"] },
-        {
+            tutor: "Facundo Techeira",
+            descripcion: "Aprende a programar con clases y objetos, a usar ficheros y bases de datos SQLite, interfaces gráficas y más con Python!",
+            hastag: ["aprender", "python", "SQLite", "clases y objetos"],
             clases: [
                 {
                     tituloClase: "Bienvenida.",
@@ -47,17 +46,12 @@ const data = {
                 },
             ],
         },
-        { titulo: "JavaScript: de cero hasta los detalles (ES5)." },
         {
+            titulo: "JavaScript: de cero hasta los detalles (ES5).",
             foto: "https://img-b.udemycdn.com/course/240x135/751768_27d8.jpg?secure=fShoOcZQDZrkReZCgijX9w%3D%3D%2C1640672690",
-        },
-        { tutor: "Luciano Aguirre" },
-        {
-            descripcion:
-                "En este poderoso lenguaje de programación web cada día más utilizado.",
-        },
-        { hastag: ["Desarrollador", "JavaScript", "work", "Proyecto"] },
-        {
+            tutor: "Luciano Aguirre",
+            descripcion: "En este poderoso lenguaje de programación web cada día más utilizado.",
+            hastag: ["Desarrollador", "JavaScript", "work", "Proyecto"],
             clases: [
                 {
                     tituloClase: "Introducción",
@@ -69,18 +63,12 @@ const data = {
                 },
             ],
         },
-
-        { titulo: "Adobe Premiere Pro CC: ¡De Cero a Avanzado!" },
         {
+            titulo: "Adobe Premiere Pro CC: ¡De Cero a Avanzado!",
             foto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIQzToB0hx--OQHjo9HHSTy6bnCkentJEknA&usqp=CAU",
-        },
-        { tutor: "Maca Acha" },
-        {
-            descripcion:
-                "Edición de video a la velocidad de la luz. Conviértete en el Creativo, Filmmaker o Editor que siempre habías soñado",
-        },
-        { hastag: ["Video", "Premiere", "Creativo", "Edicción"] },
-        {
+            tutor: "Maca Acha",
+            descripcion:"Edición de video a la velocidad de la luz. Conviértete en el Creativo, Filmmaker o Editor que siempre habías soñado", 
+            hastag: ["Video", "Premiere", "Creativo", "Edicción"], 
             clases: [
                 {
                     tituloClase: "Premiere desde 0.",
@@ -92,20 +80,12 @@ const data = {
                 },
             ],
         },
-
         {
             titulo: "Adobe Photoshop CC: Curso Completo de Principiante a Experto.",
-        },
-        {
             foto: "https://elandroidefeliz.com/wp-content/uploads/2020/08/Como-descargar-Photoshop-gratis-legalmente.jpg",
-        },
-        { tutor: "Alan Blanco" },
-        {
-            descripcion:
-                "Aprende las herramientas esenciales de Adobe Photoshop CC para comenzar a diseñar hermosos gráficos y fotos en Photoshop",
-        },
-        { hastag: ["PhotoShop", "Fotos", "Editar", "Graficos"] },
-        {
+            tutor: "Alan Blanco",
+            descripcion: "Aprende las herramientas esenciales de Adobe Photoshop CC para comenzar a diseñar hermosos gráficos y fotos en Photoshop",
+            hastag: ["PhotoShop", "Fotos", "Editar", "Graficos"],
             clases: [
                 {
                     tituloClase: "Ideal para principiantes.",
@@ -117,18 +97,12 @@ const data = {
                 },
             ],
         },
-
-        { titulo: "Administración de empresas." },
         {
+            titulo: "Administración de empresas.",
             foto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbQnvwXnT1M5tc2MuDVsDqoTUXtTDkrLgegw&usqp=CAU",
-        },
-        { tutor: "Cristian Araya" },
-        {
-            descripcion:
-                "Curso de administración y gestión de empresas y organizaciones.",
-        },
-        { hastag: ["Administrar", "Estadisticas", "Operaciones", "Números"] },
-        {
+            tutor: "Cristian Araya",
+            descripcion: "Curso de administración y gestión de empresas y organizaciones.",
+            hastag: ["Administrar", "Estadisticas", "Operaciones", "Números"],
             clases: [
                 {
                     tituloClase: "Bienvenida.",
@@ -140,20 +114,12 @@ const data = {
                 },
             ],
         },
-
         {
             titulo: "Esenciales ALD/AML: Lavado de dinero, KYC y ALD Cumplimiento.",
-        },
-        {
             foto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCHwG6pVh5ExpOFzlAX9tX8W6l9AUJ0neE1qZ4lTr5vZlhXnTba3t_RzKUNC90JvFXWus&usqp=CAU",
-        },
-        { tutor: "Matias Sosa" },
-        {
-            descripcion:
-                "Aprenda los conceptos básicos de anti-lavado de dinero (ALD/AML) y programas de cumplimiento de KYC, CDD, EDD, PEP y más.",
-        },
-        { hastag: ["Lavado", "Dinero", "Seguridad", "Números"] },
-        {
+            tutor: "Matias Sosa",
+            descripcion: "Aprenda los conceptos básicos de anti-lavado de dinero (ALD/AML) y programas de cumplimiento de KYC, CDD, EDD, PEP y más.",
+            hastag: ["Lavado", "Dinero", "Seguridad", "Números"],
             clases: [
                 {
                     tituloClase: "Cumplimiento.",
@@ -165,18 +131,12 @@ const data = {
                 },
             ],
         },
-
-        { titulo: "Curso de automaquillaje completo (Mitocadoryyo)." },
         {
+            titulo: "Curso de automaquillaje completo (Mitocadoryyo).",
             foto: "https://i.pinimg.com/736x/81/6f/76/816f76d48d49a05e53e29c712abb8d30.jpg",
-        },
-        { tutor: "Maria Hernandez" },
-        {
-            descripcion:
-                "Pasa de un look de día a un ahumado de noche más teoría, trucos y técnica de maquillaje.",
-        },
-        { hastag: ["Belleza", "Look", "Personalidad", "Amor"] },
-        {
+            tutor: "Maria Hernandez",
+            descripcion: "Pasa de un look de día a un ahumado de noche más teoría, trucos y técnica de maquillaje.",
+            hastag: ["Belleza", "Look", "Personalidad", "Amor"],
             clases: [
                 {
                     tituloClase: "Automaquillaje",
@@ -188,15 +148,12 @@ const data = {
                 },
             ],
         },
-
-        { titulo: "Gestiona tu nutrición." },
         {
+            titulo: "Gestiona tu nutrición.",
             foto: "https://i.pinimg.com/736x/81/6f/76/816f76d48d49a05e53e29c712abb8d30.jpg",
-        },
-        { tutor: "Maria Hernandez" },
-        { descripcion: "Consigue tus objetivos con planes nutricionales." },
-        { hastag: ["Comida", "Salud", "Fitness", "Cuerpo"] },
-        {
+            tutor: "Maria Hernandez",
+            descripcion: "Consigue tus objetivos con planes nutricionales.",
+            hastag: ["Comida", "Salud", "Fitness", "Cuerpo"],
             clases: [
                 {
                     tituloClase: "Automaquillaje",
@@ -207,6 +164,6 @@ const data = {
                     url: "https://mp4-c.udemycdn.com/2019-02-27_23-20-57-74a41936522984979196a38bde466b47/WebHD_720p.mp4?Expires=1640734721&Signature=FkjYsWxcKnAC44Gfda~FSr4vdGxV9W-PwGBrPNGejQVBAv6yoD2Id4b9~4xs2z6KSAtU6DMuxDtg0OjdQ7ocnnjHD~~f8JAjt~xFFYHXSphAmGPnrTgfQA2AIn-icDJ5wjSYhwZI6AGw2maRumWwvnXQZbYhMui~xzRcUX0kRevdMf3I76d-rSKbqI3YTdAxcWlQv74QLRZP5N1HSI~XCBIuL0hAJEgThLglbLuG7X9O1B~F6BkHWOR380K-YXXdnKXQkKxjDGrYv0OOWCT0dQM6ukUzn1jwEQ1IhCX-0XNzOkxa4Ip4CHr8ZjlW1CfHXy3CVPmfAXcER3ES5l5vGw__&Key-Pair-Id=APKAITJV77WS5ZT7262A",
                 },
             ],
-        },
+        }
     ],
 };

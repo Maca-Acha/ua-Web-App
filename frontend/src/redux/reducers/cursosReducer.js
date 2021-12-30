@@ -3,7 +3,7 @@ const initialState = {
     auxiliar: [],
     cursos:[],
     curso: {},
-    favoritos:[]
+    cursosFav:[],
 }
 const cursosReducer = (state = initialState, action) => {
     switch (action.type) {   
@@ -22,6 +22,11 @@ const cursosReducer = (state = initialState, action) => {
             return{
                 ...state,
                 curso: action.payload
+            }
+        case 'CURSOS_FAV':
+            return{
+                ...state,
+                cursosFav: action.payload
             }
             default: return state
     }
