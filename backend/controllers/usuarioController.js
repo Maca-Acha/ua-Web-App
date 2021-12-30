@@ -46,22 +46,22 @@ const usuarioControlador = {
     }
   },
   usuariosRegistrados: async (req, res) => {
-    try{
-      const usuarios = await Usuario.find()
+    try {
+      const usuarios = await Usuario.find();
 
-      let usuariosArray = []
-      
-      usuarios.map(usuario => {
+      let usuariosArray = [];
+
+      usuarios.map((usuario) => {
         usuariosArray.push({
           nombre: usuario.nombre,
           apellido: usuario.apellido,
           foto: usuario.foto,
-          id: usuario._id
-        })
-      })
-      res.json({success: true, response: usuariosArray, error: null}) 
-    }catch (e){
-      res.json({success:false, response:null, error: e})
+          id: usuario._id,
+        });
+      });
+      res.json({ success: true, response: usuariosArray, error: null });
+    } catch (e) {
+      res.json({ success: false, response: null, error: e });
     }
   },
   inicioSesion: async (req, res) => {
@@ -78,7 +78,7 @@ const usuarioControlador = {
           res.json({
             success: true,
             response: { token, ...emailExiste._doc },
-            error: null
+            error: null,
           });
         } else {
           res.json({

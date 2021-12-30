@@ -13,7 +13,8 @@ const Opiniones = ({
   cursos,
   curso,
   opiniones,
-  traerUsuarios
+  traerUsuarios,
+  editarOpinion
 }) => {
   const input = useRef();
   console.log(id);
@@ -34,7 +35,7 @@ const Opiniones = ({
     }
   };
 
-  traerUsuarios()
+  traerUsuarios();
 
   return (
     <>
@@ -42,7 +43,7 @@ const Opiniones = ({
         <div className="overflow-y-scroll h-96 w-full p-2 scrollbarcomments">
           {opiniones.length > 0
             ? opiniones.map((opinion, index) => {
-                return <Opinion key={index} opinion={opinion} id={id} />;
+                return <Opinion key={index} opinion={opinion} id={id} editarOpinion={editarOpinion} traerCursos={traerCursos} />;
               })
             : null}
         </div>
@@ -104,6 +105,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   crearOpinion: cursosAction.crearOpinion,
+  editarOpinion: cursosAction.editarOpinion,
   traerOpiniones: cursosAction.traerOpiniones,
   traerUsuarios: usuarioAction.traerUsuarios,
   traerCursos: cursosAction.traerCursos,

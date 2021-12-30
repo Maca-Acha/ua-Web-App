@@ -4,35 +4,31 @@ const passport = require('../config/passport')
 const {nuevoUsuario, usuariosRegistrados, inicioSesion, chekearToken} = require('../controllers/usuarioController')
 const {crearCurso, traerCursos, modificarCurso, borrarCurso, favorito, traerCursoId, cursoUsuarioId} = require('../controllers/cursosController')
 // const validator = require('../config/validator')
-const {crearOpinion,borrarOpinion,editarOpinion} = require('../controllers/opinionesController')
+const {
+  crearOpinion,
+  borrarOpinion,
+  editarOpinion,
+} = require("../controllers/opinionesController");
 
 //Usuarios
 
 Router.route("/registrarse")
 .post(nuevoUsuario)
-// .post(nuevoUsuario)
 .get(usuariosRegistrados)
 
-
-Router.route("/inicioSesion")
-.post(inicioSesion);
-
-/* Router.route("/roles") 
-.post(passport.authenticate("jwt",{session:false}), obtenerRoles); */
+Router.route("/inicioSesion").post(inicioSesion);
 
 Router.route("/token")
 .get(passport.authenticate("jwt",{session:false}), chekearToken)
 
 //Cursos
 
-Router.route("/cursos")
-.post(crearCurso)
-.get(traerCursos);
+Router.route("/cursos").post(crearCurso).get(traerCursos);
 
 Router.route("/curso/:id")
-.get(traerCursoId)
-.put(modificarCurso)
-.delete(borrarCurso);
+  .get(traerCursoId)
+  .put(modificarCurso)
+  .delete(borrarCurso);
 
 Router.route("/cursoUsuario/:id")
 .get(cursoUsuarioId)
@@ -45,8 +41,8 @@ Router.route("/favoritos")
 // Opiniones
 
 Router.route("/opiniones")
-  .post(passport.authenticate('jwt', {session: false}), crearOpinion)
-  .delete(borrarOpinion)
-  .put(editarOpinion);
+  .post(passport.authenticate("jwt", { session: false }), crearOpinion)
+  .delete(passport.authenticate("jwt", { session: false }), borrarOpinion)
+  .put(passport.authenticate("jwt", { session: false }), editarOpinion);
 
 module.exports = Router;
