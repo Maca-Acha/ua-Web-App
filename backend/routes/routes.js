@@ -32,7 +32,6 @@ Router.route("/registrarse")
     roles.checkRoles(["alumno"], { session: false }),
     nuevoUsuario
   )
-  // .post(nuevoUsuario)
   .get(usuariosRegistrados);
 
 Router.route("/inicioSesion").post(inicioSesion);

@@ -6,7 +6,7 @@ const Opinion = (props) => {
   const input = useRef();
   const [modoEditar, setModoEditar] = useState(false);
 
-  console.log(props.opinion.opinion);
+  console.log(props.opinion._id);
 
   const opinionBorrada = async () => {
     let borrarOpinionObj = {
@@ -24,21 +24,19 @@ const Opinion = (props) => {
     console.log("comentario borrado");
   };
 
- 
   const terminarEditar = async () => {
     let x = {
-      cursoId: props.id,
       opinionId: props.opinion._id,
-    }
-    console.log("x")
+      opinion: input.current.value,
+    };
+    console.log(x);
     const res = await props.editarOpinion(x);
 
     if (res.success) {
       props.traerCursos();
       setModoEditar(!modoEditar);
     }
-
-  }
+  };
 
   console.log(props);
   return (
