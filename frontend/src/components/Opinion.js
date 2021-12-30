@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import usuarioAction from "../redux/actions/usuarioAction";
 import cursosAction from "../redux/actions/cursosAction";
 import Swal from "sweetalert2"
