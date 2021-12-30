@@ -1,7 +1,7 @@
 const Router = require("express").Router();
 const roles = require ("../config/roles")
 const passport = require('../config/passport')
-const {nuevoUsuario, usuariosRegistrados, inicioSesion, obtenerRoles, chekearToken, editarUsuario} = require('../controllers/usuarioController')
+const {nuevoUsuario, usuariosRegistrados, inicioSesion, chekearToken, verificarCorreo, borrarUsuario} = require('../controllers/usuarioController')
 const {crearCurso, traerCursos, modificarCurso, borrarCurso, favorito} = require('../controllers/cursosController')
 // const validator = require('../config/validator')
 const {crearOpinion,borrarOpinion,editarOpinion} = require('../controllers/opinionesController')
@@ -11,15 +11,14 @@ Router.route("/registrarse")
 .post(nuevoUsuario)
 .get(usuariosRegistrados)
 
+Router.route("/user/:id")
+.delete(borrarUsuario)
+
 Router.route("/inicioSesion")
-.post(inicioSesion);
+.post(inicioSesion)
 
-Router.route("/editarUsuario/:id")
-.put(editarUsuario);
-
-Router.route("/roles") 
-.post(passport.authenticate("jwt",{session:false}), obtenerRoles);
-
+// Router.route("/roles") 
+// .post(passport.authenticate("jwt",{session:false}), obtenerRoles);
 
 //Cursos
 
@@ -42,5 +41,10 @@ Router.route("/opiniones")
   .post(crearOpinion)
   .delete(borrarOpinion)
   .put(editarOpinion);
+
+// Verificación correo
+
+Router.route("/verificacion/:uniqueString")
+.get(verificarCorreo)
 
 module.exports = Router;

@@ -5,17 +5,15 @@ const usuarioAction = {
     return async (dispatch, getState) => {
       const token = localStorage.getItem('token')
       try {
-        const respuesta = await axios.post(
-          "http://localhost:4000/api/roles",
-          {},
+        const respuesta = await axios.get(
+          "http://localhost:4000/api/token",
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
-        // console.log(respuesta)
-        dispatch({ type: "ROLES", payload: {rol: respuesta.data.response.role, token:token, usuario: respuesta.data.response} });
+        dispatch({ type: "ROLES", payload: {role: respuesta.data.response.role, token:token, usuario: respuesta.data.response} });
       } catch (e) {
         console.log(e.message);
       }
@@ -43,7 +41,7 @@ const usuarioAction = {
           "http://localhost:4000/api/inicioSesion",
           { ...values }
         );
-        //  console.log('usuario', usuario)
+        console.log('usuario', usuario)
         if (usuario.data.success && !usuario.data.error) {
           localStorage.setItem("token", usuario.data.response.token);
           dispatch({ type: "USUARIO", payload: usuario.data });

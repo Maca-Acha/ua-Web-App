@@ -11,8 +11,8 @@ import GoogleLogin from "react-google-login";
 
 const IniciarSesion = (props) => {
   let navigate = useNavigate()
-  localStorage.getItem("token") && props.token === "" && props.obtenerRoles()
-  props.usuario.nombre && navigate("/", {replace: true})
+  // localStorage.getItem("token") && props.token === "" && props.obtenerRoles()
+  // props.usuario.nombre && navigate("/", {replace: true})
 
   const [showPassword, setShowPassword] = useState(false);
   const [vantaEffect, setVantaEffect] = useState(0);
@@ -56,16 +56,17 @@ const IniciarSesion = (props) => {
 
   const enviar = async (values) => {
     await props.inicioSesion(values);
-          props.obtenerRoles()
+          // props.obtenerRoles()
   };
   const responseGoogle = (res) => {
     let googleUser = {
         email: res.profileObj.email,
         contraseña: res.profileObj.googleId,
         google:true,
+        emailVerificado: true
     }
     props.inicioSesion(googleUser)
-    .then((res) => res.dat.success)
+    .then((res) => console.log(res))
     .catch((err) => console.log(err))
 }   
   return (

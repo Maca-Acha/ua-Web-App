@@ -78,7 +78,7 @@ const Registrarse = ({usuario, nuevoUsuario, token, obtenerRoles }) => {
   const enviar = async (values) => {
     await nuevoUsuario(values);
   };
-  const responseGoogle = (res) => {
+  const responseGoogle = async (res) => {
     let googleUser = {
         nombre: res.profileObj.name,
         apellido: 'google',
@@ -86,9 +86,11 @@ const Registrarse = ({usuario, nuevoUsuario, token, obtenerRoles }) => {
         contraseña: res.profileObj.googleId,
         foto: res.profileObj.imageUrl,
         google: true,
+        emailVerificado: true
     }
-    nuevoUsuario(googleUser)
-    .then((res) => res.dat.success)
+    console.log(res)
+    await nuevoUsuario(googleUser)
+    .then((res) => console.log(res))
     .catch((err) => console.log(err))
   }
   return (
