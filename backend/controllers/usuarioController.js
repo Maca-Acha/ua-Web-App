@@ -1,23 +1,23 @@
 const bcryptjs = require("bcryptjs");
 const Usuario = require("../models/Usuario");
 const jwt = require("jsonwebtoken");
-const nodemailer = require("nodemailer")
-const crypto = require("crypto")
-const path = require('path')
-let reqPath = path.join(__dirname, '../')
+const nodemailer = require("nodemailer");
+const crypto = require("crypto");
+const path = require("path");
+let reqPath = path.join(__dirname, "../");
 
 const enviarEmail = async (correo, uniqueString) => {
   const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
-      auth:{
-          user:"useremailverifyMindhub@gmail.com",
-          pass:"mindhub2021"
-      }
-  })
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: "useremailverifyMindhub@gmail.com",
+      pass: "mindhub2021",
+    },
+  });
 
-  let usuario = await Usuario.findOne({uniqueString:uniqueString})
+  let usuario = await Usuario.findOne({ uniqueString: uniqueString });
 
   const template = `<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -370,41 +370,49 @@ const enviarEmail = async (correo, uniqueString) => {
     </tbody>
     </table>
   </body>
-  </html>`
+  </html>`;
 
-  let remitente = "useremailverifyMindhub@gmail.com"
+  let remitente = "useremailverifyMindhub@gmail.com";
   let opcionesCorreo = {
     from: remitente,
     to: correo,
     subject: "Verificacion de email de usuario",
     html: template,
-    attachments: [{
-      filename: 'logo-back.png',
-      path: reqPath+'/assets/logo-back.png',
-      cid: 'logo-back'
-    },{
-      filename: 'logo-white.png',
-      path: reqPath+'/assets/logo-white.png',
-      cid: 'logo-white'
-    }]
+    attachments: [
+      {
+        filename: "logo-back.png",
+        path: reqPath + "/assets/logo-back.png",
+        cid: "logo-back",
+      },
+      {
+        filename: "logo-white.png",
+        path: reqPath + "/assets/logo-white.png",
+        cid: "logo-white",
+      },
+    ],
   };
 
-  await transporter.sendMail(opcionesCorreo, function(error, response){
-      if (error){console.log(error)}
-      else{console.log("Mensaje enviado")}
-  })
-} 
-const usuarioControlador = {
-  verificarCorreo: async (req,res) => {
-    const {uniqueString} = req.params;
-    const usuario = await Usuario.findOne({uniqueString:uniqueString})
-    if(usuario){
-        usuario.emailVerificado = true
-        usuario.role = "tutor"
-        await usuario.save()
-        res.redirect("http://localhost:3000/")
+  await transporter.sendMail(opcionesCorreo, function (error, response) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Mensaje enviado");
     }
-    else{res.json({success: false, response: "Su email no se ha verificado"})}
+  });
+};
+
+const usuarioControlador = {
+  verificarCorreo: async (req, res) => {
+    const { uniqueString } = req.params;
+    const usuario = await Usuario.findOne({ uniqueString: uniqueString });
+    if (usuario) {
+      usuario.emailVerificado = true;
+      usuario.role = "tutor";
+      await usuario.save();
+      res.redirect("http://localhost:3000/");
+    } else {
+      res.json({ success: false, response: "Su email no se ha verificado" });
+    }
   },
   nuevoUsuario: async (req, res) => {
     const {
@@ -415,7 +423,7 @@ const usuarioControlador = {
       foto,
       google,
       role,
-      emailVerificado
+      emailVerificado,
     } = req.body;
     try {
       const usuarioExiste = await Usuario.findOne({ email });
@@ -426,7 +434,7 @@ const usuarioControlador = {
           response: null,
         });
       } else {
-        let uniqueString = crypto.randomBytes(15).toString('hex')
+        let uniqueString = crypto.randomBytes(15).toString("hex");
         const contraseñaHasheada = bcryptjs.hashSync(contraseña, 10);
         const nuevoUsuario = new Usuario({
           nombre,
@@ -437,18 +445,19 @@ const usuarioControlador = {
           google,
           role,
           uniqueString,
-          emailVerificado
+          emailVerificado,
         });
 
         const token = jwt.sign({ ...nuevoUsuario }, process.env.SECRET_KEY);
 
         await nuevoUsuario.save();
-        await enviarEmail(email,uniqueString)
+        await enviarEmail(email, uniqueString);
         res.json({
           success: true,
           response: { token, ...nuevoUsuario._doc },
           error: null,
-          message: "Te enviamos un email para validarlo, por favor verifica tu bandeja de entrada para completar el registro"
+          message:
+            "Te enviamos un email para validarlo, por favor verifica tu bandeja de entrada para completar el registro",
         });
       }
     } catch (e) {
@@ -475,7 +484,7 @@ const usuarioControlador = {
     }
   },
   inicioSesion: async (req, res) => {
-    const { email, contraseña, google} = req.body;
+    const { email, contraseña, google } = req.body;
     try {
       const emailExiste = await Usuario.findOne({ email });
 
@@ -493,13 +502,12 @@ const usuarioControlador = {
           error: "El email no existe",
           response: null,
         });
-      } else if (emailExiste.emailVerificado) {
-        
+      } else {
         const contraseñaValida = bcryptjs.compareSync(
           contraseña,
           emailExiste.contraseña
         );
-        
+
         if (contraseñaValida) {
           const token = jwt.sign({ ...emailExiste }, process.env.SECRET_KEY);
           res.json({
@@ -514,13 +522,6 @@ const usuarioControlador = {
             response: null,
           });
         }
-      }else {
-        res.json({
-          success: false,
-          error: "Tu email no está verificado, por favor revisa tu correo",
-          response: null,
-        })
-        console.log(error);
       }
     } catch (e) {
       res.json({
@@ -532,13 +533,12 @@ const usuarioControlador = {
   },
   chekearToken: async (req, res) => {
     /*  */
-    try{
-      res.json({success:true, response: req.user, error:null})
-    }catch (error){
-      res.json({success:false, response: null, error:error})
+    try {
+      res.json({ success: true, response: req.user, error: null });
+    } catch (error) {
+      res.json({ success: false, response: null, error: error });
     }
   },
-  
 };
 
 module.exports = usuarioControlador;
