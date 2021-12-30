@@ -98,8 +98,13 @@ const usuarioControlador = {
       res.json({ success: false, response: null, error: error });
     }
   },
-  chekearToken: (req, res) => {
-    res.json({success:true, response: req.user, error:null})
+  chekearToken: async (req, res) => {
+    /*  */
+    try{
+      res.json({success:true, response: req.user, error:null})
+    }catch (error){
+      res.json({success:false, response: null, error:error})
+    }
   },
   
 };

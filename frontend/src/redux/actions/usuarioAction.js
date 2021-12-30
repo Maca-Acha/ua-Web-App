@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify"
 
 const usuarioAction = {
     obtenerRoles: () => {
@@ -22,7 +23,7 @@ const usuarioAction = {
                     },
                 });
             } catch (e) {
-                console.log(e.message);
+                
             }
         };
     },
@@ -33,17 +34,20 @@ const usuarioAction = {
                     "http://localhost:4000/api/registrarse",
                     { ...values }
                 );
-               
                 if (usuario.data.success) {
                     dispatch({
                         type: "USUARIO",
                         payload: usuario.data.response,
                     });
                 } else {
-                    console.log(usuario.data.error);
+                    toast.warning("El email ya esta registrado", {
+                        position: toast.POSITION.TOP_CENTER,
+                    });
                 }
-            } catch (error) {
-                console.log(error);
+            } catch {
+                toast.warning("Email ya esta registrado", {
+                    position: toast.POSITION.TOP_CENTER,
+                })
             }
         };
     },
@@ -59,10 +63,16 @@ const usuarioAction = {
                     dispatch({ type: "USUARIO", payload: usuario.data });
                     return { success: true, response: usuario.data };
                 } else {
-                    return { error: usuario.data.error };
+                    return(
+                        toast.warning("Email o Contraseña incorracta", {
+                            position: toast.POSITION.TOP_CENTER,
+                        })
+                    );
                 }
-            } catch (e) {
-                console.log(e.message);
+            } catch {
+                toast.warning("Email o Contraseña incorracta", {
+                    position: toast.POSITION.TOP_CENTER,
+                })
             }
         };
     },

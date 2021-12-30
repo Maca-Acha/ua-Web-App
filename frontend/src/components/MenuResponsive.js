@@ -358,7 +358,6 @@ function FavInactiveIcon() {
 }
 
 const mapDispatchToProps = {
-  obtenerRoles: usuarioAction.obtenerRoles,
   cerrarSesion: usuarioAction.cerrarSesion,
 };
 const mapStateToProps = (state) => {

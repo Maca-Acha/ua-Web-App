@@ -11,7 +11,7 @@ const Favoritos = (props) => {
     props.obtenerRoles()
     props.usuario._id && props.traerCursosFav(props.usuario._id) 
   },[props.usuario._id])
-  console.log(props.cursosFav)
+
   return (
     <>
       <div className="mt-28 text-rose-600 font-bold text-center text-6xl py-5">
