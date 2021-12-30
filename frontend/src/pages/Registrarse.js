@@ -92,7 +92,6 @@ const Registrarse = ({usuario, nuevoUsuario}) => {
         google: true,
         emailVerificado: true
     }
-    console.log(res)
     await nuevoUsuario(googleUser)
     .then((res) => console.log(res))
     .catch((err) => console.log(err))
@@ -553,7 +552,6 @@ const Registrarse = ({usuario, nuevoUsuario}) => {
   );
 };
 const mapStateToProps = (state) => {
-  // console.log(state)
   return {
     usuario: state.reducer.usuario,
     token: state.reducer.token,

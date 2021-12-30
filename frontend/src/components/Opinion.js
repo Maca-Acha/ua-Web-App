@@ -32,7 +32,6 @@ const Opinion = (props) => {
     }
     const respuesta = await props.editarOpinion(opinionObj)
     if(respuesta){
-      console.log("comentario editado")
       props.prueba(props.id)
       props.traerCursos()
       props.traerCursoId(props.id)

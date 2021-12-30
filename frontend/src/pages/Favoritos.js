@@ -34,7 +34,6 @@ const Favoritos = (props) => {
   );
 };
 const mapStateToProps = (state) => {
-  console.log(state)
   return{
     usuario: state.reducer.usuario,
     cursosFav: state.cursosReducer.cursosFav,
