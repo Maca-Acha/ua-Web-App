@@ -3,7 +3,6 @@ const Curso = require("../models/Curso");
 const opinionesController = {
   crearOpinion: async (req, res) => {
     const { cursoId, opinion } = req.body;
-    console.log(req.user._id);
     try {
       const nuevaOpinion = await Curso.findOneAndUpdate(
         { _id: cursoId },
@@ -52,6 +51,11 @@ const opinionesController = {
     } catch (e) {
       res.json({ success: false, response: null, error: e.message });
     }
+  },
+  traerOpiniones:async (req, res) => {
+    Curso.find()
+    .then(response => {res.json({success: true, response: response})})
+    
   },
 };
 

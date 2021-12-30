@@ -1,30 +1,22 @@
 import React, { useEffect } from "react";
-import Categorias from "../components/Categorias";
-import CursoTarjeta from "../components/CursoTarjeta";
 import cursosAction from "../redux/actions/cursosAction";
 import { connect } from "react-redux";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import {Link} from "react-router-dom";
 import usuarioAction from "../redux/actions/usuarioAction";
 
 const Cursos = (props) => {
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
     props.traerCursos();
     props.obtenerRoles();
   }, []);
 
-  console.log(props.cursos);
   return (
     <>
-      {/* <div>
-        <div>
-          <div className="text-center pb-12">
-            <h1 className="font-bold mt-32 text-3xl md:text-4xl lg:text-5xl font-heading text-white">
-              Categorías Principales
-            </h1>
-          </div>
-          <Categorias  />
-        </div>
-      </div> */}
       <section className="mt-32">
         <h2 className="font-bold mt-16 text-center text-3xl md:text-4xl lg:text-5xl font-heading text-white">
           Todos los cursos
@@ -86,9 +78,9 @@ const Cursos = (props) => {
                       ></div>
 
                       <div className="px-6 pt-4 pb-2 flex justify-evenly items-center">
-                        {curso.hashtag.map((hashtag) => {
+                        {curso.hashtag.map((hashtag, index) => {
                           return (
-                            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-900 mr-2 mb-2">
+                            <span key={index} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-900 mr-2 mb-2">
                               #{hashtag}
                             </span>
                           );

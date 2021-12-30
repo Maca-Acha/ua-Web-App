@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify"
 
 const cursosAction = {
   filtroCursos: (cursos, value) => {
@@ -20,24 +21,22 @@ const cursosAction = {
       dispatch({ type: "CURSO_ID", payload: respuesta.data.response });
     };
   },
-  favoritos: (fav) => {
-    return async (dispatch, getState) => {
-      const token = localStorage.getItem("token");
-      try {
-        await axios.put(
-          "http://localhost:4000/api/favoritos",
-          { ...fav },
-          {
-            headers: {
-              Authorization: "bearer " + token,
-            },
+  favoritos: (fav)=>{
+    return async(dispatch,getState)=>{
+      const token = localStorage.getItem("token")
+      try{
+        await axios.put("http://localhost:4000/api/favoritos",{...fav}, {
+          headers:{
+            Authorization:"bearer " + token
           }
-        );
-        return { success: true };
-      } catch (e) {
-        console.log(e);
+        })
+        return{success:true}
+      }catch {
+          toast.warning("Debes Iniciar sesion para poder añadir a Favoritos", {
+          position: toast.POSITION.TOP_CENTER,
+        })
       }
-    };
+    }      
   },
   traerCursosFav: (usuarioId) => {
     return async (dispatch, gatState) => {
@@ -81,26 +80,12 @@ const cursosAction = {
             headers: { Authorization: "Bearer " + token },
           }
         );
-        return { success: true };
+        let respuesta = await axios.get("http://localhost:4000/api/opiniones");
+        return { success: true, response: respuesta};
       } catch (error) {
         return { error: error };
       }
     };
-
-    // return async (dispatch, getState) => {
-    //   const token = localStorage.getItem("token");
-    //   await axios.put(
-    //     "http://localhost:4000/api/opiniones",
-    //     { opinionId, opinion },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     }
-    //   );
-    //   let res = await axios.get("http://localhost:4000/api/opiniones");
-    //   dispatch({ type: "CURSOS", payload: res.data.response });
-    // };
   },
   borrarOpinion: (borrarOpinion) => {
     return async (dispatch, getState) => {
@@ -121,22 +106,13 @@ const cursosAction = {
         return { error: error };
       }
     };
-
-    // return async (dispatch, getState) => {
-    //   const token = localStorage.getItem("token");
-    //   await axios.delete(
-    //     "http://localhost:4000/api/opiniones",
-    //     { cursoId, opinionId },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     }
-    //   );
-    //   let res = await axios.get("http://localhost:4000/api/opiniones");
-    //   dispatch({ type: "CURSOS", payload: res.data.response });
-    // };
   },
+  prueba: (cursoId) => {
+    return async(dispatch, getState) => {
+      let res = await axios.get(`http://localhost:4000/api/prueba/${cursoId}`)
+      dispatch({type:"PRUEBA", payload: res.data.response})
+    }
+  }
 };
 
 export default cursosAction;

@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Opiniones from "../components/Opiniones";
 import ReactPlayer from "react-player";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import cursosAction from "../redux/actions/cursosAction";
 import usuarioAction from "../redux/actions/usuarioAction";
 import { connect } from "react-redux";
-import { toast } from "react-toastify"
+
 
 const Curso = (props) => {
   const params = useParams();
   const id = params.id;
   const [item, setItem] = useState("descripcion");
-/*   const [fav, setFav] = useState("") */
 
-  console.log(props.curso.favoritos)
   const favo = async () => {
     let fav
     props.curso.favoritos.some(fav => fav === props.usuario._id)
@@ -27,11 +25,11 @@ const Curso = (props) => {
       bool: true
     })
     const favFuncion = await props.favoritos(fav)
-    if(favFuncion.success){
+    if(favFuncion){
       props.traerCursoId(id)
     }
+    
   }
-
 
   useEffect(() => {
     window.scrollTo({
@@ -42,24 +40,6 @@ const Curso = (props) => {
     props.obtenerRoles();
     props.traerCursoId(id)
   }, []);
-  
-/*   if (!localStorage.getItem("token") && fav === "") {
-    setFav(false)
-  }//fav cambia si esta likeado o no. si no hay
-  if(props.curso.favoritos && fav === ""){
-      setFav(props.curso.favoritos.some(e => e.id === props.usuario._id))
-  }
- */
-  function botonFav() {
-    if (localStorage.getItem("token")) {
-/*         setFav(!fav) */
-        favo()
-    } else {
-        toast.warning("Debes Iniciar sesion para poder añadir a Favoritos", {
-        position: toast.POSITION.TOP_CENTER,
-        })
-    }
-  }
 
   return (
     <>
@@ -261,7 +241,6 @@ const Curso = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     usuario: state.reducer.usuario,
     usuarios: state.reducer.usuarios,

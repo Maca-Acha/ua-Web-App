@@ -2,48 +2,46 @@ import { connect } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import usuarioAction from "../redux/actions/usuarioAction";
 import cursosAction from "../redux/actions/cursosAction";
+import Swal from "sweetalert2"
 
 const Opinion = (props) => {
   const input = useRef();
   const [modoEditar, setModoEditar] = useState(false);
 
-  useEffect(() => {
-    return () => {
-      props.traerCursos();
-    };
-  }, [])
-
-  console.log(props.opinion._id);
   const opinionBorrada = async () => {
-    let borrarOpinionObj = {
-      cursoId: props.id,
-      opinionId: props.opinion._id,
-    };
-
-    let res = await props.borrarOpinion(borrarOpinionObj);
-
-    if (res.success) {
-      props.traerCursos();
-      console.log("comentario borrado");
-    }
+    
+        let borrarOpinionObj = {
+          cursoId: props.id,
+          opinionId: props.opinion._id,
+        };
+    
+        let respuesta = await props.borrarOpinion(borrarOpinionObj);
+        if(respuesta){
+          props.traerOpiniones();
+          props.traerCursos()
+          props.traerCursoId(props.id)
+        }
 
   };
 
   const terminarEditar = async () => {
-    let x = {
+    let opinionObj = {
       opinionId: props.opinion._id,
       opinion: input.current.value,
-    };
-    const res = await props.editarOpinion(x);
 
-    if (res.success) {
-      props.traerCursos();
-      console.log("comentario editado");
-      setModoEditar(!modoEditar);
+    }
+    const respuesta = await props.editarOpinion(opinionObj)
+    if(respuesta){
+      props.prueba(props.id)
+      props.traerCursos()
+      props.traerCursoId(props.id)
+      setModoEditar(!modoEditar)
+
     }
   };
+  
+    
 
-  console.log(props);
   return (
     <>
       <div className="overflow-y-scroll p-2 scrollbarcomments w-full">
@@ -67,7 +65,7 @@ const Opinion = (props) => {
               {props.usuarios.length > 1 &&
                 props.usuarios.map((usuario, index) =>
                   usuario.id === props.opinion.usuarioId ? (
-                    <span className="fw-bold text-white text-2xl pl-5">
+                    <span key={index} className="fw-bold text-white text-2xl pl-5">
                       {usuario.nombre} {usuario.apellido}
                     </span>
                   ) : null
@@ -93,8 +91,49 @@ const Opinion = (props) => {
                       />
                     </svg>
                   </span>
-                  <span onClick={() => opinionBorrada()}>
-                    <svg
+                  <span 
+                  
+                  onClick={() => {
+                    Swal.fire({
+                      title: `<span style="color:#FFF"> Estas seguro?<span>`,
+                      html: `<span style="color:#FFF"> No se puede revertir el cambio!<span>`,
+                      icon: "warning",
+                      showCancelButton: true,
+                      confirmButtonColor: "#fb7185",
+                      cancelButtonColor: "#fb7185",
+                      background: "#be123c",
+                      iconColor: "#fff",
+                      confirmButtonText: `<span style="color:#fff"> Si, borrar! </span>`,
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        Swal.fire({
+                          background: "#be123c",
+                          iconColor: "#fff",
+                          confirmButtonColor: "#fb7185",
+                          icon: "success",
+                          title: `<span style="color:#FFF">Borrado!<span>`,
+                          html: `<span style="color:#FFF">El comentario ha sido borrado.<span>`,
+                        });
+                
+                        opinionBorrada()
+                
+                        
+                      } else if (
+                        result.dismiss === Swal.DismissReason.cancel
+                      ) {
+                        Swal.fire({
+                          background: "#be123c",
+                          iconColor: "#fff",
+                          confirmButtonColor: "#fb7185",
+                          icon: "error",
+                          title: `<span style="color:#FFF">Cancelado!<span>`,
+                          html: `<span style="color:#FFF">Tu comentario no se eliminó.<span>`,
+                        });
+                      }
+                    });
+                  }}
+                  >
+                  <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-6 w-6 cursor-pointer"
                       fill="none"
@@ -105,7 +144,7 @@ const Opinion = (props) => {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
                       />
                     </svg>
                   </span>
@@ -126,7 +165,21 @@ const Opinion = (props) => {
                   <div className="mt-2">
                     <button
                       className="inline-flex bg-white text-gray-900 rounded-full h-6 px-3 justify-center items-center py-3"
-                      onClick={() => terminarEditar()}
+                      onClick={() => {
+                        if (input.current.value !== "") {
+                          Swal.fire({
+                            position: "bottom-center",
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 2000,
+                            iconColor: "#fff",
+                            background: "#be123c",
+                            title: `<span style="color:#FFF"> Tu comentario se editó con éxito! <span>`,
+                          })
+
+                          terminarEditar();
+                        }
+                      }}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -142,7 +195,7 @@ const Opinion = (props) => {
                           d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
                         />
                       </svg>
-                      Edit comment
+                      Editar opinion
                     </button>
 
                     <button
@@ -163,7 +216,7 @@ const Opinion = (props) => {
                           d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
                         />
                       </svg>
-                      Cancel
+                      Cancelar
                     </button>
                   </div>
                 </div>
@@ -192,7 +245,9 @@ const mapDispatchToProps = {
   traerUsuarios: usuarioAction.traerUsuarios,
   borrarOpinion: cursosAction.borrarOpinion,
   traerCursos: cursosAction.traerCursos,
-  editarOpinion: cursosAction.editarOpinion,
+  traerOpiniones: cursosAction.traerOpiniones,
+  prueba: cursosAction.prueba,
+  traerCursoId: cursosAction.traerCursoId
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Opinion);

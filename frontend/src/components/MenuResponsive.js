@@ -3,7 +3,6 @@ import { Fragment } from "react";
 import { UserIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { ClampToEdgeWrapping } from "three";
 import usuarioAction from "../redux/actions/usuarioAction";
 
 function MenuResponsive(props) {
@@ -358,7 +357,6 @@ function FavInactiveIcon() {
 }
 
 const mapDispatchToProps = {
-  obtenerRoles: usuarioAction.obtenerRoles,
   cerrarSesion: usuarioAction.cerrarSesion,
 };
 const mapStateToProps = (state) => {

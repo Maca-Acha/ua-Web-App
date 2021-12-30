@@ -8,10 +8,15 @@ import TarjetaCurso from "../components/TarjetaCurso";
 
 const Favoritos = (props) => {
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
     props.obtenerRoles()
     props.usuario._id && props.traerCursosFav(props.usuario._id) 
   },[props.usuario._id])
-  console.log(props.cursosFav)
+
   return (
     <>
       <div className="mt-28 text-rose-600 font-bold text-center text-6xl py-5">
@@ -29,7 +34,6 @@ const Favoritos = (props) => {
   );
 };
 const mapStateToProps = (state) => {
-  console.log(state)
   return{
     usuario: state.reducer.usuario,
     cursosFav: state.cursosReducer.cursosFav,

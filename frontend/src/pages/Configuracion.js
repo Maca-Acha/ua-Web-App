@@ -2,9 +2,6 @@ import React, { useState } from "react";
 
 const Configuracion = () => {
   const [item, setItem] = useState("infobasica");
-
-  const [fav, setFav] = useState(false);
-
   const [editar, setEditar] = useState(false);
 
   return (
@@ -22,7 +19,6 @@ const Configuracion = () => {
             Mi perfil
           </h2>
         </div>
-
         <div
           className={`${
             item === "tutor"

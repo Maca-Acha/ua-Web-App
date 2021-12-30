@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-// import axios from "axios";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
 import GoogleLogin from "react-google-login";
 import DOTS from "vanta/dist/vanta.dots.min";
-import * as THREE from "three";
 import { Link, useNavigate } from "react-router-dom";
 import usuarioAction from "../redux/actions/usuarioAction";
 import {connect} from "react-redux"
@@ -22,11 +20,15 @@ const Registrarse = ({usuario, nuevoUsuario}) => {
   };
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
     if (!vantaEffect) {
       setVantaEffect(
         DOTS({
           el: vantaRef.current,
-        //   THREE,
         mouseControls: true,
         touchControls: true,
         gyroControls: true,
@@ -79,14 +81,14 @@ const Registrarse = ({usuario, nuevoUsuario}) => {
   };
   const responseGoogle = async (res) => {
     let googleUser = {
-        nombre: res.profileObj.name,
-        apellido: 'google',
+        nombre: res.profileObj.givenName,
+        apellido: res.profileObj.familyName,
         email: res.profileObj.email,
         contraseña: res.profileObj.googleId,
         foto: res.profileObj.imageUrl,
         google: true,
+        emailVerificado: true
     }
-    console.log(res)
     await nuevoUsuario(googleUser)
     .then((res) => console.log(res))
     .catch((err) => console.log(err))
@@ -547,7 +549,6 @@ const Registrarse = ({usuario, nuevoUsuario}) => {
   );
 };
 const mapStateToProps = (state) => {
-  // console.log(state)
   return {
     usuario: state.reducer.usuario,
     token: state.reducer.token,
