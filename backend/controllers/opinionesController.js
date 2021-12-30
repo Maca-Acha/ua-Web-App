@@ -2,13 +2,14 @@ const Curso = require("../models/Curso");
 
 const opinionesController = {
   crearOpinion: async (req, res) => {
-    const { cursoId, opinion, usuarioId} = req.body;
+    const { cursoId, opinion} = req.body;
+    console.log(req.user._id)
     try {
       const nuevaOpinion = await Curso.findOneAndUpdate(
         { _id: cursoId },
         {
           $push: {
-            opiniones: { usuarioId: usuarioId, opinion: opinion },
+            opiniones: { usuarioId: req.user._id, opinion: opinion },
           },
         },
         { new: true }

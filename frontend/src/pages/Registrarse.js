@@ -10,9 +10,8 @@ import usuarioAction from "../redux/actions/usuarioAction";
 import {connect} from "react-redux"
 
 
-const Registrarse = ({usuario, nuevoUsuario, token, obtenerRoles }) => {
+const Registrarse = ({usuario, nuevoUsuario}) => {
   let navigate = useNavigate()
-  localStorage.getItem("token") && token === "" && obtenerRoles()
   usuario.nombre && navigate("/", {replace: true})
 
   const [showPassword, setShowPassword] = useState(false);

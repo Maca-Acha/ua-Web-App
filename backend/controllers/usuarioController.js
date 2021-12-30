@@ -456,10 +456,24 @@ const usuarioControlador = {
       res.json({ success: false });
     }
   },
-  usuariosRegistrados: (req, res) => {
-    Usuario.find().then((response) => {
-      res.json({ response });
-    });
+  usuariosRegistrados: async (req, res) => {
+    try{
+      const usuarios = await Usuario.find()
+
+      let usuariosArray = []
+      
+      usuarios.map(usuario => {
+        usuariosArray.push({
+          nombre: usuario.nombre,
+          apellido: usuario.apellido,
+          foto: usuario.foto,
+          id: usuario._id
+        })
+      })
+      res.json({success: true, response: usuariosArray, error: null}) 
+    }catch (e){
+      res.json({success:false, response:null, error: e})
+    }
   },
 
   borrarUsuario: async (req, res) => {
@@ -521,18 +535,8 @@ const usuarioControlador = {
     }
   },
   chekearToken: (req, res) => {
-    res.json({success:true, response: req.user, error:null});
+    res.json({success:true, response: req.user, error:null})
   },
-  // obtenerRoles: async (req, res) => {
-  //   console.log(req.user)
-  //   try {
-  //     if (req.user) {
-  //       res.json({ success: true, response: req.user, error: null });
-  //     }
-  //   } catch (error) {
-  //     res.json({ success: false, response: null, error: error });
-  //   }
-  // },
 };
 
 module.exports = usuarioControlador;
