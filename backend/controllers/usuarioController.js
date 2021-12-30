@@ -438,28 +438,41 @@ const usuarioControlador = {
           contraseña: contraseñaHasheada,
           foto,
           google,
-          role,
-          uniqueString,
-          emailVerificado
+          role
         });
+
         const token = jwt.sign({ ...nuevoUsuario }, process.env.SECRET_KEY);
+
         await nuevoUsuario.save();
-        await enviarEmail(email,uniqueString)
+        
         res.json({
           success: true,
           response: { token, ...nuevoUsuario._doc },
-          error: null,
-          message: "Te enviamos un email para validarlo, por favor verifica tu bandeja de entrada para completar el registro"
+          error: null
         });
       }
     } catch (e) {
       res.json({ success: false });
     }
   },
-  usuariosRegistrados: (req, res) => {
-    Usuario.find().then((response) => {
-      res.json({ response });
-    });
+  usuariosRegistrados: async (req, res) => {
+    try {
+      const usuarios = await Usuario.find();
+
+      let usuariosArray = [];
+
+      usuarios.map((usuario) => {
+        usuariosArray.push({
+          nombre: usuario.nombre,
+          apellido: usuario.apellido,
+          foto: usuario.foto,
+          id: usuario._id,
+        });
+      });
+      res.json({ success: true, response: usuariosArray, error: null });
+    } catch (e) {
+      res.json({ success: false, response: null, error: e });
+    }
   },
 
   borrarUsuario: async (req, res) => {
@@ -472,58 +485,70 @@ const usuarioControlador = {
     }
     res.json({ response: usuarios, success: true });
   },
-
   inicioSesion: async (req, res) => {
     const { email, contraseña, google} = req.body;
-    console.log(req.body)
     try {
       const emailExiste = await Usuario.findOne({ email });
-      console.log('emailExiste', emailExiste)
-      if (emailExiste.google && !google){
-        res.json({success:false, error:"Usuario no existe", response:null})
-      }
-      if (emailExiste) {
 
-        if (emailExiste.emailVerificado){
-          let contraseñaCorrecta = bcryptjs.compareSync(
-          contraseña,
-          emailExiste.contraseña
-        )
-        if (contraseñaCorrecta) {
-          const token = jwt.sign({ ...emailExiste }, process.env.SECRET_KEY)
-          res.json({
-            success: true,
-            response: { token, ...emailExiste._doc },
-            error: null
-          })}else {
-            res.json({
-              success: false,
-              error: "La contraseña es incorrecta",
-              response: null,
-            });
-          }
-        } else {
-          res.json({
-            success: false,
-            error: "Tu email no está verificado, por favor revisa tu correo",
-            response: null,
-          })
-          console.log(error);
-        }
-      } else {
+      if (emailExiste.google && !google) {
         res.json({
           success: false,
-          error: "El email es incorrecto",
+          error: "El usuario no puede iniciar sesion con una cuenta de google",
           response: null,
         });
       }
-    } catch (error) {
-      res.json({ success: false, response: null, error: error });
+
+      if (!emailExiste) {
+        res.json({
+          success: false,
+          error: "El email no existe",
+          response: null,
+        });
+      } else {
+        const contraseñaValida = bcryptjs.compareSync(
+          contraseña,
+          emailExiste.contraseña
+        );
+        if (contraseñaValida) {
+          const token = jwt.sign({ ...emailExiste }, process.env.SECRET_KEY);
+          res.json({
+            success: true,
+            response: { token, ...emailExiste._doc },
+            error: null,
+          });
+        } else {
+          res.json({
+            success: false,
+            error: "La contraseña o email es incorrecto",
+            response: null,
+          });
+        }
+      }
+    } catch (e) {
+      res.json({
+        success: false,
+        error: "Error inesperado",
+        response: null,
+      });
     }
   },
   chekearToken: (req, res) => {
-    res.json({success:true, response: req.user, error:null});
+    res.json({success:true, response: req.user, error:null})
   },
+  editarUsuario: async (req, res) => {
+    let id = req.params.id
+    let user = req.body
+    // console.log(id)
+    let update
+    try{
+         update = await Usuario.findOneAndUpdate({_id:id}, user, {new:true})
+        // console.log(update) 
+    }catch(error){
+        console.error(error)
+    }
+    res.json({success: update ? true : false})
+},
+
   // obtenerRoles: async (req, res) => {
   //   console.log(req.user)
   //   try {

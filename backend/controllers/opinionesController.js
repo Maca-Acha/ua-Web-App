@@ -2,13 +2,14 @@ const Curso = require("../models/Curso");
 
 const opinionesController = {
   crearOpinion: async (req, res) => {
-    const { cursoId, opinion, usuarioId} = req.body;
+    const { cursoId, opinion } = req.body;
+    console.log(req.user._id);
     try {
       const nuevaOpinion = await Curso.findOneAndUpdate(
         { _id: cursoId },
         {
           $push: {
-            opiniones: { usuarioId: usuarioId, opinion: opinion },
+            opiniones: { usuarioId: req.user._id, opinion: opinion },
           },
         },
         { new: true }
@@ -38,21 +39,20 @@ const opinionesController = {
   editarOpinion: async (req, res) => {
     const { opinionId, opinion } = req.body;
     try {
-      let editarOpinion = await Curso.findOneAndUpdate(
-        {"opiniones._id": opinionId},
+        let editarOpinion = await Curso.findOneAndUpdate(
+        { "opiniones._id": opinionId },
         {
           $set: {
             "opiniones.$.opinion": opinion,
-          }
+          },
         },
         { new: true }
-      )
-
-      res.json({ success: true, response: editarOpinion, error: null });
+      );
+      res.json({ success: true, response: editarOpinion , error: null });
     } catch (e) {
       res.json({ success: false, response: null, error: e.message });
     }
-  }
+  },
 };
 
 module.exports = opinionesController;

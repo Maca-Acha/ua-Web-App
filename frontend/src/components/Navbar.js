@@ -5,19 +5,15 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
 import "../index.css";
 import MenuResponsive from "./MenuResponsive";
+import usuarioAction from "../redux/actions/usuarioAction";
+import { connect } from "react-redux";
 
-function Navbar() {
+function Navbar(props) {
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", function () {
       const header = document.querySelector(".header");
-      const text = document.querySelector(".color-text");
-      const text2 = document.querySelector(".color-text-2");
-      const menuIcon = document.querySelector(".menuIcon");
 
       header.classList.toggle("active", window.scrollY > 10);
-      text.classList.toggle("active", window.scrollY > 10);
-      text2.classList.toggle("active", window.scrollY > 10);
-      menuIcon.classList.toggle("active", window.scrollY > 10);
     });
   }
 
@@ -37,7 +33,7 @@ function Navbar() {
                       <span className="sr-only">lucianhoff</span>
                       <img
                         className="h-8 w-auto font-2xl sm:h-10"
-                        src="./assets/logo-white.png"
+                        src="https://by3301files.storage.live.com/y4mzBYeXrSYJZt4WgWCBeBFZgcoVAOgfCBtDJKncLvTMLVnqPfn0fK3ew3CGdxAbaiR0jcsO7xvhHnCg5e-Kv-O_p9TlP_mlwDN3AK1u55ZJPryL_4rU3UZfNXOAO6Hz2nhZMv4zaO48_z4yO-9qK3Rh3bceNch3jWheGRADShznOR8qnLOlAHkBUzN6dWAarLb?width=1500&height=1500&cropmode=none"
                         alt="UA"
                       />
                     </Link>
@@ -86,7 +82,7 @@ function Navbar() {
                     <div className="">
                       <img
                         className="h-8 w-auto"
-                        src="./assets/logo-white.png"
+                        src="https://by3301files.storage.live.com/y4mzBYeXrSYJZt4WgWCBeBFZgcoVAOgfCBtDJKncLvTMLVnqPfn0fK3ew3CGdxAbaiR0jcsO7xvhHnCg5e-Kv-O_p9TlP_mlwDN3AK1u55ZJPryL_4rU3UZfNXOAO6Hz2nhZMv4zaO48_z4yO-9qK3Rh3bceNch3jWheGRADShznOR8qnLOlAHkBUzN6dWAarLb?width=1500&height=1500&cropmode=none"
                         alt="UA"
                       />
                     </div>
@@ -113,18 +109,44 @@ function Navbar() {
                   </div>
 
                   <div className="flex flex-col justify-center items-center text-center">
-                    <Link
-                      to="/iniciarsesion"
-                      className="block w-full py-3 text-center font-medium text-white bg-rose-400   hover:bg-rose-700 hover:font-bold"
-                    >
-                      Iniciar Sesion
-                    </Link>
-                    <Link
-                      to="/registrarse"
-                      className="block w-full py-3 text-center font-medium text-white bg-rose-400 hover:bg-rose-700 hover:font-bold"
-                    >
-                      Registrarse
-                    </Link>
+                    {!props.usuario._id ? (
+                      <>
+                        <Link
+                          to="/iniciarsesion"
+                          className="block w-full py-3 text-center font-medium text-white bg-rose-400   hover:bg-rose-700 hover:font-bold"
+                        >
+                          Iniciar Sesion
+                        </Link>
+                        <Link
+                          to="/registrarse"
+                          className="block w-full py-3 text-center font-medium text-white bg-rose-400 hover:bg-rose-700 hover:font-bold"
+                        >
+                          Registrarse
+                        </Link>
+                      </>
+                    ) : (
+                      <>
+                        <Link
+                          to="/favoritos"
+                          className="block w-full py-3 text-center font-medium text-white bg-rose-400   hover:bg-rose-700 hover:font-bold"
+                        >
+                          Mis favoritos
+                        </Link>
+                        <Link
+                          to="/configuracion"
+                          className="block w-full py-3 text-center font-medium text-white bg-rose-400 hover:bg-rose-700 hover:font-bold"
+                        >
+                          Configuración
+                        </Link>
+                        <button
+
+                          onClick={() => props.cerrarSesion()}
+                          className="block w-full py-3 text-center font-medium text-white bg-rose-400 hover:bg-rose-700 hover:font-bold"
+                        >
+                          Cerrar Sesion
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               </Popover.Panel>
@@ -136,4 +158,15 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+const mapDispatchToProps = {
+  obtenerRoles: usuarioAction.obtenerRoles,
+  cerrarSesion: usuarioAction.cerrarSesion,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    usuario: state.reducer.usuario,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

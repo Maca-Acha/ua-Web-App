@@ -10,9 +10,8 @@ import usuarioAction from "../redux/actions/usuarioAction";
 import {connect} from "react-redux"
 
 
-const Registrarse = ({usuario, nuevoUsuario, token, obtenerRoles }) => {
+const Registrarse = ({usuario, nuevoUsuario}) => {
   let navigate = useNavigate()
-  localStorage.getItem("token") && token === "" && obtenerRoles()
   usuario.nombre && navigate("/", {replace: true})
 
   const [showPassword, setShowPassword] = useState(false);
@@ -88,7 +87,7 @@ const Registrarse = ({usuario, nuevoUsuario, token, obtenerRoles }) => {
         google: true,
         emailVerificado: true
     }
-    console.log(res)
+    // console.log(usuario.response.nombre)
     await nuevoUsuario(googleUser)
     .then((res) => console.log(res))
     .catch((err) => console.log(err))
