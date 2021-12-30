@@ -2,6 +2,8 @@ import { connect } from "react-redux";
 import { useState, useRef } from "react";
 import usuarioAction from "../redux/actions/usuarioAction";
 import cursosAction from "../redux/actions/cursosAction";
+
+
 const Opinion = (props) => {
   const input = useRef();
   const [modoEditar, setModoEditar] = useState(false);
