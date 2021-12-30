@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import Swal from "sweetalert2"
+import Swal from "sweetalert2";
 
 const usuarioAction = {
     obtenerRoles: () => {
@@ -81,7 +81,6 @@ const usuarioAction = {
                     { ...values }
                 );
                 if (usuario.data.success && !usuario.data.error) {
-                    
                     const Toast = Swal.mixin({
                         toast: true,
                         position: "bottom-right",
@@ -137,6 +136,20 @@ const usuarioAction = {
         localStorage.clear();
         return (dispatch, getState) => {
             dispatch({ type: "USUARIO", payload: "" });
+        };
+    },
+    edicionUsuario: (id, usuario) => {
+        console.log(usuario);
+        return async (dispatch, getState) => {
+            try {
+                const usuarios = await axios.put(
+                    "http://localhost:4000/api/editarUsuario/" + id,
+                    usuario
+                );
+                dispatch({ type: "USUARIOS", payload: usuarios.data.response });
+            } catch (e) {
+                console.log(e.message);
+            }
         };
     },
 };

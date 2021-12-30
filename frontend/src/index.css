@@ -157,3 +157,7 @@ select {
 option {
     text-align: left;
 }
+
+.limitar{
+    width: 50ch;
+}

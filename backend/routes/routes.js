@@ -1,7 +1,7 @@
 const Router = require("express").Router();
 const roles = require ("../config/roles")
 const passport = require('../config/passport')
-const {nuevoUsuario, usuariosRegistrados, inicioSesion, chekearToken, verificarCorreo} = require('../controllers/usuarioController')
+const {nuevoUsuario, usuariosRegistrados, inicioSesion, chekearToken, editarUsuario,verificarCorreo} = require('../controllers/usuarioController')
 const {crearCurso, traerCursos, modificarCurso, borrarCurso, favorito, traerCursoId, cursoUsuarioId, prueba} = require('../controllers/cursosController')
 
 const {
@@ -53,5 +53,8 @@ Router.route("/opiniones")
 
 Router.route("/verificacion/:uniqueString")
 .get(verificarCorreo)
+
+Router.route("/editarUsuario/:id").put(editarUsuario);
+
 
 module.exports = Router;

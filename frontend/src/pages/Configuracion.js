@@ -1,10 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {connect} from "react-redux";
 import usuarioAction from "../redux/actions/usuarioAction";
 
 
 
-const Configuracion = ({usuario, edicionUsuario}) => {
+const Configuracion = ({usuario, edicionUsuario, obtenerRoles}) => {
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+
+    obtenerRoles();
+  }, []);
   const [item, setItem] = useState("infobasica");
 
   const [fav, setFav] = useState(false);
@@ -96,7 +105,7 @@ const Configuracion = ({usuario, edicionUsuario}) => {
                               type="text"
                               placeholder="Nombre"
                               name="nombre"
-                              value={editarUsuario.nombre}
+                              defaultValue={editarUsuario.nombre}
                               onChange={ handleInputChange }
                             />
                           </div>
@@ -132,7 +141,7 @@ const Configuracion = ({usuario, edicionUsuario}) => {
                           <label className="block mb-2 text-xl font-bold text-white ">
                             Foto de perfil
                           </label>
-                          <input className="w-full px-3 py-2 mb-3 text-xl leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" 
+                          <input className=" limitar w-full px-3 py-2 mb-3 text-xl leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" 
                           name="foto"
                           value={editarUsuario.foto}
                           onChange={ handleInputChange }
@@ -313,6 +322,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = {
   edicionUsuario: usuarioAction.edicionUsuario,
+  obtenerRoles: usuarioAction.obtenerRoles
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Configuracion);
 

@@ -502,12 +502,7 @@ const usuarioControlador = {
           error: "El email no existe",
           response: null,
         });
-<<<<<<< HEAD
-      } else{
-        
-=======
       } else {
->>>>>>> ca56e236f370cb17b2680431224bd87612e0e0ae
         const contraseñaValida = bcryptjs.compareSync(
           contraseña,
           emailExiste.contraseña
@@ -544,6 +539,19 @@ const usuarioControlador = {
       res.json({ success: false, response: null, error: error });
     }
   },
+  editarUsuario: async (req, res) => {
+    let id = req.params.id
+    let user = req.body
+    // console.log(id)
+    let update
+    try{
+         update = await Usuario.findOneAndUpdate({_id:id}, user, {new:true})
+        // console.log(update) 
+    }catch(error){
+        console.error(error)
+    }
+    res.json({success: update ? true : false})
+},
 };
 
 module.exports = usuarioControlador;
