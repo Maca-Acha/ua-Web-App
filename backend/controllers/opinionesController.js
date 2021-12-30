@@ -3,7 +3,6 @@ const Curso = require("../models/Curso");
 const opinionesController = {
   crearOpinion: async (req, res) => {
     const { cursoId, opinion } = req.body;
-    console.log(req.user._id);
     try {
       const nuevaOpinion = await Curso.findOneAndUpdate(
         { _id: cursoId },

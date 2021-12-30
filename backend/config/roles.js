@@ -3,7 +3,7 @@
 
 
 const checkRoles = roles => (req, res, next) => {
-console.log('desde roles.js', req.user)
+
   
 //  if (role.includes(req.user.rol)){
 //      return next()
