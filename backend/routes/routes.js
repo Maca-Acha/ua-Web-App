@@ -1,9 +1,9 @@
 const Router = require("express").Router();
 const roles = require ("../config/roles")
 const passport = require('../config/passport')
-const {nuevoUsuario, usuariosRegistrados, inicioSesion, chekearToken} = require('../controllers/usuarioController')
+const {nuevoUsuario, usuariosRegistrados, inicioSesion, chekearToken, verificarCorreo} = require('../controllers/usuarioController')
 const {crearCurso, traerCursos, modificarCurso, borrarCurso, favorito, traerCursoId, cursoUsuarioId, prueba} = require('../controllers/cursosController')
-// const validator = require('../config/validator')
+
 const {
   crearOpinion,
   borrarOpinion,
@@ -48,5 +48,10 @@ Router.route("/opiniones")
   .post(passport.authenticate("jwt", { session: false }), crearOpinion)
   .delete(passport.authenticate("jwt", { session: false }), borrarOpinion)
   .put(passport.authenticate("jwt", { session: false }), editarOpinion);
+
+// Verificación correo
+
+Router.route("/verificacion/:uniqueString")
+.get(verificarCorreo)
 
 module.exports = Router;

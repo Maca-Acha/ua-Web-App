@@ -111,7 +111,7 @@ const usuarioAction = {
                     dispatch({ type: "USUARIO", payload: usuario.data });
                     return { success: true, response: usuario.data };
                 } else {
-                    return toast.warning("Email o Contraseña incorracta", {
+                    return toast.warning("Email o Contraseña incorrecta", {
                         position: toast.POSITION.TOP_CENTER,
                     });
                 }

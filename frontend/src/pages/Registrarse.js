@@ -84,12 +84,13 @@ const Registrarse = ({usuario, nuevoUsuario}) => {
   };
   const responseGoogle = async (res) => {
     let googleUser = {
-        nombre: res.profileObj.name,
-        apellido: 'google',
+        nombre: res.profileObj.givenName,
+        apellido: res.profileObj.familyName,
         email: res.profileObj.email,
         contraseña: res.profileObj.googleId,
         foto: res.profileObj.imageUrl,
         google: true,
+        emailVerificado: true
     }
     console.log(res)
     await nuevoUsuario(googleUser)
