@@ -12,19 +12,8 @@ const Cursos = (props) => {
     props.obtenerRoles();
   }, []);
 
-  console.log(props.cursos);
   return (
     <>
-      {/* <div>
-        <div>
-          <div className="text-center pb-12">
-            <h1 className="font-bold mt-32 text-3xl md:text-4xl lg:text-5xl font-heading text-white">
-              Categorías Principales
-            </h1>
-          </div>
-          <Categorias  />
-        </div>
-      </div> */}
       <section className="mt-32">
         <h2 className="font-bold mt-16 text-center text-3xl md:text-4xl lg:text-5xl font-heading text-white">
           Todos los cursos

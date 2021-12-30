@@ -101,15 +101,7 @@ const usuarioControlador = {
   chekearToken: (req, res) => {
     res.json({success:true, response: req.user, error:null})
   },
-  /* obtenerRoles: async (req, res) => {
-    try {
-      if (req.user) {
-        res.json({ success: true, response: req.user, error: null });
-      }
-    } catch (error) {
-      res.json({ success: false, response: null, error: error });
-    }
-  }, */
+  
 };
 
 module.exports = usuarioControlador;
