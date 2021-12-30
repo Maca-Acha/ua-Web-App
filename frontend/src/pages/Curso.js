@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Opiniones from "../components/Opiniones";
 import ReactPlayer from "react-player";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import cursosAction from "../redux/actions/cursosAction";
 import usuarioAction from "../redux/actions/usuarioAction";
 import { connect } from "react-redux";

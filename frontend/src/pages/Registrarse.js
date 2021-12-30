@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-// import axios from "axios";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
 import GoogleLogin from "react-google-login";
 import DOTS from "vanta/dist/vanta.dots.min";
-import * as THREE from "three";
 import { Link, useNavigate } from "react-router-dom";
 import usuarioAction from "../redux/actions/usuarioAction";
 import {connect} from "react-redux"
@@ -31,7 +29,6 @@ const Registrarse = ({usuario, nuevoUsuario}) => {
       setVantaEffect(
         DOTS({
           el: vantaRef.current,
-        //   THREE,
         mouseControls: true,
         touchControls: true,
         gyroControls: true,

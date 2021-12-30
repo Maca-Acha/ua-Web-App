@@ -1,7 +1,6 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment} from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
-// import "animate.css";
 import { Link } from "react-router-dom";
 import "../index.css";
 import MenuResponsive from "./MenuResponsive";

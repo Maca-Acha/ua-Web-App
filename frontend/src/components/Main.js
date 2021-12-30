@@ -1,10 +1,8 @@
-import CourseCard from "./CursoTarjeta";
 import Flyer from "./Flyer";
 import usuarioAction from "../redux/actions/usuarioAction";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom"
 import cursosAction from "../redux/actions/cursosAction";
-import TarjetaCurso from "./TarjetaCurso"
 import { useEffect } from "react";
 
 const Main = (props) => {

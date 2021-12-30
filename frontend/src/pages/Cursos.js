@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
-import Categorias from "../components/Categorias";
-import CursoTarjeta from "../components/CursoTarjeta";
 import cursosAction from "../redux/actions/cursosAction";
 import { connect } from "react-redux";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import {Link} from "react-router-dom";
 import usuarioAction from "../redux/actions/usuarioAction";
 
 const Cursos = (props) => {
