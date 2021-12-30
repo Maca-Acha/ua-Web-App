@@ -8,6 +8,11 @@ import TarjetaCurso from "../components/TarjetaCurso";
 
 const Favoritos = (props) => {
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
     props.obtenerRoles()
     props.usuario._id && props.traerCursosFav(props.usuario._id) 
   },[props.usuario._id])

@@ -8,6 +8,11 @@ import usuarioAction from "../redux/actions/usuarioAction";
 
 const Cursos = (props) => {
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
     props.traerCursos();
     props.obtenerRoles();
   }, []);

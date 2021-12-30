@@ -4,6 +4,7 @@ import usuarioAction from "../redux/actions/usuarioAction";
 import Opinion from "./Opinion";
 import { useRef } from "react";
 
+
 const Opiniones = ({
   id,
   crearOpinion,
@@ -33,8 +34,8 @@ const Opiniones = ({
       traerCursoId(id)
     }
   };
-
   traerUsuarios();
+
 
   return (
     <>
