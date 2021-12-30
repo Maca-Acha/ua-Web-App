@@ -61,7 +61,7 @@ const IniciarSesion = (props) => {
   const responseGoogle = (res) => {
     let googleUser = {
         email: res.profileObj.email,
-        password: res.profileObj.googleId,
+        contraseña: res.profileObj.googleId,
         google:true,
     }
     props.inicioSesion(googleUser)

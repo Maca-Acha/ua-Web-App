@@ -24,18 +24,12 @@ const usuarioAction = {
   nuevoUsuario: (values)=>{
     return async(dispatch, getState)=>{
         try{
-          const token = localStorage.getItem('token')
-            const usuario = await axios.post("http://localhost:4000/api/registrarse",{...values}, {
-                    headers: {
-                        Authorization:`Bearer ${token}`
-                    }
-                })
-            // console.log(usuario)
+            const usuario = await axios.post("http://localhost:4000/api/registrarse",{...values})
             if(usuario.data.success){
                 localStorage.setItem('token', usuario.data.response.token)
                 dispatch({type:'USUARIO', payload: usuario.data.response})
             }else{
-                console.log(usuario.data.error)
+                console.log(usuario.data.success)
             }
         }catch(error){
             console.log(error)
@@ -49,14 +43,14 @@ const usuarioAction = {
           "http://localhost:4000/api/inicioSesion",
           { ...values }
         );
-        console.log('usuario', usuario)
-        // if (usuario.data.success && !usuario.data.error) {
-        //   localStorage.setItem("token", usuario.data.response.token);
-        //   dispatch({ type: "USUARIO", payload: usuario.data });
-        //   return { success: true, response: usuario.data };
-        // } else {
-        //   return { error: usuario.data.error };
-        // }
+        //  console.log('usuario', usuario)
+        if (usuario.data.success && !usuario.data.error) {
+          localStorage.setItem("token", usuario.data.response.token);
+          dispatch({ type: "USUARIO", payload: usuario.data });
+          return { success: true, response: usuario.data };
+        } else {
+          return { error: usuario.data.error };
+        }
       } catch (e) {
         console.log(e.message);
       }
@@ -68,7 +62,17 @@ const usuarioAction = {
         dispatch({type: "USUARIO", payload: ""})
     }
   },
-  
+  editarUsuario: (usuarioId, values) => {
+    return async (dispatch, getState) => {
+        let response = await axios.put('http://localhost:4000/api/editarUsuario/'+usuarioId, values)
+        // console.log(response)
+        if (response.data.success){
+          localStorage.setItem('token', response.data.response.token)
+          dispatch({type: "comment", payload: response.data.response})
+        }
+        return response
+    }
+  }
 };
 
 export default usuarioAction;

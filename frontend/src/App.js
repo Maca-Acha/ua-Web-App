@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Registrarse from "./pages/Registrarse";
 import IniciarSesion from "./pages/IniciarSesion";
+import EditarUsuario from "./pages/EditarUsuario";
 import Cursos from "./pages/Cursos";
 import Curso from "./pages/Curso";
 import "./index.css";
@@ -33,8 +34,9 @@ function App({roles,obtenerRoles}) {
         <Routes>
 
                      {/* rutas protegidas probando los roles de alumno y tutor */}    
-             <Route path="/" element={<Inicio />} />
-             < Route path="/registrarse" element={<Registrarse />} />
+            <Route path="/" element={<Inicio />} />
+            <Route path="/registrarse" element={<Registrarse />} />
+            <Route path="/editarusuario" element={<EditarUsuario />} />
             <Route path="/iniciarsesion" element={<IniciarSesion />} />
             <Route path="/cursos" element={<Cursos />} />
             <Route path="/curso" element={<Curso />} />

@@ -51,7 +51,6 @@ function MenuResponsive(props) {
                   </Link>
                 )}
               </Menu.Item>
-
               <Menu.Item>
                 {({ active }) => (
                   <Link
@@ -76,34 +75,47 @@ function MenuResponsive(props) {
                 )}
               </Menu.Item>
               </>): (<>
-              <Menu.Item>
+                <Menu.Item>
+                      {({ active }) => (
+                        <button onClick={()=>props.cerrarSesion()}
+                        className={`${active ? "bg-rose-500 text-white" : "text-white"} group flex rounded-md items-center w-full px-2 py-2 text-sm rubik fw-bold`}>
+                          {active ? (
+                          <SignInInactiveIcon
+                            className="w-5 h-5 mr-2"
+                            aria-hidden="true"
+                          /> 
+                          ) : (
+                            <SignInInactiveIcon
+                              className="w-5 h-5 mr-2"
+                              aria-hidden="true"
+                          /> 
+                          )}
+                        <span className="ml-2">Cerrar Sesion</span>
+                        </button>
+                      )}
+                    </Menu.Item>
+                    <Menu.Item>
                 {({ active }) => (
-                  <button
-                    onClick={()=>props.cerrarSesion()}
+                  <Link
+                    to="/editarusuario"
                     className={`${
                       active ? "bg-rose-500 text-white" : "text-white"
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm rubik fw-bold`}
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm fw-bold`}
                   >
                     {active ? (
-                      <SignInActiveIcon
-                        className="w-5 h-5 mr-2"
-                        aria-hidden="true"
-                      />
+                      <SignUpActiveIcon className="mr-2" aria-hidden="true" />
                     ) : (
-                      <SignInInactiveIcon
-                        className="w-5 h-5 mr-2"
-                        aria-hidden="true"
-                      />
+                      <SignUpInactiveIcon className="mr-2" aria-hidden="true" />
                     )}
-                    <span className="ml-2">Cerrar Sesion</span>
-                  </button>
+                    <span className="ml-2">My Account</span>
+                  </Link>
                 )}
               </Menu.Item>
-              </>)
-             }
-            </div>
-          </Menu.Items>
-        </Transition>
+                  </>)
+                 }
+                </div>
+              </Menu.Items>
+          </Transition>
       </Menu>
     </div>
   );
@@ -256,7 +268,8 @@ function SignOutActiveIcon() {
 }
 const mapDispatchToProps = {
   obtenerRoles: usuarioAction.obtenerRoles,
-  cerrarSesion: usuarioAction.cerrarSesion
+  cerrarSesion: usuarioAction.cerrarSesion,
+  editarUsuario: usuarioAction.editarUsuario
 }
 const mapStateToProps = (state) => {
   return {
