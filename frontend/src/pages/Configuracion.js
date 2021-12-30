@@ -1,9 +1,38 @@
 import React, { useState } from "react";
+import {connect} from "react-redux";
+import usuarioAction from "../redux/actions/usuarioAction";
 
-const Configuracion = () => {
+
+
+const Configuracion = ({usuario, edicionUsuario}) => {
   const [item, setItem] = useState("infobasica");
+
+  const [fav, setFav] = useState(false);
+
   const [editar, setEditar] = useState(false);
 
+  const [editarUsuario, setEditarUsuario] = useState({
+    nombre: usuario.nombre,
+    apellido: usuario.apellido,
+    email: usuario.email,
+    contraseña: usuario.contraseña,
+    foto: usuario.foto,
+  })
+ 
+  const handleInputChange = (e) => {
+    setEditarUsuario({
+        ...editarUsuario,
+        [e.target.name]: e.target.value
+    })
+  }
+
+  const handleRegister = async (e) => {
+    e.preventDefault()
+    // console.log(editarUsuario)
+    setEditar(!editar)
+    await edicionUsuario(usuario._id, editarUsuario)
+  }
+//  console.log(usuario)
   return (
     <>
       <div className="bg-transparent w-full mt-32 h-20 flex flex-col md:flex-row">
@@ -19,16 +48,17 @@ const Configuracion = () => {
             Mi perfil
           </h2>
         </div>
+
         <div
           className={`${
             item === "tutor"
               ? "bg-rose-600 md:bg-transparent md:border-b-8 md:border-rose-600"
               : ""
-          } flex items-center justify-center py-5 md:py-0 md:w-6/12 h-full`}
-          onClick={() => setItem("tutor")}
+          } cursor-not-allowed flex items-center justify-center py-5 md:py-0 md:w-6/12 h-full`}
+          // onClick={() => setItem("tutor")}
         >
           <h2
-            className={` font-bold text-center text-xl md:text-2xl lg:text-3xl font-heading text-white`}
+            className={`cursor-not-allowed font-bold text-center text-xl md:text-2xl lg:text-3xl font-heading text-white`}
           >
             Solicitud de tutor
           </h2>
@@ -43,7 +73,7 @@ const Configuracion = () => {
                 className=" h-80 w-80 rounded-full bg-transparent md:pl-24 md:mr-32 my-12"
                 style={{
                   // backgroundImage: `url(${props.usuario.foto})`,
-                  backgroundImage: `url(https://fondosmil.com/fondo/53619.jpg)`,
+                  backgroundImage: `url(${usuario.foto})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}
@@ -55,7 +85,7 @@ const Configuracion = () => {
                 <div className="w-full flex">
                   <div className="w-full lg:w-7/12">
                     {editar ? (
-                      <form className="">
+                      <form className="" onSubmit={ handleRegister }>
                         <div className="mb-4 md:flex w-full">
                           <div className="mb-4 md:mr-2 md:mb-0 md:w-2/4">
                             <label className="block mb-2 text-xl font-bold text-white">
@@ -65,6 +95,9 @@ const Configuracion = () => {
                               className="w-full px-3 py-2 text-xl leading-tight text-gray-900 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                               type="text"
                               placeholder="Nombre"
+                              name="nombre"
+                              value={editarUsuario.nombre}
+                              onChange={ handleInputChange }
                             />
                           </div>
                           <div className="md:ml-2 md:w-2/4">
@@ -75,6 +108,9 @@ const Configuracion = () => {
                               className="w-full px-3 py-2 text-xl leading-tight text-gray-900 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                               type="text"
                               placeholder="Apellido"
+                              name="apellido"
+                              value={editarUsuario.apellido}
+                              onChange={ handleInputChange }
                             />
                           </div>
                         </div>
@@ -86,20 +122,28 @@ const Configuracion = () => {
                             className="w-full px-3 py-2 mb-3 text-xl leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                             type="email"
                             placeholder="Email"
-                          />
+                            name="email"
+                            value={editarUsuario.email}
+                            onChange={ handleInputChange }
+                        />
                         </div>
 
                         <div className="mb-4 ">
                           <label className="block mb-2 text-xl font-bold text-white ">
                             Foto de perfil
                           </label>
-                          <input className="w-full px-3 py-2 mb-3 text-xl leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" />
+                          <input className="w-full px-3 py-2 mb-3 text-xl leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" 
+                          name="foto"
+                          value={editarUsuario.foto}
+                          onChange={ handleInputChange }
+                      />
                         </div>
 
                         <div className="flex justify-between">
                           <button
+                            type="submit"
                             className="p-2 pl-5 pr-5 bg-transparent border-2 border-rose-500 text-rose-500 text-lg rounded-lg transition-colors duration-700 transform hover:bg-rose-500 hover:text-gray-100 focus:border-4 focus:border-rose-300"
-                            onClick={() => setEditar(!editar)}
+                            // onClick={() => setEditar(!editar)}
                           >
                             Terminar
                           </button>
@@ -125,7 +169,7 @@ const Configuracion = () => {
                               placeholder="Nombre"
                             >
                               {" "}
-                              Miles{" "}
+                              {editarUsuario.nombre}{" "}
                             </p>
                           </div>
                           <div className="md:ml-2  md:w-2/4">
@@ -138,7 +182,7 @@ const Configuracion = () => {
                               placeholder="Nombre"
                             >
                               {" "}
-                              Morales{" "}
+                              {editarUsuario.apellido}{" "}
                             </p>
                           </div>
                         </div>
@@ -152,7 +196,7 @@ const Configuracion = () => {
                             placeholder="Email"
                           >
                             {" "}
-                            milesmorales@spidy.web
+                            {editarUsuario.email}
                           </p>
                         </div>
 
@@ -161,7 +205,7 @@ const Configuracion = () => {
                             Foto de perfil
                           </label>
                           <p className="max-w-7xl px-3 py-2 mb-3 text-xl leading-tight text-white font-bold border rounded shadow appearance-none focus:outline-none focus:shadow-outline truncate">
-                            https://fondosmil.com/fondo/53619.jpg
+                          {editarUsuario.foto}
                           </p>
                         </div>
 
@@ -260,5 +304,15 @@ const Configuracion = () => {
     </>
   );
 };
+const mapStateToProps = (state) => {
+  // console.log(state)
+  return {
+    usuario: state.reducer.usuario,
+    token: state.reducer.token,
+  }
+}
+const mapDispatchToProps = {
+  edicionUsuario: usuarioAction.edicionUsuario,
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Configuracion);
 
-export default Configuracion;
